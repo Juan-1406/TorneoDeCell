@@ -34,6 +34,7 @@ public class LevelManager : MonoBehaviour
         jugador.GetComponent<PlayerMovement>().enabled = false;
         jugador.GetComponent<PlayerShooting>().enabled = false;
         jugador.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+        jugador.GetComponent<PlayerParry>().enabled = false;
 
         if (SesionJuego.VidasExtra > 0)
             Invoke(nameof(RecargarNivel), retardo);
