@@ -23,14 +23,8 @@ public class Bullet : MonoBehaviour
     {
         if (other.TryGetComponent(out Health vida))
         {
-            vida.RecibirDanio(danio);
-            Destroy(gameObject);
-            return;
-        }
-
-        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
-            Destroy(gameObject);
+            if (vida.RecibirDanio(danio)) Destroy(gameObject);
+                return;
         }
     }
 }
