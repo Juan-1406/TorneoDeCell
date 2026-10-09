@@ -2,8 +2,10 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
-  tags: []
+  serializedVersion: 3
+  tags:
+  - Boss
+  - BalaEnemiga
   layers:
   - Default
   - TransparentFX
@@ -11,11 +13,11 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Enemy
+  - PlayerBullet
+  - EnemyBullet
+  - Ground
   - 
   - 
   - 
@@ -41,3 +43,23 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 587380633
+    locked: 0
+  - name: Midground
+    uniqueID: 1901965811
+    locked: 0
+  - name: Characters
+    uniqueID: 3297488229
+    locked: 0
+  - name: Projectiles
+    uniqueID: 2083382907
+    locked: 0
+  - name: FX
+    uniqueID: 450378745
+    locked: 0
+  - name: UI
+    uniqueID: 3676610497
+    locked: 0
+  m_RenderingLayers:
+  - Default
