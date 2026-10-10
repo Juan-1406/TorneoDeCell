@@ -5,9 +5,18 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Project/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/_Project/Scenes/MainMenu.unity
+    guid: 2f140f3f7fe75e34594414a07629ab60
+  - enabled: 1
+    path: Assets/_Project/Scenes/LevelSelect.unity
+    guid: 241629f1ea9204742bf2ae9dce75961a
+  - enabled: 1
+    path: Assets/_Project/Scenes/Level1_Renato.unity
+    guid: a6d4211f4252d354284684028f455315
   - enabled: 1
     path: Assets/_Project/Scenes/SandBox.unity
     guid: 4e12bc237b5ec0349944dcdaf8a54d62
