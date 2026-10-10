@@ -28,7 +28,17 @@ public class Bullet : MonoBehaviour
 
     public void Reflejar()
     {
-        rb.linearVelocity = -rb.linearVelocity * multiplicadorVelocidad;
+        Vector2 direccion = -rb.linearVelocity;
+
+        GameObject jefe = GameObject.FindGameObjectWithTag("Boss");
+        if (jefe != null)
+        {
+            direccion = jefe.transform.position - transform.position;
+        }
+
+        float rapidez = rb.linearVelocity.magnitude * multiplicadorVelocidad;
+        rb.linearVelocity = direccion.normalized * rapidez;
+
         danio = danioReflejado;
         gameObject.layer = LayerMask.NameToLayer("PlayerBullet");
         gameObject.tag = "Untagged";

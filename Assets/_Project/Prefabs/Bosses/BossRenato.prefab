@@ -189,6 +189,7 @@ GameObject:
   - component: {fileID: 8141281837260047582}
   - component: {fileID: 6969478974916671072}
   - component: {fileID: 289859614525137634}
+  - component: {fileID: 1997553605195989562}
   m_Layer: 7
   m_Name: BossRenato
   m_TagString: Boss
@@ -301,7 +302,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -368,3 +369,17 @@ MonoBehaviour:
     - {fileID: 1574200501678131757}
     pausaEntreAtaques: 1
     color: {r: 0.5176471, g: 0.035848916, b: 1, a: 1}
+--- !u!114 &1997553605195989562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7395158996645031858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f769c8e79fd1494aaf7c523c2f62a21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SeguirCamaraX
+  desfaseX: 5
+  suavidad: 2
