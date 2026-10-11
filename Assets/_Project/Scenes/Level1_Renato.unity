@@ -2796,6 +2796,9 @@ MonoBehaviour:
   textoVidas: {fileID: 1610558260}
   panelGameOver: {fileID: 1255748606}
   retardo: 1.5
+  jefe: {fileID: 1177203389}
+  idJefe: 0
+  retardoVictoria: 2
 --- !u!1 &1509539264
 GameObject:
   m_ObjectHideFlags: 0

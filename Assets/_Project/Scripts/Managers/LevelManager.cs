@@ -8,15 +8,21 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private TMP_Text textoVidas;
     [SerializeField] private GameObject panelGameOver;
     [SerializeField] private float retardo = 1.5f;
+    [Header("Victoria")]
+    [SerializeField] private Health jefe;
+    [SerializeField] private int idJefe = 0;
+    [SerializeField] private float retardoVictoria = 2f;
 
     private void OnEnable()
     {
         jugador.OnMuerte += AlMorirJugador;
+        jefe.OnMuerte += AlVencerJefe;
     }
 
     private void OnDisable()
     {
         if (jugador != null) jugador.OnMuerte -= AlMorirJugador;
+        if (jefe != null) jefe.OnMuerte -= AlVencerJefe;
     }
 
     private void Start()
@@ -62,5 +68,16 @@ public class LevelManager : MonoBehaviour
     private void ActualizarTexto()
     {
         textoVidas.text = "Vidas extra: " + SesionJuego.VidasExtra;
+    }
+
+    private void AlVencerJefe()
+    {
+        ProgresoJuego.MarcarDerrotado(idJefe);
+        Invoke(nameof(VolverASeleccion), retardoVictoria);
+    }
+
+    private void VolverASeleccion()
+    {
+        SceneManager.LoadScene("LevelSelect");
     }
 }
