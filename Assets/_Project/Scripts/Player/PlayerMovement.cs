@@ -36,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (SesionJuego.EnPausa) return;
         inputHorizontal = Input.GetAxisRaw("Horizontal");
         if (inputHorizontal != 0f) direccionMirada = Mathf.Sign(inputHorizontal);
 

@@ -15,6 +15,7 @@ public class PlayerShooting : MonoBehaviour
 
     private void Update()
     {
+        if (SesionJuego.EnPausa) return;
         if (Input.GetButton("Fire1") && Time.time >= siguienteDisparo)
         {
             Disparar();

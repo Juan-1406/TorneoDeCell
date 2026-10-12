@@ -23,6 +23,7 @@ public class PlayerParry : MonoBehaviour
 
     private void Update()
     {
+        if (SesionJuego.EnPausa) return;
         if (Input.GetButtonDown("Fire2") && Time.time >= siguienteParry)
         {
             StartCoroutine(Parry());
