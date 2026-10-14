@@ -151,7 +151,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -165,7 +165,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 350
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -189,7 +189,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -214,859 +214,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Mateo_SpriteSheet_0
+      name: Mateo_Idle
       rect:
         serializedVersion: 2
         x: 0
-        y: 39
-        width: 574
-        height: 669
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a4a944a6a02bc8480800000000000000
-      internalID: -8895539406161274294
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_1
-      rect:
-        serializedVersion: 2
-        x: 591
-        y: 19
-        width: 538
-        height: 698
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7371dd48a751e5a10800000000000000
-      internalID: 1899979708756203319
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_2
-      rect:
-        serializedVersion: 2
-        x: 716
-        y: 708
-        width: 7
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b7676cd675dbd4bc0800000000000000
-      internalID: -3797170727601932677
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_3
-      rect:
-        serializedVersion: 2
-        x: 1128
-        y: 29
-        width: 414
-        height: 688
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2ffd037936d9510d0800000000000000
-      internalID: -3452680488245731342
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_4
-      rect:
-        serializedVersion: 2
-        x: 65
-        y: 642
-        width: 6
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0eaab4440abc28780800000000000000
-      internalID: -8682153242415879456
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_5
-      rect:
-        serializedVersion: 2
-        x: 72
-        y: 622
-        width: 26
-        height: 34
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c88ad935d77c3fb00800000000000000
-      internalID: 861251294845577356
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_6
-      rect:
-        serializedVersion: 2
-        x: 627
-        y: 632
-        width: 8
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 81add5909d2d2d820800000000000000
-      internalID: 2941645336233237016
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_7
-      rect:
-        serializedVersion: 2
-        x: 629
-        y: 628
-        width: 20
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e5a6c9c77bbb66860800000000000000
-      internalID: 7522906624313027166
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_8
-      rect:
-        serializedVersion: 2
-        x: 639
-        y: 640
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8b28cc6208b7c44d0800000000000000
-      internalID: -3149006249101851976
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_9
-      rect:
-        serializedVersion: 2
-        x: 1142
-        y: 629
-        width: 11
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 88d0ab9b24c7dc9b0800000000000000
-      internalID: -5058250180441535096
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_10
-      rect:
-        serializedVersion: 2
-        x: 1146
-        y: 630
-        width: 44
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 569dcc68b7ec66720800000000000000
-      internalID: 2839183645041547621
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_11
-      rect:
-        serializedVersion: 2
-        x: 1565
         y: 0
-        width: 594
-        height: 702
+        width: 543
+        height: 724
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 1315967d15bfe7f90800000000000000
-      internalID: -6953844445688540879
+      spriteID: f9944b84225a4164f849f0739955ae85
+      internalID: -343607597
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mateo_SpriteSheet_12
+      name: Mateo_CaminarA
       rect:
         serializedVersion: 2
-        x: 1972
-        y: 637
-        width: 6
-        height: 6
+        x: 543
+        y: 0
+        width: 543
+        height: 724
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 7dc03e72859b0f080800000000000000
-      internalID: -9155614254166766377
+      spriteID: 630ec3ec745e3354ea3a8a843d756968
+      internalID: -973805220
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mateo_SpriteSheet_13
+      name: Mateo_CaminarB
       rect:
         serializedVersion: 2
-        x: 66
-        y: 530
-        width: 18
-        height: 18
+        x: 1086
+        y: 0
+        width: 543
+        height: 724
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 33c1b49a02edbc590800000000000000
-      internalID: -7652778909925434317
+      spriteID: d438043a7dd21ad46b81dbce854fc02e
+      internalID: -120844920
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Mateo_SpriteSheet_14
+      name: Mateo_Salto
       rect:
         serializedVersion: 2
-        x: 70
-        y: 544
-        width: 28
-        height: 22
+        x: 1629
+        y: 0
+        width: 543
+        height: 724
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 42edca89b3e587df0800000000000000
-      internalID: -182292174850957788
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_15
-      rect:
-        serializedVersion: 2
-        x: 72
-        y: 516
-        width: 10
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 98d913ff2ec5c2d50800000000000000
-      internalID: 6713843274516372873
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_16
-      rect:
-        serializedVersion: 2
-        x: 466
-        y: 548
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9f971cd268f1987a0800000000000000
-      internalID: -6374529136412493319
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_17
-      rect:
-        serializedVersion: 2
-        x: 641
-        y: 553
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b4241adaedbf121c0800000000000000
-      internalID: -4530062816343670197
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_18
-      rect:
-        serializedVersion: 2
-        x: 1076
-        y: 516
-        width: 81
-        height: 99
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b6c958f0012ad2dc0800000000000000
-      internalID: -3662092732118754197
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_19
-      rect:
-        serializedVersion: 2
-        x: 1098
-        y: 496
-        width: 29
-        height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5357fbc0413518200800000000000000
-      internalID: 180516805649855797
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_20
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 500
-        width: 8
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 28b752ab724efb080800000000000000
-      internalID: -9169359457025164414
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_21
-      rect:
-        serializedVersion: 2
-        x: 487
-        y: 496
-        width: 7
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7e41a18f85db4e560800000000000000
-      internalID: 7342201482337981671
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_22
-      rect:
-        serializedVersion: 2
-        x: 493
-        y: 498
-        width: 11
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9f9c3d8e0cf5914c0800000000000000
-      internalID: -4316313485713356295
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_23
-      rect:
-        serializedVersion: 2
-        x: 1066
-        y: 490
-        width: 29
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: db9b3c8f3e8d85f70800000000000000
-      internalID: 9176322714410138045
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_24
-      rect:
-        serializedVersion: 2
-        x: 509
-        y: 475
-        width: 7
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1eceb5c62d39955d0800000000000000
-      internalID: -3073262738733273887
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_25
-      rect:
-        serializedVersion: 2
-        x: 515
-        y: 472
-        width: 9
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9bf1b5851ad479060800000000000000
-      internalID: 6960117104491831225
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_26
-      rect:
-        serializedVersion: 2
-        x: 523
-        y: 474
-        width: 7
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6b5e7076d3a4cfeb0800000000000000
-      internalID: -4684787884790127178
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_27
-      rect:
-        serializedVersion: 2
-        x: 515
-        y: 448
-        width: 19
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 579feff7394f71950800000000000000
-      internalID: 6419868708184717685
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_28
-      rect:
-        serializedVersion: 2
-        x: 1060
-        y: 425
-        width: 8
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 488bb3c5bf1f230b0800000000000000
-      internalID: -5750267712312199036
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_29
-      rect:
-        serializedVersion: 2
-        x: 1084
-        y: 391
-        width: 47
-        height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a7724ee13f11a29f0800000000000000
-      internalID: -492561473350654086
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_30
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 267
-        width: 7
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1596b16c702023270800000000000000
-      internalID: 8228641701571029329
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_31
-      rect:
-        serializedVersion: 2
-        x: 627
-        y: 248
-        width: 16
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 480a2aeb857332c20800000000000000
-      internalID: 3180446616148680836
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_32
-      rect:
-        serializedVersion: 2
-        x: 1138
-        y: 175
-        width: 11
-        height: 28
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d0dccdf5d9f00cf60800000000000000
-      internalID: 8052453302331034893
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_33
-      rect:
-        serializedVersion: 2
-        x: 1061
-        y: 118
-        width: 14
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 43c466ea8cff41290800000000000000
-      internalID: -7920424607253377996
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_34
-      rect:
-        serializedVersion: 2
-        x: 1132
-        y: 87
-        width: 9
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 380df840a899434e0800000000000000
-      internalID: -2002807116211957629
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_35
-      rect:
-        serializedVersion: 2
-        x: 1520
-        y: 81
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1ca93821118e1b160800000000000000
-      internalID: 7039662852579498689
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_36
-      rect:
-        serializedVersion: 2
-        x: 1532
-        y: 99
-        width: 6
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b0749e02ce863b180800000000000000
-      internalID: -9100815058611910901
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_37
-      rect:
-        serializedVersion: 2
-        x: 1591
-        y: 85
-        width: 15
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7eae1c19b48650400800000000000000
-      internalID: 289752424812505831
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mateo_SpriteSheet_38
-      rect:
-        serializedVersion: 2
-        x: 1126
-        y: 87
-        width: 7
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: adea951080a15b3b0800000000000000
-      internalID: -5497459148451107110
+      spriteID: 0c451de60830d7945b52f7dd60902d00
+      internalID: 588295927
       vertices: []
       indices: 
       edges: []
@@ -1075,7 +305,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 26cd6c03908650e4996066c12faf9aac
     internalID: 0
     vertices: []
     indices: 
@@ -1085,6 +315,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
+      Mateo_CaminarA: -973805220
+      Mateo_CaminarB: -120844920
+      Mateo_Idle: -343607597
+      Mateo_Salto: 588295927
       Mateo_SpriteSheet_0: -8895539406161274294
       Mateo_SpriteSheet_1: 1899979708756203319
       Mateo_SpriteSheet_10: 2839183645041547621

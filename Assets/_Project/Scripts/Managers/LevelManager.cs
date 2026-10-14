@@ -15,8 +15,8 @@ public class LevelManager : MonoBehaviour
 
     private void OnEnable()
     {
-        jugador.OnMuerte += AlMorirJugador;
-        jefe.OnMuerte += AlVencerJefe;
+        if (jugador != null) jugador.OnMuerte += AlMorirJugador;
+        if (jefe != null) jefe.OnMuerte += AlVencerJefe;
     }
 
     private void OnDisable()
@@ -28,8 +28,11 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         Time.timeScale = 1f;
-        panelGameOver.SetActive(false);
+        if (panelGameOver != null) panelGameOver.SetActive(false);
         ActualizarTexto();
+
+        if (jefe != null && SesionJuego.IntentarRestaurarVidaJefe(SceneManager.GetActiveScene().name, out int vidaJefe))
+            jefe.RestaurarVida(vidaJefe);
     }
 
     private void AlMorirJugador()
@@ -43,14 +46,20 @@ public class LevelManager : MonoBehaviour
         jugador.GetComponent<PlayerParry>().enabled = false;
 
         if (SesionJuego.VidasExtra > 0)
+        {
+            if (jefe != null && jefe.VidaActual > 0)
+                SesionJuego.GuardarVidaJefe(SceneManager.GetActiveScene().name, jefe.VidaActual);
             Invoke(nameof(RecargarNivel), retardo);
+        }
         else
+        {
             Invoke(nameof(MostrarGameOver), retardo);
+        }
     }
 
     private void MostrarGameOver()
     {
-        panelGameOver.SetActive(true);
+        if (panelGameOver != null) panelGameOver.SetActive(true);
         Time.timeScale = 0f;
     }
 
@@ -67,7 +76,7 @@ public class LevelManager : MonoBehaviour
 
     private void ActualizarTexto()
     {
-        textoVidas.text = "Vidas extra: " + SesionJuego.VidasExtra;
+        if (textoVidas != null) textoVidas.text = "Vidas extra: " + SesionJuego.VidasExtra;
     }
 
     private void AlVencerJefe()

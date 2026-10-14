@@ -28,6 +28,14 @@ public class Health : MonoBehaviour
         OnVidaCambiada?.Invoke(VidaActual, vidaMaxima);
     }
 
+    public void RestaurarVida(int vida)
+    {
+        VidaActual = Mathf.Clamp(vida, 0, vidaMaxima);
+        invulnerableHasta = 0f;
+        Invulnerable = false;
+        OnVidaCambiada?.Invoke(VidaActual, vidaMaxima);
+    }
+
     public bool RecibirDanio(int cantidad)
     {
         if (VidaActual <= 0 || EsInvulnerable) return false;
