@@ -1,0 +1,1417 @@
+fileFormatVersion: 2
+guid: ed873ecedf59bf041a8a087b2a3df1c3
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4261199305527318744
+    second: Renato_Moco_Furioso_0
+  - first:
+      213: -8283592633764522127
+    second: Renato_Moco_Furioso_1
+  - first:
+      213: -3739231740926488699
+    second: Renato_Moco_Furioso_2
+  - first:
+      213: 1247820944087418314
+    second: Renato_Moco_Furioso_3
+  - first:
+      213: -5609166636062720403
+    second: Renato_Moco_Furioso_4
+  - first:
+      213: -5484878366275446121
+    second: Renato_Moco_Furioso_5
+  - first:
+      213: -1684308506693537631
+    second: Renato_Moco_Furioso_6
+  - first:
+      213: -3587802847439930533
+    second: Renato_Moco_Furioso_7
+  - first:
+      213: 634379303987667124
+    second: Renato_Moco_Furioso_8
+  - first:
+      213: 3802128307130035771
+    second: Renato_Moco_Furioso_9
+  - first:
+      213: 1261468804421359851
+    second: Renato_Moco_Furioso_10
+  - first:
+      213: -9097940749322035443
+    second: Renato_Moco_Furioso_11
+  - first:
+      213: 4323189413474556836
+    second: Renato_Moco_Furioso_12
+  - first:
+      213: 1386693845009355700
+    second: Renato_Moco_Furioso_13
+  - first:
+      213: 312399591338918690
+    second: Renato_Moco_Furioso_14
+  - first:
+      213: 5914475814458044934
+    second: Renato_Moco_Furioso_15
+  - first:
+      213: 2777339515959117481
+    second: Renato_Moco_Furioso_16
+  - first:
+      213: -6932006110807233821
+    second: Renato_Moco_Furioso_17
+  - first:
+      213: 3795708861445359241
+    second: Renato_Moco_Furioso_18
+  - first:
+      213: 4525834261269326581
+    second: Renato_Moco_Furioso_19
+  - first:
+      213: -1714809217390547914
+    second: Renato_Moco_Furioso_20
+  - first:
+      213: -1549721128674269294
+    second: Renato_Moco_Furioso_21
+  - first:
+      213: -5200360486790950547
+    second: Renato_Moco_Furioso_22
+  - first:
+      213: -6650021077622510487
+    second: Renato_Moco_Furioso_23
+  - first:
+      213: 3002504401414127515
+    second: Renato_Moco_Furioso_24
+  - first:
+      213: 8664950213825601373
+    second: Renato_Moco_Furioso_25
+  - first:
+      213: 6314572601337707086
+    second: Renato_Moco_Furioso_26
+  - first:
+      213: -6527865229957202759
+    second: Renato_Moco_Furioso_27
+  - first:
+      213: -3622957553160517279
+    second: Renato_Moco_Furioso_28
+  - first:
+      213: -859529801214907535
+    second: Renato_Moco_Furioso_29
+  - first:
+      213: 6709139269843537468
+    second: Renato_Moco_Furioso_30
+  - first:
+      213: 6519749830901896456
+    second: Renato_Moco_Furioso_31
+  - first:
+      213: -5699381972975634858
+    second: Renato_Moco_Furioso_32
+  - first:
+      213: 5600887334110041840
+    second: Renato_Moco_Furioso_33
+  - first:
+      213: 2672651601990743146
+    second: Renato_Moco_Furioso_34
+  - first:
+      213: 3289730420459978382
+    second: Renato_Moco_Furioso_35
+  - first:
+      213: 5707493600342789788
+    second: Renato_Moco_Furioso_36
+  - first:
+      213: 6388649207356442778
+    second: Renato_Moco_Furioso_37
+  - first:
+      213: -8434819351795132925
+    second: Renato_Moco_Furioso_38
+  - first:
+      213: -1775468998000257979
+    second: Renato_Moco_Furioso_39
+  - first:
+      213: -8856168373438170875
+    second: Renato_Moco_Furioso_40
+  - first:
+      213: -8770647340110524239
+    second: Renato_Moco_Furioso_41
+  - first:
+      213: 1847304468586861877
+    second: Renato_Moco_Furioso_42
+  - first:
+      213: -359398975397669914
+    second: Renato_Moco_Furioso_43
+  - first:
+      213: -8658191419718833154
+    second: Renato_Moco_Furioso_44
+  - first:
+      213: 7646088972367150205
+    second: Renato_Moco_Furioso_45
+  - first:
+      213: -3704213113749329249
+    second: Renato_Moco_Furioso_46
+  - first:
+      213: -6394754863602220620
+    second: Renato_Moco_Furioso_47
+  - first:
+      213: 4071070248377199988
+    second: Renato_Moco_Furioso_48
+  - first:
+      213: -1573606213343971650
+    second: Renato_Moco_Furioso_49
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 1254
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 15
+        width: 1247
+        height: 1209
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82727e4fecd2dd4c0800000000000000
+      internalID: -4261199305527318744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_1
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 1152
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1775c605364ca0d80800000000000000
+      internalID: -8283592633764522127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_2
+      rect:
+        serializedVersion: 2
+        x: 317
+        y: 956
+        width: 249
+        height: 274
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58f063dfa849b1cc0800000000000000
+      internalID: -3739231740926488699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_3
+      rect:
+        serializedVersion: 2
+        x: 677
+        y: 1104
+        width: 114
+        height: 131
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac58f939986215110800000000000000
+      internalID: 1247820944087418314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_4
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 1076
+        width: 29
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6e3283c9ac3822b0800000000000000
+      internalID: -5609166636062720403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_5
+      rect:
+        serializedVersion: 2
+        x: 254
+        y: 1066
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79a5ded9f2cc1e3b0800000000000000
+      internalID: -5484878366275446121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_6
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 1055
+        width: 11
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a0fc56465220a8e0800000000000000
+      internalID: -1684308506693537631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_7
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 1028
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5b353ab150953ec0800000000000000
+      internalID: -3587802847439930533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_8
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 1046
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b06b0bad94cdc800800000000000000
+      internalID: 634379303987667124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_9
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 1036
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3e61f00d8fd3c430800000000000000
+      internalID: 3802128307130035771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_10
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 851
+        width: 47
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be895cea133a18110800000000000000
+      internalID: 1261468804421359851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_11
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 757
+        width: 41
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0fdb19671f9db180800000000000000
+      internalID: -9097940749322035443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_12
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 811
+        width: 7
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ab51e6cddd0ffb30800000000000000
+      internalID: 4323189413474556836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_13
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 715
+        width: 5
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b3d00c74b68e3310800000000000000
+      internalID: 1386693845009355700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_14
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 690
+        width: 30
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 223cbbde5cdd55400800000000000000
+      internalID: 312399591338918690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_15
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 722
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6023961ca60741250800000000000000
+      internalID: 5914475814458044934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_16
+      rect:
+        serializedVersion: 2
+        x: 1194
+        y: 638
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a6066523971b8620800000000000000
+      internalID: 2777339515959117481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_17
+      rect:
+        serializedVersion: 2
+        x: 1196
+        y: 608
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ea6f786b219ccf90800000000000000
+      internalID: -6932006110807233821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_18
+      rect:
+        serializedVersion: 2
+        x: 1205
+        y: 611
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 986c04559111da430800000000000000
+      internalID: 3795708861445359241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_19
+      rect:
+        serializedVersion: 2
+        x: 1212
+        y: 610
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fa204f184efece30800000000000000
+      internalID: 4525834261269326581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_20
+      rect:
+        serializedVersion: 2
+        x: 1194
+        y: 584
+        width: 11
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63ceedb2a16c338e0800000000000000
+      internalID: -1714809217390547914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_21
+      rect:
+        serializedVersion: 2
+        x: 1204
+        y: 578
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 297e37028d84e7ae0800000000000000
+      internalID: -1549721128674269294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_22
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 520
+        width: 9
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6119d0a0bb94d7b0800000000000000
+      internalID: -5200360486790950547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_23
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 519
+        width: 18
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96c237f201166b3a0800000000000000
+      internalID: -6650021077622510487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_24
+      rect:
+        serializedVersion: 2
+        x: 1220
+        y: 531
+        width: 21
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9ff5da58d90ba920800000000000000
+      internalID: 3002504401414127515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_25
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 487
+        width: 21
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5f15838f46104870800000000000000
+      internalID: 8664950213825601373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_26
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 499
+        width: 11
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4af52b235ed1a750800000000000000
+      internalID: 6314572601337707086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_27
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 438
+        width: 43
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9bcf6c2d82d5865a0800000000000000
+      internalID: -6527865229957202759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_28
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 416
+        width: 21
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1698c87fc4ba8bdc0800000000000000
+      internalID: -3622957553160517279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_29
+      rect:
+        serializedVersion: 2
+        x: 1208
+        y: 437
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17b29b423365214f0800000000000000
+      internalID: -859529801214907535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_30
+      rect:
+        serializedVersion: 2
+        x: 1214
+        y: 422
+        width: 23
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3ec5af8e96ab1d50800000000000000
+      internalID: 6709139269843537468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_31
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 367
+        width: 37
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80512579dedca7a50800000000000000
+      internalID: 6519749830901896456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_32
+      rect:
+        serializedVersion: 2
+        x: 1212
+        y: 401
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 656b58dca4ab7e0b0800000000000000
+      internalID: -5699381972975634858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_33
+      rect:
+        serializedVersion: 2
+        x: 1172
+        y: 355
+        width: 41
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f61d980b595abd40800000000000000
+      internalID: 5600887334110041840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_34
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 205
+        width: 71
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a647901c87a271520800000000000000
+      internalID: 2672651601990743146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_35
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 219
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8e305e336877ad20800000000000000
+      internalID: 3289730420459978382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_36
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 212
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9e4f3e9037153f40800000000000000
+      internalID: 5707493600342789788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_37
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 93
+        width: 306
+        height: 220
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a98cf070b9a09a850800000000000000
+      internalID: 6388649207356442778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_38
+      rect:
+        serializedVersion: 2
+        x: 734
+        y: 216
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30619a73d7081fa80800000000000000
+      internalID: -8434819351795132925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_39
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 173
+        width: 106
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 544d9786a544c57e0800000000000000
+      internalID: -1775468998000257979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_40
+      rect:
+        serializedVersion: 2
+        x: 1097
+        y: 168
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5093b2e49c1981580800000000000000
+      internalID: -8856168373438170875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_41
+      rect:
+        serializedVersion: 2
+        x: 1163
+        y: 173
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b0dc7a86b6684680800000000000000
+      internalID: -8770647340110524239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_42
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 144
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5359c1270a1f2a910800000000000000
+      internalID: 1847304468586861877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_43
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 144
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e358ca3988230bf0800000000000000
+      internalID: -359398975397669914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_44
+      rect:
+        serializedVersion: 2
+        x: 952
+        y: 133
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efbe25ed6cce7d780800000000000000
+      internalID: -8658191419718833154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_45
+      rect:
+        serializedVersion: 2
+        x: 1155
+        y: 135
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7cb9fed86d5c1a60800000000000000
+      internalID: 7646088972367150205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_46
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 115
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9aa0ae7ccdf79cc0800000000000000
+      internalID: -3704213113749329249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_47
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 101
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b1c94915544147a0800000000000000
+      internalID: -6394754863602220620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_48
+      rect:
+        serializedVersion: 2
+        x: 1141
+        y: 41
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47d2f2a42d85f7830800000000000000
+      internalID: 4071070248377199988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Furioso_49
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 33
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb6f84d7c7d692ae0800000000000000
+      internalID: -1573606213343971650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Renato_Moco_Furioso_0: -4261199305527318744
+      Renato_Moco_Furioso_1: -8283592633764522127
+      Renato_Moco_Furioso_10: 1261468804421359851
+      Renato_Moco_Furioso_11: -9097940749322035443
+      Renato_Moco_Furioso_12: 4323189413474556836
+      Renato_Moco_Furioso_13: 1386693845009355700
+      Renato_Moco_Furioso_14: 312399591338918690
+      Renato_Moco_Furioso_15: 5914475814458044934
+      Renato_Moco_Furioso_16: 2777339515959117481
+      Renato_Moco_Furioso_17: -6932006110807233821
+      Renato_Moco_Furioso_18: 3795708861445359241
+      Renato_Moco_Furioso_19: 4525834261269326581
+      Renato_Moco_Furioso_2: -3739231740926488699
+      Renato_Moco_Furioso_20: -1714809217390547914
+      Renato_Moco_Furioso_21: -1549721128674269294
+      Renato_Moco_Furioso_22: -5200360486790950547
+      Renato_Moco_Furioso_23: -6650021077622510487
+      Renato_Moco_Furioso_24: 3002504401414127515
+      Renato_Moco_Furioso_25: 8664950213825601373
+      Renato_Moco_Furioso_26: 6314572601337707086
+      Renato_Moco_Furioso_27: -6527865229957202759
+      Renato_Moco_Furioso_28: -3622957553160517279
+      Renato_Moco_Furioso_29: -859529801214907535
+      Renato_Moco_Furioso_3: 1247820944087418314
+      Renato_Moco_Furioso_30: 6709139269843537468
+      Renato_Moco_Furioso_31: 6519749830901896456
+      Renato_Moco_Furioso_32: -5699381972975634858
+      Renato_Moco_Furioso_33: 5600887334110041840
+      Renato_Moco_Furioso_34: 2672651601990743146
+      Renato_Moco_Furioso_35: 3289730420459978382
+      Renato_Moco_Furioso_36: 5707493600342789788
+      Renato_Moco_Furioso_37: 6388649207356442778
+      Renato_Moco_Furioso_38: -8434819351795132925
+      Renato_Moco_Furioso_39: -1775468998000257979
+      Renato_Moco_Furioso_4: -5609166636062720403
+      Renato_Moco_Furioso_40: -8856168373438170875
+      Renato_Moco_Furioso_41: -8770647340110524239
+      Renato_Moco_Furioso_42: 1847304468586861877
+      Renato_Moco_Furioso_43: -359398975397669914
+      Renato_Moco_Furioso_44: -8658191419718833154
+      Renato_Moco_Furioso_45: 7646088972367150205
+      Renato_Moco_Furioso_46: -3704213113749329249
+      Renato_Moco_Furioso_47: -6394754863602220620
+      Renato_Moco_Furioso_48: 4071070248377199988
+      Renato_Moco_Furioso_49: -1573606213343971650
+      Renato_Moco_Furioso_5: -5484878366275446121
+      Renato_Moco_Furioso_6: -1684308506693537631
+      Renato_Moco_Furioso_7: -3587802847439930533
+      Renato_Moco_Furioso_8: 634379303987667124
+      Renato_Moco_Furioso_9: 3802128307130035771
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

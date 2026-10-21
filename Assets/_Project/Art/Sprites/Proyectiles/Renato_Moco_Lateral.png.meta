@@ -1,0 +1,1495 @@
+fileFormatVersion: 2
+guid: 54e1ce3bcc70b7747a299801ea01b962
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5499754338026729106
+    second: Renato_Moco_Lateral_0
+  - first:
+      213: 1438344996395842550
+    second: Renato_Moco_Lateral_1
+  - first:
+      213: 932674310155330406
+    second: Renato_Moco_Lateral_2
+  - first:
+      213: 4668092224628379386
+    second: Renato_Moco_Lateral_3
+  - first:
+      213: -939614064803386022
+    second: Renato_Moco_Lateral_4
+  - first:
+      213: -8032400197456874166
+    second: Renato_Moco_Lateral_5
+  - first:
+      213: -6488242606749511578
+    second: Renato_Moco_Lateral_6
+  - first:
+      213: 5063934125345208885
+    second: Renato_Moco_Lateral_7
+  - first:
+      213: 7389052578320730486
+    second: Renato_Moco_Lateral_8
+  - first:
+      213: 3070388341656389647
+    second: Renato_Moco_Lateral_9
+  - first:
+      213: -3776407771844147354
+    second: Renato_Moco_Lateral_10
+  - first:
+      213: -3200997632605584889
+    second: Renato_Moco_Lateral_11
+  - first:
+      213: 4108599262414285487
+    second: Renato_Moco_Lateral_12
+  - first:
+      213: -8800041284824644610
+    second: Renato_Moco_Lateral_13
+  - first:
+      213: -5020685699466227227
+    second: Renato_Moco_Lateral_14
+  - first:
+      213: 6835164219432557131
+    second: Renato_Moco_Lateral_15
+  - first:
+      213: -1380171846150645519
+    second: Renato_Moco_Lateral_16
+  - first:
+      213: -8725936250165645198
+    second: Renato_Moco_Lateral_17
+  - first:
+      213: 2832695308107580229
+    second: Renato_Moco_Lateral_18
+  - first:
+      213: 6766591171250628323
+    second: Renato_Moco_Lateral_19
+  - first:
+      213: 1116836562108414378
+    second: Renato_Moco_Lateral_20
+  - first:
+      213: 4628987810318013166
+    second: Renato_Moco_Lateral_21
+  - first:
+      213: -5626417575064696566
+    second: Renato_Moco_Lateral_22
+  - first:
+      213: 375602201396023179
+    second: Renato_Moco_Lateral_23
+  - first:
+      213: -5115951369452521064
+    second: Renato_Moco_Lateral_24
+  - first:
+      213: -3606817971707364970
+    second: Renato_Moco_Lateral_25
+  - first:
+      213: -7715686507121385639
+    second: Renato_Moco_Lateral_26
+  - first:
+      213: 6478304571461833355
+    second: Renato_Moco_Lateral_27
+  - first:
+      213: 2628799509606604223
+    second: Renato_Moco_Lateral_28
+  - first:
+      213: 3591417334989525717
+    second: Renato_Moco_Lateral_29
+  - first:
+      213: -1915470300840982602
+    second: Renato_Moco_Lateral_30
+  - first:
+      213: -3368166445263131710
+    second: Renato_Moco_Lateral_31
+  - first:
+      213: -3757870606874627272
+    second: Renato_Moco_Lateral_32
+  - first:
+      213: -1030865348400720752
+    second: Renato_Moco_Lateral_33
+  - first:
+      213: 6361670890869571210
+    second: Renato_Moco_Lateral_34
+  - first:
+      213: 6306973574811830993
+    second: Renato_Moco_Lateral_35
+  - first:
+      213: 7821744030319107651
+    second: Renato_Moco_Lateral_36
+  - first:
+      213: 4822928906173490500
+    second: Renato_Moco_Lateral_37
+  - first:
+      213: -2771194708833676237
+    second: Renato_Moco_Lateral_38
+  - first:
+      213: -657069188053509963
+    second: Renato_Moco_Lateral_39
+  - first:
+      213: -6151229346487178879
+    second: Renato_Moco_Lateral_40
+  - first:
+      213: 196887241005848031
+    second: Renato_Moco_Lateral_41
+  - first:
+      213: 7818194566094061230
+    second: Renato_Moco_Lateral_42
+  - first:
+      213: -2298663618221266920
+    second: Renato_Moco_Lateral_43
+  - first:
+      213: -6982014354017490473
+    second: Renato_Moco_Lateral_44
+  - first:
+      213: 3771687738197047340
+    second: Renato_Moco_Lateral_45
+  - first:
+      213: 5118219486489376983
+    second: Renato_Moco_Lateral_46
+  - first:
+      213: -7916311458025984645
+    second: Renato_Moco_Lateral_47
+  - first:
+      213: 4871644787682373494
+    second: Renato_Moco_Lateral_48
+  - first:
+      213: 1292042814450032512
+    second: Renato_Moco_Lateral_49
+  - first:
+      213: 692839497265025959
+    second: Renato_Moco_Lateral_50
+  - first:
+      213: -7275109273924167462
+    second: Renato_Moco_Lateral_51
+  - first:
+      213: -1436745210787832293
+    second: Renato_Moco_Lateral_52
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 1254
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_0
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 73
+        width: 1193
+        height: 681
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29e2ff57e6d035c40800000000000000
+      internalID: 5499754338026729106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_1
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 753
+        width: 574
+        height: 433
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fb72ae472706f310800000000000000
+      internalID: 1438344996395842550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_2
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 833
+        width: 27
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 663e0f3f75681fc00800000000000000
+      internalID: 932674310155330406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_3
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 823
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afeccbb452568c040800000000000000
+      internalID: 4668092224628379386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_4
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 837
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5dee618cf1d5f2f0800000000000000
+      internalID: -939614064803386022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_5
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 835
+        width: 9
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a453ec0f39e278090800000000000000
+      internalID: -8032400197456874166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_6
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 817
+        width: 18
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6601420b9b125f5a0800000000000000
+      internalID: -6488242606749511578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_7
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 813
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53afd23d145b64640800000000000000
+      internalID: 5063934125345208885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_8
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 866
+        width: 60
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 679cd7dcb203b8660800000000000000
+      internalID: 7389052578320730486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_9
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 845
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f080eeadde53c9a20800000000000000
+      internalID: 3070388341656389647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_10
+      rect:
+        serializedVersion: 2
+        x: 506
+        y: 803
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6678438c321879bc0800000000000000
+      internalID: -3776407771844147354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_11
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 768
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7028daddc95c393d0800000000000000
+      internalID: -3200997632605584889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_12
+      rect:
+        serializedVersion: 2
+        x: 527
+        y: 770
+        width: 7
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: faaa2a8c24da40930800000000000000
+      internalID: 4108599262414285487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_13
+      rect:
+        serializedVersion: 2
+        x: 667
+        y: 755
+        width: 397
+        height: 351
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef341497319ffd580800000000000000
+      internalID: -8800041284824644610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_14
+      rect:
+        serializedVersion: 2
+        x: 868
+        y: 773
+        width: 37
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e19e6205f0f25ab0800000000000000
+      internalID: -5020685699466227227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_15
+      rect:
+        serializedVersion: 2
+        x: 952
+        y: 799
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4adcb0b4a16bde50800000000000000
+      internalID: 6835164219432557131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_16
+      rect:
+        serializedVersion: 2
+        x: 1037
+        y: 787
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f81235b405a8dce0800000000000000
+      internalID: -1380171846150645519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_17
+      rect:
+        serializedVersion: 2
+        x: 1067
+        y: 775
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2703c24663f37e680800000000000000
+      internalID: -8725936250165645198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_18
+      rect:
+        serializedVersion: 2
+        x: 1097
+        y: 787
+        width: 19
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5430bacdf51cf4720800000000000000
+      internalID: 2832695308107580229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_19
+      rect:
+        serializedVersion: 2
+        x: 1113
+        y: 787
+        width: 32
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e620beb1d2c7ed50800000000000000
+      internalID: 6766591171250628323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_20
+      rect:
+        serializedVersion: 2
+        x: 1165
+        y: 739
+        width: 10
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa9f3ac9feccf7f00800000000000000
+      internalID: 1116836562108414378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_21
+      rect:
+        serializedVersion: 2
+        x: 1156
+        y: 563
+        width: 69
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee25e9753e77d3040800000000000000
+      internalID: 4628987810318013166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_22
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 320
+        width: 49
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0901488603fae1b0800000000000000
+      internalID: -5626417575064696566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_23
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 389
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8f801f4638663500800000000000000
+      internalID: 375602201396023179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_24
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 385
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 899fb9fb55d7009b0800000000000000
+      internalID: -5115951369452521064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_25
+      rect:
+        serializedVersion: 2
+        x: 538
+        y: 385
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69933ea1a2202fdc0800000000000000
+      internalID: -3606817971707364970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_26
+      rect:
+        serializedVersion: 2
+        x: 778
+        y: 385
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95f51c050006ce490800000000000000
+      internalID: -7715686507121385639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_27
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 367
+        width: 20
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8295c82faf87e950800000000000000
+      internalID: 6478304571461833355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_28
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 351
+        width: 19
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbd92dbd93f5b7420800000000000000
+      internalID: 2628799509606604223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_29
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 343
+        width: 12
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d21b3cb90747d130800000000000000
+      internalID: 3591417334989525717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_30
+      rect:
+        serializedVersion: 2
+        x: 790
+        y: 359
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b70094f8e1ea65e0800000000000000
+      internalID: -1915470300840982602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_31
+      rect:
+        serializedVersion: 2
+        x: 948
+        y: 369
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cb63bd967ed141d0800000000000000
+      internalID: -3368166445263131710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_32
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 344
+        width: 11
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8333b55d79c59dbc0800000000000000
+      internalID: -3757870606874627272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_33
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 344
+        width: 21
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 094d0596d61a1b1f0800000000000000
+      internalID: -1030865348400720752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_34
+      rect:
+        serializedVersion: 2
+        x: 508
+        y: 345
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8e393c38f1394850800000000000000
+      internalID: 6361670890869571210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_35
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 345
+        width: 8
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1da4f6eec0fd68750800000000000000
+      internalID: 6306973574811830993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_36
+      rect:
+        serializedVersion: 2
+        x: 529
+        y: 345
+        width: 7
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34ed33311ca6c8c60800000000000000
+      internalID: 7821744030319107651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_37
+      rect:
+        serializedVersion: 2
+        x: 784
+        y: 321
+        width: 19
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4452f65894c7ee240800000000000000
+      internalID: 4822928906173490500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_38
+      rect:
+        serializedVersion: 2
+        x: 842
+        y: 337
+        width: 23
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 334d680481dba89d0800000000000000
+      internalID: -2771194708833676237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_39
+      rect:
+        serializedVersion: 2
+        x: 1055
+        y: 353
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b857350e0f91e6f0800000000000000
+      internalID: -657069188053509963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_40
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 318
+        width: 9
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1896caeff7172aaa0800000000000000
+      internalID: -6151229346487178879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_41
+      rect:
+        serializedVersion: 2
+        x: 699
+        y: 335
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd5d5fc07eb7bb200800000000000000
+      internalID: 196887241005848031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_42
+      rect:
+        serializedVersion: 2
+        x: 737
+        y: 320
+        width: 16
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eaefce8098ecf7c60800000000000000
+      internalID: 7818194566094061230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_43
+      rect:
+        serializedVersion: 2
+        x: 932
+        y: 331
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 818aec93e918910e0800000000000000
+      internalID: -2298663618221266920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_44
+      rect:
+        serializedVersion: 2
+        x: 938
+        y: 338
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d9eb14ffe6ea1f90800000000000000
+      internalID: -6982014354017490473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_45
+      rect:
+        serializedVersion: 2
+        x: 1173
+        y: 334
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c287eeeb30ab75430800000000000000
+      internalID: 3771687738197047340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_46
+      rect:
+        serializedVersion: 2
+        x: 752
+        y: 324
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d87ea66181970740800000000000000
+      internalID: 5118219486489376983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_47
+      rect:
+        serializedVersion: 2
+        x: 762
+        y: 320
+        width: 19
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7da10ddbac932290800000000000000
+      internalID: -7916311458025984645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_48
+      rect:
+        serializedVersion: 2
+        x: 989
+        y: 321
+        width: 7
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67fe0b19f1f8b9340800000000000000
+      internalID: 4871644787682373494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_49
+      rect:
+        serializedVersion: 2
+        x: 1137
+        y: 326
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08fd3ed18124ee110800000000000000
+      internalID: 1292042814450032512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_50
+      rect:
+        serializedVersion: 2
+        x: 713
+        y: 288
+        width: 17
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a397d81ad57d9900800000000000000
+      internalID: 692839497265025959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_51
+      rect:
+        serializedVersion: 2
+        x: 729
+        y: 287
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad8999919ae990b90800000000000000
+      internalID: -7275109273924167462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_Moco_Lateral_52
+      rect:
+        serializedVersion: 2
+        x: 1037
+        y: 292
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1e5f3ec7d7af0ce0800000000000000
+      internalID: -1436745210787832293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Renato_Moco_Lateral_0: 5499754338026729106
+      Renato_Moco_Lateral_1: 1438344996395842550
+      Renato_Moco_Lateral_10: -3776407771844147354
+      Renato_Moco_Lateral_11: -3200997632605584889
+      Renato_Moco_Lateral_12: 4108599262414285487
+      Renato_Moco_Lateral_13: -8800041284824644610
+      Renato_Moco_Lateral_14: -5020685699466227227
+      Renato_Moco_Lateral_15: 6835164219432557131
+      Renato_Moco_Lateral_16: -1380171846150645519
+      Renato_Moco_Lateral_17: -8725936250165645198
+      Renato_Moco_Lateral_18: 2832695308107580229
+      Renato_Moco_Lateral_19: 6766591171250628323
+      Renato_Moco_Lateral_2: 932674310155330406
+      Renato_Moco_Lateral_20: 1116836562108414378
+      Renato_Moco_Lateral_21: 4628987810318013166
+      Renato_Moco_Lateral_22: -5626417575064696566
+      Renato_Moco_Lateral_23: 375602201396023179
+      Renato_Moco_Lateral_24: -5115951369452521064
+      Renato_Moco_Lateral_25: -3606817971707364970
+      Renato_Moco_Lateral_26: -7715686507121385639
+      Renato_Moco_Lateral_27: 6478304571461833355
+      Renato_Moco_Lateral_28: 2628799509606604223
+      Renato_Moco_Lateral_29: 3591417334989525717
+      Renato_Moco_Lateral_3: 4668092224628379386
+      Renato_Moco_Lateral_30: -1915470300840982602
+      Renato_Moco_Lateral_31: -3368166445263131710
+      Renato_Moco_Lateral_32: -3757870606874627272
+      Renato_Moco_Lateral_33: -1030865348400720752
+      Renato_Moco_Lateral_34: 6361670890869571210
+      Renato_Moco_Lateral_35: 6306973574811830993
+      Renato_Moco_Lateral_36: 7821744030319107651
+      Renato_Moco_Lateral_37: 4822928906173490500
+      Renato_Moco_Lateral_38: -2771194708833676237
+      Renato_Moco_Lateral_39: -657069188053509963
+      Renato_Moco_Lateral_4: -939614064803386022
+      Renato_Moco_Lateral_40: -6151229346487178879
+      Renato_Moco_Lateral_41: 196887241005848031
+      Renato_Moco_Lateral_42: 7818194566094061230
+      Renato_Moco_Lateral_43: -2298663618221266920
+      Renato_Moco_Lateral_44: -6982014354017490473
+      Renato_Moco_Lateral_45: 3771687738197047340
+      Renato_Moco_Lateral_46: 5118219486489376983
+      Renato_Moco_Lateral_47: -7916311458025984645
+      Renato_Moco_Lateral_48: 4871644787682373494
+      Renato_Moco_Lateral_49: 1292042814450032512
+      Renato_Moco_Lateral_5: -8032400197456874166
+      Renato_Moco_Lateral_50: 692839497265025959
+      Renato_Moco_Lateral_51: -7275109273924167462
+      Renato_Moco_Lateral_52: -1436745210787832293
+      Renato_Moco_Lateral_6: -6488242606749511578
+      Renato_Moco_Lateral_7: 5063934125345208885
+      Renato_Moco_Lateral_8: 7389052578320730486
+      Renato_Moco_Lateral_9: 3070388341656389647
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

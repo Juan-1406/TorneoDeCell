@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ae005ee5335389449654f9845a3ab65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AtaqueAbanico
-  balaPrefab: {fileID: 4816885740969020303, guid: 17ab46996b224f54c82bef6913c4e09b, type: 3}
+  balaPrefab: {fileID: 4816885740969020303, guid: 2a6aaff5eccd24c4b83476b6a2a1edd1, type: 3}
   cantidad: 5
   anguloTotal: 50
   tiempoRecuperacion: 0.4
@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80797b7e465940a4993fddbc4dab4b28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AtaqueExterno
-  balaPrefab: {fileID: 4816885740969020303, guid: 17ab46996b224f54c82bef6913c4e09b, type: 3}
+  balaPrefab: {fileID: 4816885740969020303, guid: b46664492515079448122e394c4f298c, type: 3}
   patron: 1
   tiempoAviso: 1.05
   cantidad: 2
@@ -229,7 +229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 439a6d02ba5814848b6029de71740106, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AtaqueRafaga
-  balaPrefab: {fileID: 4816885740969020303, guid: 17ab46996b224f54c82bef6913c4e09b, type: 3}
+  balaPrefab: {fileID: 4816885740969020303, guid: 891954f786b2df841b1bdf9ec877cf19, type: 3}
   cantidad: 5
   intervalo: 1.5
 --- !u!1 &7244246013918646996
@@ -276,7 +276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80797b7e465940a4993fddbc4dab4b28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AtaqueExterno
-  balaPrefab: {fileID: 4816885740969020303, guid: 17ab46996b224f54c82bef6913c4e09b, type: 3}
+  balaPrefab: {fileID: 4816885740969020303, guid: c03e294e94c4919498f03a74fd4296ce, type: 3}
   patron: 0
   tiempoAviso: 0.9
   cantidad: 2
