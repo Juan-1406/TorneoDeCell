@@ -8,4 +8,9 @@ public class FaseJefe
     public BossAttack[] ataques;
     public float pausaEntreAtaques = 1.5f;
     public Color color = Color.white;
+
+    [Header("Movimiento")]
+    [Min(0f)] public float amplitudHorizontal;
+    [Min(0f)] public float amplitudVertical;
+    [Min(0f)] public float ciclosPorSegundo;
 }

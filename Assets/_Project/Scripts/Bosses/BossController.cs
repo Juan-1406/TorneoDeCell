@@ -10,11 +10,17 @@ public class BossController : MonoBehaviour
     [SerializeField] private FaseJefe[] fases;
 
     private Transform objetivo;
+    private SeguirCamaraX movimiento;
     private int faseActual = -1;
     private BossAttack ataqueActual;
     private BossAttack ultimoAtaque;
     private readonly List<BossAttack> candidatos = new List<BossAttack>();
     private bool iniciado;
+
+    private void Awake()
+    {
+        movimiento = GetComponent<SeguirCamaraX>();
+    }
 
     private void OnEnable()
     {
@@ -53,6 +59,8 @@ public class BossController : MonoBehaviour
     {
         if (vida == null || vida.VidaActual <= 0) return;
 
+        if (movimiento != null) movimiento.enabled = true;
+
         GameObject jugador = GameObject.FindGameObjectWithTag("Player");
         if (jugador != null) objetivo = jugador.transform;
 
@@ -78,6 +86,9 @@ public class BossController : MonoBehaviour
 
         faseActual = nueva;
         if (sprite != null) sprite.color = fases[nueva].color;
+        if (movimiento != null)
+            movimiento.ConfigurarOscilacion(fases[nueva].amplitudHorizontal,
+                fases[nueva].amplitudVertical, fases[nueva].ciclosPorSegundo);
         Debug.Log("Jefe en fase: " + fases[nueva].nombre);
     }
 
@@ -135,5 +146,6 @@ public class BossController : MonoBehaviour
         // Cancelar la corutina no garantiza que se retiren sus avisos visuales.
         if (ataqueActual != null) ataqueActual.Cancelar();
         ataqueActual = null;
+        if (movimiento != null) movimiento.enabled = false;
     }
 }
