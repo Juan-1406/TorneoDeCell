@@ -48,6 +48,60 @@ MonoBehaviour:
   cantidad: 5
   anguloTotal: 50
   tiempoRecuperacion: 0.4
+--- !u!1 &4146581216495944485
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1420453222331408944}
+  - component: {fileID: 9123945748576598923}
+  m_Layer: 7
+  m_Name: AtaqueDiagonal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1420453222331408944
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4146581216495944485}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 585945161401206353}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9123945748576598923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4146581216495944485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80797b7e465940a4993fddbc4dab4b28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AtaqueExterno
+  balaPrefab: {fileID: 4816885740969020303, guid: 17ab46996b224f54c82bef6913c4e09b, type: 3}
+  patron: 1
+  tiempoAviso: 1.05
+  cantidad: 2
+  intervalo: 0.5
+  recuperacion: 0.3
+  alturaDiagonal: 3.5
+  limiteHorizontal: 8.1
+  alturaMinima: -2.8
+  margenCamara: 0.7
 --- !u!1 &4223672804408583180
 GameObject:
   m_ObjectHideFlags: 0
@@ -80,6 +134,8 @@ Transform:
   - {fileID: 6995086765899093799}
   - {fileID: 7701841164681189322}
   - {fileID: 6721077909230966467}
+  - {fileID: 9179707110941618245}
+  - {fileID: 1420453222331408944}
   m_Father: {fileID: 7252842500378919609}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5036944087285480769
@@ -176,6 +232,60 @@ MonoBehaviour:
   balaPrefab: {fileID: 4816885740969020303, guid: 17ab46996b224f54c82bef6913c4e09b, type: 3}
   cantidad: 5
   intervalo: 1.5
+--- !u!1 &7244246013918646996
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9179707110941618245}
+  - component: {fileID: 4676112894964812451}
+  m_Layer: 7
+  m_Name: AtaqueLateral
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9179707110941618245
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7244246013918646996}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 585945161401206353}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4676112894964812451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7244246013918646996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80797b7e465940a4993fddbc4dab4b28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AtaqueExterno
+  balaPrefab: {fileID: 4816885740969020303, guid: 17ab46996b224f54c82bef6913c4e09b, type: 3}
+  patron: 0
+  tiempoAviso: 0.9
+  cantidad: 2
+  intervalo: 0.45
+  recuperacion: 0.3
+  alturaDiagonal: 3.5
+  limiteHorizontal: 8.1
+  alturaMinima: -2.8
+  margenCamara: 0.7
 --- !u!1 &7395158996645031858
 GameObject:
   m_ObjectHideFlags: 0
@@ -360,6 +470,7 @@ MonoBehaviour:
     ataques:
     - {fileID: 7883978195043479868}
     - {fileID: 1574200501678131757}
+    - {fileID: 4676112894964812451}
     pausaEntreAtaques: 1.4
     color: {r: 0.87169814, g: 0.6182794, b: 0.10361691, a: 1}
   - nombre: Furioso
@@ -367,6 +478,8 @@ MonoBehaviour:
     ataques:
     - {fileID: 8588295445390909018}
     - {fileID: 1574200501678131757}
+    - {fileID: 4676112894964812451}
+    - {fileID: 9123945748576598923}
     pausaEntreAtaques: 1
     color: {r: 0.5176471, g: 0.035848916, b: 1, a: 1}
 --- !u!114 &1997553605195989562
