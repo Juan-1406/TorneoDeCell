@@ -36,9 +36,22 @@ public class Bullet : MonoBehaviour
         Vector2 direccion = -rb.linearVelocity;
 
         GameObject jefe = GameObject.FindGameObjectWithTag("Boss");
-        if (jefe != null)
+        Collider2D colisionJefe = jefe != null ? jefe.GetComponent<Collider2D>() : null;
+        if (colisionJefe != null && colisionJefe.enabled)
         {
             direccion = jefe.transform.position - transform.position;
+        }
+        else
+        {
+            float distanciaMenor = float.PositiveInfinity;
+            foreach (EnemigoMenor enemigo in FindObjectsByType<EnemigoMenor>(FindObjectsSortMode.None))
+            {
+                if (enemigo.Vida == null || enemigo.Vida.VidaActual <= 0) continue;
+                float distancia = (enemigo.transform.position - transform.position).sqrMagnitude;
+                if (distancia >= distanciaMenor) continue;
+                distanciaMenor = distancia;
+                direccion = enemigo.transform.position - transform.position;
+            }
         }
 
         float rapidez = rb.linearVelocity.magnitude * multiplicadorVelocidad;

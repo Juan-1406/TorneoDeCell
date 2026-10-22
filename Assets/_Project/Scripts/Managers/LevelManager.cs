@@ -46,7 +46,9 @@ public class LevelManager : MonoBehaviour
 
         if (SesionJuego.VidasExtra > 0)
         {
-            if (jefe != null && jefe.VidaActual > 0)
+            DirectorOleadas director = FindFirstObjectByType<DirectorOleadas>();
+            if (jefe != null && jefe.VidaActual > 0 &&
+                (director == null || director.JefeActivo))
                 SesionJuego.GuardarVidaJefe(SceneManager.GetActiveScene().name, jefe.VidaActual);
             Invoke(nameof(RecargarNivel), retardo);
         }

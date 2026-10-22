@@ -9,6 +9,7 @@ public class HealthBarUI : MonoBehaviour
     private void OnEnable()
     {
         objetivo.OnVidaCambiada += Actualizar;
+        Actualizar(objetivo.VidaActual, objetivo.VidaMaxima);
     }
 
     private void OnDisable()

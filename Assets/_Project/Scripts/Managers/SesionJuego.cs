@@ -6,6 +6,25 @@ public static class SesionJuego
 
     private static string escenaJefePendiente;
     private static int vidaJefePendiente = -1;
+    private static string escenaOleadasPendiente;
+    private static int siguienteOleada;
+
+    public static int ProgresoOleadas(string escena)
+    {
+        return escenaOleadasPendiente == escena ? siguienteOleada : 0;
+    }
+
+    public static void GuardarProgresoOleadas(string escena, int oleadaSiguiente)
+    {
+        escenaOleadasPendiente = escena;
+        siguienteOleada = oleadaSiguiente;
+    }
+
+    public static void LimpiarProgresoOleadas()
+    {
+        escenaOleadasPendiente = null;
+        siguienteOleada = 0;
+    }
 
     public static void GuardarVidaJefe(string escena, int vida)
     {
@@ -37,5 +56,6 @@ public static class SesionJuego
         VidasExtra = VidasIniciales;
         EnPausa = false;
         LimpiarVidaJefe();
+        LimpiarProgresoOleadas();
     }
 }
