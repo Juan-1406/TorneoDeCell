@@ -3183,13 +3183,48 @@ MonoBehaviour:
   enemigoPrefab: {fileID: 2827110738937465021, guid: 0248385f11d120443974155e342e91d3, type: 3}
   oleadas:
   - enemigos: 2
-    intervaloAparicion: 0.7
-  - enemigos: 2
-    intervaloAparicion: 0.7
-  - enemigos: 2
-    intervaloAparicion: 0.7
+    secuencia:
+    - prefab: {fileID: 2827110738937465021, guid: 0248385f11d120443974155e342e91d3, type: 3}
+      recompensa: {fileID: 0}
+      probabilidadRecompensa: 0
+    - prefab: {fileID: 2827110738937465021, guid: 0248385f11d120443974155e342e91d3, type: 3}
+      recompensa: {fileID: 0}
+      probabilidadRecompensa: 0
+    maximoSimultaneos: 1
+    intervaloAparicion: 1
+  - enemigos: 3
+    secuencia:
+    - prefab: {fileID: 2827110738937465021, guid: 0248385f11d120443974155e342e91d3, type: 3}
+      recompensa: {fileID: 0}
+      probabilidadRecompensa: 0
+    - prefab: {fileID: 1402504173368668322, guid: 9dd00f3f338d04c4889670fcfa9915ee, type: 3}
+      recompensa: {fileID: 0}
+      probabilidadRecompensa: 0
+    - prefab: {fileID: 2827110738937465021, guid: 0248385f11d120443974155e342e91d3, type: 3}
+      recompensa: {fileID: 3132039916405866104, guid: 5b344fee07e6cb842a0c9e63282ef1a4, type: 3}
+      probabilidadRecompensa: 1
+    maximoSimultaneos: 2
+    intervaloAparicion: 1.2
+  - enemigos: 4
+    secuencia:
+    - prefab: {fileID: 2827110738937465021, guid: 0248385f11d120443974155e342e91d3, type: 3}
+      recompensa: {fileID: 0}
+      probabilidadRecompensa: 0
+    - prefab: {fileID: 1402504173368668322, guid: 9dd00f3f338d04c4889670fcfa9915ee, type: 3}
+      recompensa: {fileID: 6004429997592767424, guid: bea65e651835d114db40651e8cdbf118, type: 3}
+      probabilidadRecompensa: 0.6
+    - prefab: {fileID: 2827110738937465021, guid: 0248385f11d120443974155e342e91d3, type: 3}
+      recompensa: {fileID: 0}
+      probabilidadRecompensa: 0
+    - prefab: {fileID: 1402504173368668322, guid: 9dd00f3f338d04c4889670fcfa9915ee, type: 3}
+      recompensa: {fileID: 3132039916405866104, guid: 5b344fee07e6cb842a0c9e63282ef1a4, type: 3}
+      probabilidadRecompensa: 0.6
+    maximoSimultaneos: 2
+    intervaloAparicion: 1.25
   esperaInicial: 1.5
-  esperaEntreOleadas: 1.5
+  esperaEntreOleadas: 1.8
+  esperaAntesJefe: 2
+  sueloArena: {fileID: 215913179}
   distanciaAparicion: 10.8
   alturaAparicion: -2.7
   barraJefe: {fileID: 299444460}

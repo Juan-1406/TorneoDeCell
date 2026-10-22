@@ -7,6 +7,18 @@ public class PlayerShooting : MonoBehaviour
 
     private Camera cam;
     private float siguienteDisparo;
+    private float mejoraHasta;
+    private float multiplicadorCadencia = 1f;
+
+    public void MejorarCadenciaTemporal(float multiplicador, float duracion)
+    {
+        if (multiplicador <= 0f || multiplicador >= 1f || duracion <= 0f) return;
+
+        multiplicadorCadencia = Time.time < mejoraHasta
+            ? Mathf.Min(multiplicadorCadencia, multiplicador) : multiplicador;
+        mejoraHasta = Time.time + duracion;
+        siguienteDisparo = Mathf.Min(siguienteDisparo, Time.time + cadencia * multiplicadorCadencia);
+    }
 
     private void Awake()
     {
@@ -19,7 +31,8 @@ public class PlayerShooting : MonoBehaviour
         if (Input.GetButton("Fire1") && Time.time >= siguienteDisparo)
         {
             Disparar();
-            siguienteDisparo = Time.time + cadencia;
+            float factor = Time.time < mejoraHasta ? multiplicadorCadencia : 1f;
+            siguienteDisparo = Time.time + cadencia * factor;
         }
     }
 

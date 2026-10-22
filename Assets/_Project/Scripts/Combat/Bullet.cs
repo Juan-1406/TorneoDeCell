@@ -78,13 +78,18 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.TryGetComponent(out PlayerParry parry) && parry.IntentarParry(this))
+        int capaEnemiga = LayerMask.NameToLayer("EnemyBullet");
+        int capaJugador = LayerMask.NameToLayer("PlayerBullet");
+        if (gameObject.layer == capaEnemiga &&
+            other.TryGetComponent(out PlayerParry parry) && parry.IntentarParry(this))
         {
             return;
         }
 
         if (other.TryGetComponent(out Health vida))
         {
+            if (gameObject.layer == capaEnemiga && other.gameObject.layer != LayerMask.NameToLayer("Player")) return;
+            if (gameObject.layer == capaJugador && other.gameObject.layer == LayerMask.NameToLayer("Player")) return;
             if (vida.RecibirDanio(danio)) Destroy(gameObject);
             return;
         }

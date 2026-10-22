@@ -36,6 +36,15 @@ public class Health : MonoBehaviour
         OnVidaCambiada?.Invoke(VidaActual, vidaMaxima);
     }
 
+    public bool Curar(int cantidad)
+    {
+        if (cantidad <= 0 || VidaActual <= 0 || VidaActual >= vidaMaxima) return false;
+
+        VidaActual = Mathf.Min(VidaActual + cantidad, vidaMaxima);
+        OnVidaCambiada?.Invoke(VidaActual, vidaMaxima);
+        return true;
+    }
+
     public bool RecibirDanio(int cantidad)
     {
         if (VidaActual <= 0 || EsInvulnerable) return false;
