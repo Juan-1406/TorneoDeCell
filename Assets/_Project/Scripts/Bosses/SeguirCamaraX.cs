@@ -4,6 +4,7 @@ public class SeguirCamaraX : MonoBehaviour
 {
     [SerializeField] private float desfaseX = 5f;
     [SerializeField] private float suavidad = 2f;
+    [SerializeField] private BoxCollider2D limitesArena;
 
     private Camera cam;
     private Collider2D colision;
@@ -47,6 +48,15 @@ public class SeguirCamaraX : MonoBehaviour
         {
             float bordeDerecho = cam.transform.position.x + cam.orthographicSize * cam.aspect;
             objetivoX = Mathf.Min(objetivoX, bordeDerecho - colision.bounds.extents.x - 0.25f);
+        }
+        if (limitesArena != null && colision != null)
+        {
+            float margen = colision.bounds.extents.x + 0.4f;
+            float centro = limitesArena.transform.TransformPoint(limitesArena.offset).x;
+            float mitad = limitesArena.size.x * Mathf.Abs(limitesArena.transform.lossyScale.x) * 0.5f;
+            objetivoX = Mathf.Clamp(objetivoX,
+                centro - mitad + margen,
+                centro + mitad - margen);
         }
 
         // La oscilacion vertical solo sube desde la altura original del jefe.

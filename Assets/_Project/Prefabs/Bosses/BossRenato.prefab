@@ -465,9 +465,9 @@ MonoBehaviour:
     - {fileID: 7883978195043479868}
     pausaEntreAtaques: 1.8
     color: {r: 1, g: 1, b: 1, a: 0.99607843}
-    amplitudHorizontal: 0
+    amplitudHorizontal: 0.75
     amplitudVertical: 0
-    ciclosPorSegundo: 0
+    ciclosPorSegundo: 0.22
   - nombre: Enojado
     activaBajoVida: 0.66
     ataques:
@@ -476,9 +476,9 @@ MonoBehaviour:
     - {fileID: 4676112894964812451}
     pausaEntreAtaques: 1.4
     color: {r: 0.87169814, g: 0.6182794, b: 0.10361691, a: 1}
-    amplitudHorizontal: 0
+    amplitudHorizontal: 0.75
     amplitudVertical: 0
-    ciclosPorSegundo: 0
+    ciclosPorSegundo: 0.22
   - nombre: Furioso
     activaBajoVida: 0.33
     ataques:
@@ -505,3 +505,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SeguirCamaraX
   desfaseX: 5
   suavidad: 2
+  limitesArena: {fileID: 0}

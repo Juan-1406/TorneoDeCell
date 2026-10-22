@@ -15,22 +15,17 @@ public class AtaqueExterno : BossAttack
     [SerializeField] private float alturaMinima = -2.8f;
     [SerializeField] private float margenCamara = 0.7f;
 
-    private GameObject aviso;
-    private Material materialAviso;
-
     public override IEnumerator Ejecutar(Transform objetivo)
     {
         if (objetivo == null || balaPrefab == null) yield break;
 
-        // Se fija el objetivo antes del aviso: el jugador puede esquivar la trayectoria.
+        // Se fija el objetivo antes de la preparacion: el jugador puede esquivar la trayectoria.
         Vector2 destino = objetivo.position;
         Vector2 origen = CalcularOrigen(destino);
         Vector2 direccion = (destino - origen).normalized;
         if (direccion.sqrMagnitude < 0.001f) yield break;
 
-        MostrarAviso(origen, destino);
         yield return new WaitForSeconds(Mathf.Max(0f, tiempoAviso));
-        Cancelar();
 
         for (int i = 0; i < Mathf.Max(1, cantidad); i++)
         {
@@ -80,50 +75,4 @@ public class AtaqueExterno : BossAttack
         return new Vector2(x, y);
     }
 
-    private void MostrarAviso(Vector2 origen, Vector2 destino)
-    {
-        Cancelar();
-        Shader shader = Shader.Find("Sprites/Default");
-        if (shader == null) shader = Shader.Find("Universal Render Pipeline/Unlit");
-        if (shader == null)
-        {
-            Debug.LogError("No se pudo mostrar el aviso del ataque externo.", this);
-            return;
-        }
-
-        aviso = new GameObject("Aviso de ataque externo");
-        aviso.transform.SetParent(transform, true);
-        materialAviso = new Material(shader);
-        LineRenderer linea = aviso.AddComponent<LineRenderer>();
-        linea.material = materialAviso;
-        linea.useWorldSpace = true;
-        linea.positionCount = 2;
-        linea.SetPosition(0, origen);
-        linea.SetPosition(1, destino);
-        linea.startWidth = 0.12f;
-        linea.endWidth = 0.06f;
-        linea.startColor = new Color(1f, 0.85f, 0f, 0.9f);
-        linea.endColor = new Color(1f, 0.4f, 0f, 0.7f);
-        linea.sortingOrder = 30;
-    }
-
-    public override void Cancelar()
-    {
-        if (aviso != null)
-        {
-            aviso.SetActive(false);
-            Destroy(aviso);
-            aviso = null;
-        }
-        if (materialAviso != null)
-        {
-            Destroy(materialAviso);
-            materialAviso = null;
-        }
-    }
-
-    private void OnDisable()
-    {
-        Cancelar();
-    }
 }
