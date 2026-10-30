@@ -47,7 +47,7 @@ public class Health : MonoBehaviour
 
     public bool RecibirDanio(int cantidad)
     {
-        if (VidaActual <= 0 || EsInvulnerable) return false;
+        if (cantidad <= 0 || VidaActual <= 0 || EsInvulnerable) return false;
 
         VidaActual = Mathf.Max(VidaActual - cantidad, 0);
         invulnerableHasta = Time.time + tiempoInvulnerable;

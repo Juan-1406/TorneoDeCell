@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 [DefaultExecutionOrder(100)]
 public class DirectorOleadas : MonoBehaviour
 {
+    public enum EstadoOleadas { Preparacion, Combate, Descanso, EntradaJefe, Jefe, Detenido }
+
     [Serializable]
     private class Aparicion
     {
@@ -19,7 +21,7 @@ public class DirectorOleadas : MonoBehaviour
     [Serializable]
     private class Oleada
     {
-        // "enemigos" y "enemigoPrefab" conservan escenas creadas antes de las secuencias.
+        public string nombre;
         [Min(1)] public int enemigos = 2;
         public Aparicion[] secuencia;
         [Min(1)] public int maximoSimultaneos = 2;
@@ -34,12 +36,15 @@ public class DirectorOleadas : MonoBehaviour
     [SerializeField] private SpriteRenderer imagenJefe;
     [SerializeField] private Collider2D colisionJefe;
     [SerializeField] private EnemigoMenor enemigoPrefab;
+    [SerializeField] private RecompensasCombate recompensas;
 
     [Header("Oleadas")]
     [SerializeField] private Oleada[] oleadas = { new Oleada(), new Oleada(), new Oleada() };
     [SerializeField, Min(0f)] private float esperaInicial = 1.5f;
-    [SerializeField, Min(0f)] private float esperaEntreOleadas = 1.5f;
-    [SerializeField, Min(0f)] private float esperaAntesJefe = 2f;
+    [SerializeField, Min(0f)] private float esperaEntreOleadas = 3f;
+    [SerializeField, Min(0f)] private float esperaAntesJefe = 4f;
+    [SerializeField, Min(0.1f)] private float avisoAparicion = 0.8f;
+    [SerializeField, Min(1f)] private float distanciaSeguraJugador = 4f;
     [SerializeField] private Collider2D sueloArena;
     [SerializeField] private float distanciaAparicion = 10.8f;
     [SerializeField] private float alturaAparicion = -2.7f;
@@ -53,11 +58,17 @@ public class DirectorOleadas : MonoBehaviour
     private int porAparecer;
     private bool jefeActivo;
     private bool detenido;
-
+    private GameObject aviso;
+    private string ladoAviso;
+    private PlayerShooting disparo;
+    private static Sprite figuraAviso;
+    public EstadoOleadas Estado { get; private set; }
     public int IndiceOleada => indiceOleada;
     public int EnemigosActivos => activos.Count;
     public int EnemigosPorAparecer => porAparecer;
     public bool JefeActivo => jefeActivo;
+    public bool FaseJefeAlcanzada => jefeActivo || (oleadas != null && oleadas.Length > 0 &&
+        SesionJuego.ProgresoOleadas(gameObject.scene.name) >= oleadas.Length);
     public event Action<int> OleadaSuperada;
     public event Action JefeHabilitado;
 
@@ -69,6 +80,8 @@ public class DirectorOleadas : MonoBehaviour
         if (colisionJefe != null) colisionJefe.enabled = false;
         if (jefe != null) jefe.Invulnerable = true;
         if (barraJefe != null) barraJefe.SetActive(false);
+        if (jugador != null) disparo = jugador.GetComponent<PlayerShooting>();
+        CambiarEstado(EstadoOleadas.Preparacion);
     }
 
     private void OnEnable()
@@ -81,9 +94,13 @@ public class DirectorOleadas : MonoBehaviour
     {
         if (jugador != null) jugador.OnMuerte -= AlMorirJugador;
         if (jefe != null) jefe.OnMuerte -= AlVencerJefe;
-        StopAllCoroutines();
-        foreach (EnemigoMenor enemigo in activos)
-            if (enemigo != null) enemigo.Eliminado -= AlEliminarEnemigo;
+        Detener();
+        foreach (var enemigo in activos)
+            if (enemigo != null)
+            {
+                enemigo.Eliminado -= AlEliminarEnemigo;
+                enemigo.Retirado -= AlEliminarEnemigo;
+            }
         activos.Clear();
     }
 
@@ -93,18 +110,17 @@ public class DirectorOleadas : MonoBehaviour
             oleadas == null || oleadas.Length == 0 || !OleadasConfiguradas())
         {
             Debug.LogError("La fase de oleadas necesita jugador, jefe y enemigos configurados.", this);
+            Detener();
             return;
         }
-
-        indiceOleada = Mathf.Clamp(
-            SesionJuego.ProgresoOleadas(SceneManager.GetActiveScene().name), 0, oleadas.Length);
-        if (indiceOleada == oleadas.Length) ActivarJefe();
+        indiceOleada = Mathf.Clamp(SesionJuego.ProgresoOleadas(gameObject.scene.name), 0, oleadas.Length);
+        if (indiceOleada == oleadas.Length) StartCoroutine(EntrarJefe());
         else StartCoroutine(EjecutarOleadas());
     }
 
     private bool OleadasConfiguradas()
     {
-        foreach (Oleada ronda in oleadas)
+        foreach (var ronda in oleadas)
         {
             if (ronda == null) return false;
             if (ronda.secuencia == null || ronda.secuencia.Length == 0)
@@ -112,113 +128,169 @@ public class DirectorOleadas : MonoBehaviour
                 if (enemigoPrefab == null) return false;
                 continue;
             }
-            foreach (Aparicion aparicion in ronda.secuencia)
-                if (aparicion == null || aparicion.prefab == null) return false;
+            foreach (var entrada in ronda.secuencia)
+                if (entrada == null || entrada.prefab == null) return false;
         }
         return true;
     }
 
     private IEnumerator EjecutarOleadas()
     {
-        if (esperaInicial > 0f) yield return new WaitForSeconds(esperaInicial);
-
+        yield return Esperar(esperaInicial, "Prepárate", EstadoOleadas.Preparacion);
         for (; indiceOleada < oleadas.Length && !detenido; indiceOleada++)
         {
-            Oleada ronda = oleadas[indiceOleada];
+            var ronda = oleadas[indiceOleada];
             int cantidad = ronda.secuencia != null && ronda.secuencia.Length > 0
                 ? ronda.secuencia.Length : Mathf.Max(1, ronda.enemigos);
             porAparecer = cantidad;
+            CambiarEstado(EstadoOleadas.Combate);
             ActualizarTexto();
 
             for (int i = 0; i < cantidad && !detenido; i++)
             {
-                while (activos.Count >= Mathf.Max(1, ronda.maximoSimultaneos) && !detenido)
-                    yield return null;
+                while (activos.Count >= Mathf.Max(1, ronda.maximoSimultaneos) && !detenido) yield return null;
                 if (detenido) yield break;
-
-                Aparicion aparicion = ronda.secuencia != null && ronda.secuencia.Length > 0
-                    ? ronda.secuencia[i] : null;
-                CrearEnemigo(aparicion, i);
+                var entrada = ronda.secuencia != null && ronda.secuencia.Length > 0 ? ronda.secuencia[i] : null;
+                yield return AnunciarYCrear(entrada, i);
+                if (detenido) yield break;
                 porAparecer--;
                 ActualizarTexto();
-                if (i < cantidad - 1 && ronda.intervaloAparicion > 0f)
-                    yield return new WaitForSeconds(ronda.intervaloAparicion);
+                if (i < cantidad - 1) yield return new WaitForSeconds(Mathf.Max(0f, ronda.intervaloAparicion));
             }
 
             while (activos.Count > 0 && !detenido) yield return null;
             if (detenido) yield break;
-
-            SesionJuego.GuardarProgresoOleadas(SceneManager.GetActiveScene().name, indiceOleada + 1);
+            LimpiarProyectiles();
+            SesionJuego.GuardarProgresoOleadas(gameObject.scene.name, indiceOleada + 1);
             OleadaSuperada?.Invoke(indiceOleada + 1);
-            if (textoOleadas != null) textoOleadas.text = "Oleada superada";
-            if (indiceOleada < oleadas.Length - 1 && esperaEntreOleadas > 0f)
-                yield return new WaitForSeconds(esperaEntreOleadas);
+            if (indiceOleada < oleadas.Length - 1)
+                yield return Esperar(esperaEntreOleadas, "Oleada superada · recoge los ítems", EstadoOleadas.Descanso);
         }
+        if (!detenido) yield return EntrarJefe();
+    }
 
-        if (!detenido)
+    private IEnumerator EntrarJefe()
+    {
+        jefe.Invulnerable = true;
+        LimpiarProyectiles();
+        yield return Esperar(esperaAntesJefe, "Prepárate para el jefe", EstadoOleadas.EntradaJefe);
+        if (!detenido) ActivarJefe();
+    }
+
+    private IEnumerator Esperar(float segundos, string mensaje, EstadoOleadas estado)
+    {
+        CambiarEstado(estado);
+        float restante = Mathf.Max(0f, segundos);
+        while (restante > 0f && !detenido)
         {
-            if (textoOleadas != null) textoOleadas.text = "Renato entra a la arena";
-            if (esperaAntesJefe > 0f) yield return new WaitForSeconds(esperaAntesJefe);
-            if (!detenido) ActivarJefe();
+            if (textoOleadas != null) textoOleadas.text = mensaje + " · " + Mathf.CeilToInt(restante);
+            restante -= Time.deltaTime;
+            yield return null;
         }
     }
 
-    private void CrearEnemigo(Aparicion aparicion, int numero)
+    private void Limites(out float izquierda, out float derecha)
     {
-        EnemigoMenor prefab = aparicion != null ? aparicion.prefab : enemigoPrefab;
-        float izquierda = float.NegativeInfinity;
-        float derecha = float.PositiveInfinity;
-        float centro = 0f;
-        float distancia = distanciaAparicion;
-        if (sueloArena != null)
+        izquierda = -Mathf.Abs(distanciaAparicion) - 1f;
+        derecha = Mathf.Abs(distanciaAparicion) + 1f;
+        if (sueloArena == null) return;
+        izquierda = sueloArena.bounds.min.x + 0.8f;
+        derecha = sueloArena.bounds.max.x - 0.8f;
+    }
+
+    private bool EsSeguro(Vector2 punto)
+    {
+        if (jugador == null || Mathf.Abs(punto.x - jugador.transform.position.x) < distanciaSeguraJugador) return false;
+        foreach (var otro in activos)
+            if (otro != null && Vector2.Distance(punto, otro.transform.position) < 1.7f) return false;
+        var obstaculo = Physics2D.OverlapCircle(punto, 0.6f, LayerMask.GetMask("Ground"));
+        return obstaculo == null || obstaculo.isTrigger;
+    }
+
+    private bool BuscarPosicion(int numero, out Vector2 posicion)
+    {
+        Limites(out float izquierda, out float derecha);
+        bool desdeIzquierda = (numero + indiceOleada) % 2 == 0;
+        for (int i = 0; i <= 20; i++)
         {
-            Bounds limites = sueloArena.bounds;
-            izquierda = limites.min.x + 0.8f;
-            derecha = limites.max.x - 0.8f;
-            centro = (izquierda + derecha) * 0.5f;
-            distancia = Mathf.Min(distanciaAparicion, (derecha - izquierda) * 0.5f - 0.4f);
+            float t = i / 20f;
+            float x = Mathf.Lerp(izquierda + 0.2f, derecha - 0.2f, desdeIzquierda ? t : 1f - t);
+            posicion = new Vector2(x, alturaAparicion);
+            if (EsSeguro(posicion)) return true;
         }
+        posicion = default;
+        return false;
+    }
 
-        float lado = (numero + indiceOleada) % 2 == 0 ? -1f : 1f;
-        float x = centro + lado * distancia;
-        if (Mathf.Abs(x - jugador.transform.position.x) < 2.5f)
-            x = centro - lado * distancia;
-
-        var enemigo = Instantiate(prefab, new Vector3(x, alturaAparicion, 0f),
-            Quaternion.identity, transform);
-        enemigo.Configurar(jugador, izquierda, derecha);
-        if (aparicion != null)
-            enemigo.ConfigurarRecompensa(aparicion.recompensa, aparicion.probabilidadRecompensa);
-        enemigo.Eliminado += AlEliminarEnemigo;
-        activos.Add(enemigo);
+    private IEnumerator AnunciarYCrear(Aparicion entrada, int numero)
+    {
+        var prefab = entrada != null ? entrada.prefab : enemigoPrefab;
+        while (!detenido)
+        {
+            if (!BuscarPosicion(numero, out Vector2 posicion)) { yield return null; continue; }
+            aviso = new GameObject("Aviso de entrada");
+            aviso.transform.SetParent(transform);
+            aviso.transform.position = posicion;
+            aviso.transform.localScale = new Vector3(1.1f, 1.3f, 1f);
+            var imagen = aviso.AddComponent<SpriteRenderer>();
+            if (figuraAviso == null)
+                figuraAviso = Sprite.Create(Texture2D.whiteTexture, new Rect(0, 0, 1, 1), Vector2.one * 0.5f, 1f);
+            imagen.sprite = figuraAviso;
+            imagen.sortingOrder = 18;
+            var color = prefab.GetComponent<SpriteRenderer>().color;
+            color.a = 0.35f;
+            imagen.color = color;
+            ladoAviso = posicion.x < jugador.transform.position.x ? "Entrada por la izquierda" : "Entrada por la derecha";
+            ActualizarTexto();
+            yield return new WaitForSeconds(Mathf.Max(0.1f, avisoAparicion));
+            RetirarAviso();
+            // Se vuelve a comprobar: el jugador pudo acercarse durante el aviso.
+            if (detenido) yield break;
+            if (!EsSeguro(posicion)) continue;
+            Limites(out float izquierda, out float derecha);
+            var enemigo = Instantiate(prefab, posicion, Quaternion.identity, transform);
+            enemigo.Configurar(jugador, izquierda, derecha);
+            if (entrada != null)
+                enemigo.ConfigurarRecompensa(entrada.recompensa, entrada.probabilidadRecompensa, recompensas);
+            enemigo.Eliminado += AlEliminarEnemigo;
+            enemigo.Retirado += AlEliminarEnemigo;
+            activos.Add(enemigo);
+            yield break;
+        }
     }
 
     private void AlEliminarEnemigo(EnemigoMenor enemigo)
     {
         enemigo.Eliminado -= AlEliminarEnemigo;
-        activos.Remove(enemigo);
-        ActualizarTexto();
+        enemigo.Retirado -= AlEliminarEnemigo;
+        if (activos.Remove(enemigo) && Estado == EstadoOleadas.Combate) ActualizarTexto();
     }
 
     private void ActualizarTexto()
     {
         if (textoOleadas == null) return;
+        string nombre = oleadas[indiceOleada].nombre;
+        if (aviso != null) nombre = ladoAviso;
         textoOleadas.text = "Oleada " + (indiceOleada + 1) + "/" + oleadas.Length +
-            "  ·  Enemigos: " + (activos.Count + porAparecer);
+            " · Restantes: " + (activos.Count + porAparecer) +
+            (string.IsNullOrWhiteSpace(nombre) ? "" : "\n" + nombre);
+    }
+
+    private void CambiarEstado(EstadoOleadas estado)
+    {
+        Estado = estado;
+        bool descanso = estado != EstadoOleadas.Combate && estado != EstadoOleadas.Jefe;
+        if (disparo != null) disparo.SuspenderMejora = descanso;
+        if (recompensas != null) recompensas.EnDescanso = descanso;
     }
 
     private void ActivarJefe()
     {
-        if (detenido || jefeActivo) return;
+        if (detenido || jefeActivo || activos.Count != 0 || porAparecer != 0) return;
+        LimpiarProyectiles();
         jefeActivo = true;
-        SesionJuego.GuardarProgresoOleadas(SceneManager.GetActiveScene().name, oleadas.Length);
-
-        // Los proyectiles de las oleadas no deben mezclarse con el primer ataque del jefe.
-        foreach (Bullet bala in FindObjectsByType<Bullet>(FindObjectsSortMode.None))
-            if (bala.gameObject.scene == gameObject.scene &&
-                bala.gameObject.layer == LayerMask.NameToLayer("EnemyBullet"))
-                Destroy(bala.gameObject);
-
+        CambiarEstado(EstadoOleadas.Jefe);
+        SesionJuego.GuardarProgresoOleadas(gameObject.scene.name, oleadas.Length);
         if (textoOleadas != null) textoOleadas.gameObject.SetActive(false);
         if (barraJefe != null) barraJefe.SetActive(true);
         jefe.Invulnerable = false;
@@ -228,16 +300,36 @@ public class DirectorOleadas : MonoBehaviour
         JefeHabilitado?.Invoke();
     }
 
-    private void AlMorirJugador()
+    private void LimpiarProyectiles()
+    {
+        foreach (var bala in FindObjectsByType<Bullet>(FindObjectsSortMode.None))
+            if (bala.gameObject.scene == gameObject.scene)
+            {
+                bala.gameObject.SetActive(false);
+                Destroy(bala.gameObject);
+            }
+    }
+
+    private void RetirarAviso()
+    {
+        if (aviso != null) { aviso.SetActive(false); Destroy(aviso); }
+        aviso = null;
+    }
+
+    private void Detener()
     {
         detenido = true;
         StopAllCoroutines();
-        foreach (EnemigoMenor enemigo in activos)
-            if (enemigo != null) enemigo.enabled = false;
+        RetirarAviso();
+        CambiarEstado(EstadoOleadas.Detenido);
+        foreach (var enemigo in activos) if (enemigo != null) enemigo.enabled = false;
     }
 
+    private void AlMorirJugador() => Detener();
     private void AlVencerJefe()
     {
+        Detener();
         SesionJuego.LimpiarProgresoOleadas();
     }
 }
+

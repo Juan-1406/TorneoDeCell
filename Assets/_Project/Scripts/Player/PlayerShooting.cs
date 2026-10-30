@@ -7,16 +7,27 @@ public class PlayerShooting : MonoBehaviour
 
     private Camera cam;
     private float siguienteDisparo;
-    private float mejoraHasta;
+    private float mejoraRestante;
     private float multiplicadorCadencia = 1f;
+    public bool SuspenderMejora { get; set; }
+    public float SegundosMejora => mejoraRestante;
+    public float CadenciaActual => cadencia * (mejoraRestante > 0f ? multiplicadorCadencia : 1f);
+
+    public void LimpiarMejora()
+    {
+        mejoraRestante = 0f;
+        multiplicadorCadencia = 1f;
+    }
+
+    private void OnDisable() => LimpiarMejora();
 
     public void MejorarCadenciaTemporal(float multiplicador, float duracion)
     {
         if (multiplicador <= 0f || multiplicador >= 1f || duracion <= 0f) return;
 
-        multiplicadorCadencia = Time.time < mejoraHasta
+        multiplicadorCadencia = mejoraRestante > 0f
             ? Mathf.Min(multiplicadorCadencia, multiplicador) : multiplicador;
-        mejoraHasta = Time.time + duracion;
+        mejoraRestante = Mathf.Max(mejoraRestante, duracion);
         siguienteDisparo = Mathf.Min(siguienteDisparo, Time.time + cadencia * multiplicadorCadencia);
     }
 
@@ -27,12 +38,12 @@ public class PlayerShooting : MonoBehaviour
 
     private void Update()
     {
-        if (SesionJuego.EnPausa) return;
+        if (SesionJuego.EnPausa || Time.timeScale == 0f) return;
+        if (!SuspenderMejora) mejoraRestante = Mathf.Max(0f, mejoraRestante - Time.deltaTime);
         if (Input.GetButton("Fire1") && Time.time >= siguienteDisparo)
         {
             Disparar();
-            float factor = Time.time < mejoraHasta ? multiplicadorCadencia : 1f;
-            siguienteDisparo = Time.time + cadencia * factor;
+            siguienteDisparo = Time.time + CadenciaActual;
         }
     }
 

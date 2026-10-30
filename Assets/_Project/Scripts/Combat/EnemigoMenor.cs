@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Health), typeof(Rigidbody2D), typeof(CircleCollider2D))]
@@ -33,6 +34,16 @@ public class EnemigoMenor : MonoBehaviour
     private bool preparandoAtaque;
     private RecogibleCombate recompensaPrefab;
     private float probabilidadRecompensa;
+    private RecompensasCombate recompensas;
+    private bool eliminado;
+    private Vector2 objetivoAtaque;
+    private static readonly HashSet<EnemigoMenor> presentes = new HashSet<EnemigoMenor>();
+    public bool PreparandoAtaque => preparandoAtaque;
+    public event Action<EnemigoMenor> Retirado;
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void ReiniciarRegistro() => presentes.Clear();
+    private void OnEnable() => presentes.Add(this);
 
     public event Action<EnemigoMenor> Eliminado;
     public Health Vida => vida;
@@ -49,6 +60,7 @@ public class EnemigoMenor : MonoBehaviour
 
     private void OnDisable()
     {
+        presentes.Remove(this);
         StopAllCoroutines();
         preparandoAtaque = false;
         if (imagen != null) imagen.color = colorBase;
@@ -57,6 +69,7 @@ public class EnemigoMenor : MonoBehaviour
     private void OnDestroy()
     {
         if (vida != null) vida.OnMuerte -= AlMorir;
+        Retirado?.Invoke(this);
     }
 
     public void Configurar(Health objetivo)
@@ -72,15 +85,16 @@ public class EnemigoMenor : MonoBehaviour
         siguienteAtaque = Time.time + esperaTrasAparecer;
     }
 
-    public void ConfigurarRecompensa(RecogibleCombate prefab, float probabilidad)
+    public void ConfigurarRecompensa(RecogibleCombate prefab, float probabilidad, RecompensasCombate propietario = null)
     {
+        recompensas = propietario;
         recompensaPrefab = prefab;
         probabilidadRecompensa = Mathf.Clamp01(probabilidad);
     }
 
     private void FixedUpdate()
     {
-        if (jugador == null || jugador.VidaActual <= 0 || vida.VidaActual <= 0 || preparandoAtaque) return;
+        if (SesionJuego.EnPausa || jugador == null || jugador.VidaActual <= 0 || vida.VidaActual <= 0 || preparandoAtaque) return;
 
         float distanciaHorizontal = jugador.transform.position.x - cuerpo.position.x;
         float distancia = Mathf.Abs(distanciaHorizontal);
@@ -97,15 +111,27 @@ public class EnemigoMenor : MonoBehaviour
         if (direccion == 0f) return;
         float x = Mathf.Clamp(cuerpo.position.x + direccion * velocidad * Time.fixedDeltaTime,
             limiteIzquierdo, limiteDerecho);
+        foreach (var otro in presentes)
+        {
+            if (otro == this || otro == null || otro.vida.VidaActual <= 0 || otro.gameObject.scene != gameObject.scene ||
+                Mathf.Abs(otro.transform.position.y - cuerpo.position.y) > 0.8f) continue;
+            float actual = Mathf.Abs(otro.transform.position.x - cuerpo.position.x);
+            if (Mathf.Abs(otro.transform.position.x - x) < 1.15f &&
+                Mathf.Abs(otro.transform.position.x - x) < actual) return;
+        }
+        var pared = Physics2D.CircleCast(cuerpo.position, 0.5f, new Vector2(direccion, 0f),
+            Mathf.Abs(x - cuerpo.position.x) + 0.05f, LayerMask.GetMask("Ground"));
+        if (pared.collider != null && !pared.collider.isTrigger) return;
         cuerpo.MovePosition(new Vector2(x, cuerpo.position.y));
     }
 
     private void Update()
     {
-        if (jugador == null || jugador.VidaActual <= 0 || vida.VidaActual <= 0 ||
+        if (SesionJuego.EnPausa || Time.timeScale == 0f || jugador == null || jugador.VidaActual <= 0 || vida.VidaActual <= 0 ||
             preparandoAtaque || Time.time < siguienteAtaque) return;
         if (tipoAtaque == TipoAtaque.Proyectil && proyectilPrefab == null) return;
         if (Vector2.Distance(transform.position, jugador.transform.position) > distanciaAtaque) return;
+        if (!TieneLineaLibre(jugador.transform.position)) return;
 
         StartCoroutine(PrepararAtaque());
     }
@@ -113,23 +139,26 @@ public class EnemigoMenor : MonoBehaviour
     private IEnumerator PrepararAtaque()
     {
         preparandoAtaque = true;
+        objetivoAtaque = jugador.transform.position;
         imagen.color = Color.Lerp(colorBase, Color.white, 0.65f);
         if (avisoAtaque > 0f) yield return new WaitForSeconds(avisoAtaque);
         imagen.color = colorBase;
 
         if (jugador != null && jugador.VidaActual > 0 && vida.VidaActual > 0)
         {
-            Vector2 direccion = jugador.transform.position - transform.position;
-            if (direccion.magnitude <= distanciaAtaque)
+            Vector2 direccion = objetivoAtaque - (Vector2)transform.position;
+            if (tipoAtaque == TipoAtaque.Cercano)
             {
-                if (tipoAtaque == TipoAtaque.Cercano)
+                Vector2 actual = jugador.transform.position - transform.position;
+                if (actual.magnitude <= distanciaAtaque && Vector2.Dot(actual, direccion) >= 0f &&
+                    TieneLineaLibre(jugador.transform.position))
                     jugador.RecibirDanio(danio);
-                else if (direccion.sqrMagnitude > 0.01f)
-                {
-                    Vector3 origen = transform.position + (Vector3)(direccion.normalized * 0.65f);
-                    Bullet bala = Instantiate(proyectilPrefab, origen, Quaternion.identity);
-                    bala.Disparar(direccion);
-                }
+            }
+            else if (direccion.sqrMagnitude > 0.01f && TieneLineaLibre(objetivoAtaque))
+            {
+                Vector3 origen = transform.position + (Vector3)(direccion.normalized * 0.65f);
+                Bullet bala = Instantiate(proyectilPrefab, origen, Quaternion.identity);
+                bala.Disparar(direccion);
             }
         }
 
@@ -139,10 +168,20 @@ public class EnemigoMenor : MonoBehaviour
 
     private void AlMorir()
     {
-        if (recompensaPrefab != null && UnityEngine.Random.value < probabilidadRecompensa)
-            Instantiate(recompensaPrefab, transform.position + Vector3.up * 0.4f,
-                Quaternion.identity);
+        if (eliminado) return;
+        eliminado = true;
+        StopAllCoroutines();
+        if (recompensas != null)
+            recompensas.IntentarCrear(recompensaPrefab, probabilidadRecompensa, transform.position);
         Eliminado?.Invoke(this);
+        gameObject.SetActive(false);
+        Destroy(gameObject);
+    }
+
+    private bool TieneLineaLibre(Vector2 destino)
+    {
+        var impacto = Physics2D.Linecast(transform.position, destino, LayerMask.GetMask("Ground"));
+        return impacto.collider == null || impacto.collider.isTrigger;
     }
 
     private static Sprite ObtenerFiguraProvisional()

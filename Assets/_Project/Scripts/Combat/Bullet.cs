@@ -17,6 +17,8 @@ public class Bullet : MonoBehaviour
 
     private Rigidbody2D rb;
     private SpriteRenderer sprite;
+    private float expira;
+    public bool EsReflejable => isActiveAndEnabled && gameObject.layer == LayerMask.NameToLayer("EnemyBullet");
 
     private void Awake()
     {
@@ -28,11 +30,18 @@ public class Bullet : MonoBehaviour
     {
         rb.linearVelocity = direccion.normalized * velocidad;
         Orientar(direccion);
-        Destroy(gameObject, tiempoVida);
+        expira = Time.time + Mathf.Max(0.1f, tiempoVida);
+    }
+
+    private void Update()
+    {
+        if (expira > 0f && Time.time >= expira) Destroy(gameObject);
     }
 
     public void Reflejar()
     {
+        if (!EsReflejable) return;
+        expira = Time.time + Mathf.Max(0.1f, tiempoVida);
         Vector2 direccion = -rb.linearVelocity;
 
         GameObject jefe = GameObject.FindGameObjectWithTag("Boss");
@@ -46,7 +55,7 @@ public class Bullet : MonoBehaviour
             float distanciaMenor = float.PositiveInfinity;
             foreach (EnemigoMenor enemigo in FindObjectsByType<EnemigoMenor>(FindObjectsSortMode.None))
             {
-                if (enemigo.Vida == null || enemigo.Vida.VidaActual <= 0) continue;
+                if (enemigo.gameObject.scene != gameObject.scene || enemigo.Vida == null || enemigo.Vida.VidaActual <= 0) continue;
                 float distancia = (enemigo.transform.position - transform.position).sqrMagnitude;
                 if (distancia >= distanciaMenor) continue;
                 distanciaMenor = distancia;
