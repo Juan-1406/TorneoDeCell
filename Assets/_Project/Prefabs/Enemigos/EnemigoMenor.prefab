@@ -182,15 +182,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 8548199114977797291}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56f4d3d7097a131479c86cd7f6f24b22, type: 3}
+  m_Script: {fileID: 11500000, guid: d016422f394204b4f86f147875c1fe8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemigoMenor
   tipoAtaque: 0
-  velocidad: 1.3
+  velocidad: 2.3
   distanciaMinima: 2.8
+  aceleracion: 9
   distanciaAtaque: 1.35
   intervaloAtaque: 1.6
   avisoAtaque: 0.45
   esperaTrasAparecer: 0.9
   danio: 1
   proyectilPrefab: {fileID: 0}
+  alcanceCarga: 4.5
+  velocidadCarga: 7.5
+  duracionCarga: 0.32
+  disparosRafaga: 2
+  proyectilesAbanico: 3
+  dispersion: 11
+  intervaloRafaga: 0.28

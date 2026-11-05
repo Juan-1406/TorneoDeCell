@@ -57,15 +57,19 @@ public class RecompensasCombate : MonoBehaviour
         if (objetos.Count >= Mathf.Max(1, maximoObjetos) || delTipo >= limiteTipo ||
             probabilidad <= 0f || Random.value >= Mathf.Clamp01(probabilidad)) return null;
 
+        Vector3 origen = posicion;
+        float izquierda = posicion.x - 2f, derecha = posicion.x + 2f;
         if (sueloArena != null)
         {
             Bounds b = sueloArena.bounds;
+            izquierda = b.min.x + 1f; derecha = b.max.x - 1f;
             posicion.x = Mathf.Clamp(posicion.x, b.min.x + 1f, b.max.x - 1f);
             posicion.y = b.max.y + 0.65f;
         }
         posicion.z = 0f;
         var itemNuevo = Instantiate(prefab, posicion, Quaternion.identity, transform);
         itemNuevo.Configurar(jugador, this);
+        itemNuevo.Lanzar(origen, posicion.y, izquierda, derecha);
         objetos.Add(itemNuevo);
         return itemNuevo;
     }

@@ -3311,7 +3311,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1166766178}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d21f3078f939ac542acb34e1c595a9aa, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d3804de6d455fb43908968de6cad1e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectorOleadas
   jugador: {fileID: 792347651}
@@ -3323,52 +3323,79 @@ MonoBehaviour:
   enemigoPrefab: {fileID: 2827110738937465021, guid: 0248385f11d120443974155e342e91d3, type: 3}
   recompensas: {fileID: 1166766181}
   oleadas:
-  - nombre: Acercamiento - salta o esquiva el golpe
-    enemigos: 2
-    secuencia:
-    - prefab: {fileID: 2827110738937465021, guid: 0248385f11d120443974155e342e91d3, type: 3}
-      recompensa: {fileID: 0}
-      probabilidadRecompensa: 0
-    - prefab: {fileID: 2827110738937465021, guid: 0248385f11d120443974155e342e91d3, type: 3}
-      recompensa: {fileID: 0}
-      probabilidadRecompensa: 0
-    maximoSimultaneos: 1
-    intervaloAparicion: 1
-  - nombre: "Disparos \xB7 devuelve las balas con clic derecho"
+  - nombre: "CALENTAMIENTO \xB7 prepara tu esquive"
     enemigos: 3
     secuencia:
     - prefab: {fileID: 2827110738937465021, guid: 0248385f11d120443974155e342e91d3, type: 3}
       recompensa: {fileID: 0}
       probabilidadRecompensa: 0
+    - prefab: {fileID: 2827110738937465021, guid: 0248385f11d120443974155e342e91d3, type: 3}
+      recompensa: {fileID: 3132039916405866104, guid: 5b344fee07e6cb842a0c9e63282ef1a4, type: 3}
+      probabilidadRecompensa: 0.6
     - prefab: {fileID: 1402504173368668322, guid: 9dd00f3f338d04c4889670fcfa9915ee, type: 3}
       recompensa: {fileID: 0}
       probabilidadRecompensa: 0
-    - prefab: {fileID: 2827110738937465021, guid: 0248385f11d120443974155e342e91d3, type: 3}
-      recompensa: {fileID: 3132039916405866104, guid: 5b344fee07e6cb842a0c9e63282ef1a4, type: 3}
-      probabilidadRecompensa: 1
     maximoSimultaneos: 2
-    intervaloAparicion: 1.2
-  - nombre: Combina esquive, disparo y parry
-    enemigos: 4
+    tamanioGrupo: 1
+    intervaloAparicion: 1.8
+  - nombre: "CONFLICTO \xB7 melee y proyectiles"
+    enemigos: 6
     secuencia:
     - prefab: {fileID: 2827110738937465021, guid: 0248385f11d120443974155e342e91d3, type: 3}
       recompensa: {fileID: 0}
       probabilidadRecompensa: 0
     - prefab: {fileID: 1402504173368668322, guid: 9dd00f3f338d04c4889670fcfa9915ee, type: 3}
-      recompensa: {fileID: 3132039916405866104, guid: 5b344fee07e6cb842a0c9e63282ef1a4, type: 3}
+      recompensa: {fileID: 0}
+      probabilidadRecompensa: 0
+    - prefab: {fileID: 2827110738937465021, guid: 0248385f11d120443974155e342e91d3, type: 3}
+      recompensa: {fileID: 6004429997592767424, guid: bea65e651835d114db40651e8cdbf118, type: 3}
       probabilidadRecompensa: 0.6
+    - prefab: {fileID: 1402504173368668322, guid: 9dd00f3f338d04c4889670fcfa9915ee, type: 3}
+      recompensa: {fileID: 0}
+      probabilidadRecompensa: 0
     - prefab: {fileID: 2827110738937465021, guid: 0248385f11d120443974155e342e91d3, type: 3}
       recompensa: {fileID: 0}
       probabilidadRecompensa: 0
     - prefab: {fileID: 1402504173368668322, guid: 9dd00f3f338d04c4889670fcfa9915ee, type: 3}
+      recompensa: {fileID: 3132039916405866104, guid: 5b344fee07e6cb842a0c9e63282ef1a4, type: 3}
+      probabilidadRecompensa: 1
+    maximoSimultaneos: 3
+    tamanioGrupo: 2
+    intervaloAparicion: 1
+  - nombre: "\xDALTIMA OLEADA \xB7 mantente en movimiento"
+    enemigos: 8
+    secuencia:
+    - prefab: {fileID: 2827110738937465021, guid: 0248385f11d120443974155e342e91d3, type: 3}
+      recompensa: {fileID: 0}
+      probabilidadRecompensa: 0
+    - prefab: {fileID: 1402504173368668322, guid: 9dd00f3f338d04c4889670fcfa9915ee, type: 3}
+      recompensa: {fileID: 0}
+      probabilidadRecompensa: 0
+    - prefab: {fileID: 2827110738937465021, guid: 0248385f11d120443974155e342e91d3, type: 3}
       recompensa: {fileID: 6004429997592767424, guid: bea65e651835d114db40651e8cdbf118, type: 3}
-      probabilidadRecompensa: 0.6
-    maximoSimultaneos: 2
-    intervaloAparicion: 1.25
+      probabilidadRecompensa: 0.65
+    - prefab: {fileID: 1402504173368668322, guid: 9dd00f3f338d04c4889670fcfa9915ee, type: 3}
+      recompensa: {fileID: 0}
+      probabilidadRecompensa: 0
+    - prefab: {fileID: 2827110738937465021, guid: 0248385f11d120443974155e342e91d3, type: 3}
+      recompensa: {fileID: 3132039916405866104, guid: 5b344fee07e6cb842a0c9e63282ef1a4, type: 3}
+      probabilidadRecompensa: 0.55
+    - prefab: {fileID: 1402504173368668322, guid: 9dd00f3f338d04c4889670fcfa9915ee, type: 3}
+      recompensa: {fileID: 0}
+      probabilidadRecompensa: 0
+    - prefab: {fileID: 2827110738937465021, guid: 0248385f11d120443974155e342e91d3, type: 3}
+      recompensa: {fileID: 0}
+      probabilidadRecompensa: 0
+    - prefab: {fileID: 1402504173368668322, guid: 9dd00f3f338d04c4889670fcfa9915ee, type: 3}
+      recompensa: {fileID: 3132039916405866104, guid: 5b344fee07e6cb842a0c9e63282ef1a4, type: 3}
+      probabilidadRecompensa: 0.7
+    maximoSimultaneos: 4
+    tamanioGrupo: 2
+    intervaloAparicion: 0.35
   esperaInicial: 1.5
   esperaEntreOleadas: 3
   esperaAntesJefe: 4
-  avisoAparicion: 0.8
+  avisoAparicion: 0.85
   distanciaSeguraJugador: 4
   sueloArena: {fileID: 215913179}
   distanciaAparicion: 10.8

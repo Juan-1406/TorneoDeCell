@@ -138,7 +138,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1056804670033787092}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99d2cfc811d317b41a5cf024e47efda5, type: 3}
+  m_Script: {fileID: 11500000, guid: cea13dd5897b7a8429515cdae2d93aba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RecogibleCombate
   tipo: 1

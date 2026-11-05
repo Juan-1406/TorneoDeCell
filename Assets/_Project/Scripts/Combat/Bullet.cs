@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Bullet : MonoBehaviour
 {
@@ -18,6 +19,22 @@ public class Bullet : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer sprite;
     private float expira;
+    private static readonly HashSet<Bullet> activas = new HashSet<Bullet>();
+    public static IEnumerable<Bullet> Activas => activas;
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void ReiniciarRegistro() => activas.Clear();
+    private void OnEnable() => activas.Add(this);
+    private void OnDisable() => activas.Remove(this);
+    public bool AmenazaA(Vector2 posicion)
+    {
+        if (gameObject.layer != LayerMask.NameToLayer("PlayerBullet") || rb == null) return false;
+        Vector2 delta = posicion - rb.position;
+        float rapidez = rb.linearVelocity.magnitude;
+        if (rapidez < 0.1f || delta.sqrMagnitude > 25f) return false;
+        float adelante = Vector2.Dot(delta, rb.linearVelocity / rapidez);
+        return adelante > 0f && adelante < rapidez * 0.5f &&
+            Mathf.Abs(delta.x * rb.linearVelocity.y - delta.y * rb.linearVelocity.x) / rapidez < 0.8f;
+    }
     public bool EsReflejable => isActiveAndEnabled && gameObject.layer == LayerMask.NameToLayer("EnemyBullet");
 
     private void Awake()

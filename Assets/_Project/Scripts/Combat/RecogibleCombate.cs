@@ -19,6 +19,11 @@ public class RecogibleCombate : MonoBehaviour
     private float restante;
     private float demora;
     private bool consumido;
+    private bool volando, reboto;
+    private Vector2 impulso;
+    private float piso, izquierda, derecha;
+    private float reposoY;
+    public bool EnVuelo => volando;
     public TipoRecompensa Tipo => tipo;
     public float SegundosRestantes => restante;
 
@@ -39,6 +44,39 @@ public class RecogibleCombate : MonoBehaviour
         director = propietario;
     }
 
+    public void Lanzar(Vector3 origen, float alturaSuelo, float minimoX, float maximoX)
+    {
+        piso = alturaSuelo; izquierda = minimoX; derecha = maximoX;
+        origen.x = Mathf.Clamp(origen.x, izquierda, derecha);
+        origen.y = Mathf.Max(origen.y, piso + 0.15f); origen.z = 0f;
+        transform.position = origen;
+        impulso = new Vector2(Random.Range(-1.5f, 1.5f), 4.2f);
+        volando = true; reboto = false;
+        FeedbackCombate.Emitir(this, colorBase, 6, 2.5f);
+    }
+
+    private void ActualizarVuelo()
+    {
+        if (!volando)
+        {
+            if (reboto) transform.position = new Vector3(transform.position.x,
+                reposoY + Mathf.Sin(Time.time * 3.5f) * 0.06f, transform.position.z);
+            return;
+        }
+        float dt = Time.deltaTime;
+        Vector3 p = transform.position;
+        p.x = Mathf.Clamp(p.x + impulso.x * dt, izquierda, derecha);
+        p.y += impulso.y * dt - 6f * dt * dt;
+        impulso.y -= 12f * dt;
+        if (p.y <= piso)
+        {
+            p.y = piso;
+            if (!reboto) { impulso.y = Mathf.Abs(impulso.y) * 0.25f; impulso.x *= 0.3f; reboto = true; }
+            else { volando = false; reposoY = piso; }
+        }
+        transform.position = p;
+    }
+
     private void Start()
     {
         if (jugador == null)
@@ -52,6 +90,7 @@ public class RecogibleCombate : MonoBehaviour
     {
         if (consumido || SesionJuego.EnPausa || Time.timeScale == 0f) return;
         if (director != null && director.Finalizado) return;
+        ActualizarVuelo();
         // La pausa entre rondas permite recoger sin gastar la duración del objeto.
         if (director == null || !director.EnDescanso) restante -= Time.deltaTime;
         demora = Mathf.Max(0f, demora - Time.deltaTime);
@@ -59,6 +98,7 @@ public class RecogibleCombate : MonoBehaviour
         Color color = colorBase;
         if (restante < 3f) color.a *= 0.45f + 0.55f * Mathf.Abs(Mathf.Sin(Time.time * 9f));
         imagen.color = color;
+        if (demora > 0f) imagen.color = Color.Lerp(color, Color.white, 0.6f);
         if (jugador == null || jugador.VidaActual <= 0 || demora > 0f) return;
         var colliderJugador = jugador.GetComponent<Collider2D>();
         if (colliderJugador == null || !colliderJugador.enabled) return;
@@ -82,6 +122,7 @@ public class RecogibleCombate : MonoBehaviour
         }
         if (!recogido) return false;
         consumido = true;
+        FeedbackCombate.Emitir(this, colorBase, 10, 3f);
         if (director != null) director.AlRecoger(this);
         gameObject.SetActive(false);
         Destroy(gameObject);

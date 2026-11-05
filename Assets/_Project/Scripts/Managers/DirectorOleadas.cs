@@ -25,6 +25,7 @@ public class DirectorOleadas : MonoBehaviour
         [Min(1)] public int enemigos = 2;
         public Aparicion[] secuencia;
         [Min(1)] public int maximoSimultaneos = 2;
+        [Min(1)] public int tamanioGrupo = 1;
         [Min(0f)] public float intervaloAparicion = 0.9f;
     }
 
@@ -58,10 +59,12 @@ public class DirectorOleadas : MonoBehaviour
     private int porAparecer;
     private bool jefeActivo;
     private bool detenido;
-    private GameObject aviso;
+    private readonly HashSet<GameObject> avisos = new HashSet<GameObject>();
+    private int entradasEnCurso;
     private string ladoAviso;
     private PlayerShooting disparo;
-    private static Sprite figuraAviso;
+    public int EntradasEnCurso => entradasEnCurso;
+    public int CupoActual => oleadas[Mathf.Clamp(indiceOleada, 0, oleadas.Length - 1)].maximoSimultaneos;
     public EstadoOleadas Estado { get; private set; }
     public int IndiceOleada => indiceOleada;
     public int EnemigosActivos => activos.Count;
@@ -146,16 +149,19 @@ public class DirectorOleadas : MonoBehaviour
             CambiarEstado(EstadoOleadas.Combate);
             ActualizarTexto();
 
-            for (int i = 0; i < cantidad && !detenido; i++)
+            int lanzadas = 0;
+            while ((lanzadas < cantidad || entradasEnCurso > 0) && !detenido)
             {
-                while (activos.Count >= Mathf.Max(1, ronda.maximoSimultaneos) && !detenido) yield return null;
-                if (detenido) yield break;
-                var entrada = ronda.secuencia != null && ronda.secuencia.Length > 0 ? ronda.secuencia[i] : null;
-                yield return AnunciarYCrear(entrada, i);
-                if (detenido) yield break;
-                porAparecer--;
-                ActualizarTexto();
-                if (i < cantidad - 1) yield return new WaitForSeconds(Mathf.Max(0f, ronda.intervaloAparicion));
+                int espacio = Mathf.Max(1, ronda.maximoSimultaneos) - activos.Count - entradasEnCurso;
+                int grupo = Mathf.Min(Mathf.Max(1, ronda.tamanioGrupo), espacio, cantidad - lanzadas);
+                if (grupo <= 0) { yield return null; continue; }
+                for (int n = 0; n < grupo; n++)
+                {
+                    var entrada = ronda.secuencia != null && ronda.secuencia.Length > 0 ? ronda.secuencia[lanzadas] : null;
+                    entradasEnCurso++;
+                    StartCoroutine(AnunciarYCrear(entrada, lanzadas++));
+                }
+                yield return new WaitForSeconds(Mathf.Max(0.05f, ronda.intervaloAparicion));
             }
 
             while (activos.Count > 0 && !detenido) yield return null;
@@ -198,11 +204,13 @@ public class DirectorOleadas : MonoBehaviour
         derecha = sueloArena.bounds.max.x - 0.8f;
     }
 
-    private bool EsSeguro(Vector2 punto)
+    private bool EsSeguro(Vector2 punto, GameObject ignorar = null)
     {
         if (jugador == null || Mathf.Abs(punto.x - jugador.transform.position.x) < distanciaSeguraJugador) return false;
         foreach (var otro in activos)
             if (otro != null && Vector2.Distance(punto, otro.transform.position) < 1.7f) return false;
+        foreach (var marca in avisos)
+            if (marca != null && marca != ignorar && Vector2.Distance(punto, marca.transform.position) < 1.7f) return false;
         var obstaculo = Physics2D.OverlapCircle(punto, 0.6f, LayerMask.GetMask("Ground"));
         return obstaculo == null || obstaculo.isTrigger;
     }
@@ -228,25 +236,21 @@ public class DirectorOleadas : MonoBehaviour
         while (!detenido)
         {
             if (!BuscarPosicion(numero, out Vector2 posicion)) { yield return null; continue; }
-            aviso = new GameObject("Aviso de entrada");
+            var aviso = new GameObject("Aviso de entrada");
             aviso.transform.SetParent(transform);
             aviso.transform.position = posicion;
-            aviso.transform.localScale = new Vector3(1.1f, 1.3f, 1f);
-            var imagen = aviso.AddComponent<SpriteRenderer>();
-            if (figuraAviso == null)
-                figuraAviso = Sprite.Create(Texture2D.whiteTexture, new Rect(0, 0, 1, 1), Vector2.one * 0.5f, 1f);
-            imagen.sprite = figuraAviso;
-            imagen.sortingOrder = 18;
             var color = prefab.GetComponent<SpriteRenderer>().color;
-            color.a = 0.35f;
-            imagen.color = color;
+            aviso.AddComponent<AvisoEntradaEnemigo>().Configurar(color, avisoAparicion);
+            avisos.Add(aviso);
             ladoAviso = posicion.x < jugador.transform.position.x ? "Entrada por la izquierda" : "Entrada por la derecha";
             ActualizarTexto();
             yield return new WaitForSeconds(Mathf.Max(0.1f, avisoAparicion));
-            RetirarAviso();
+            bool seguro = EsSeguro(posicion, aviso);
+            avisos.Remove(aviso);
+            aviso.SetActive(false); Destroy(aviso);
             // Se vuelve a comprobar: el jugador pudo acercarse durante el aviso.
             if (detenido) yield break;
-            if (!EsSeguro(posicion)) continue;
+            if (!seguro) continue;
             Limites(out float izquierda, out float derecha);
             var enemigo = Instantiate(prefab, posicion, Quaternion.identity, transform);
             enemigo.Configurar(jugador, izquierda, derecha);
@@ -255,6 +259,9 @@ public class DirectorOleadas : MonoBehaviour
             enemigo.Eliminado += AlEliminarEnemigo;
             enemigo.Retirado += AlEliminarEnemigo;
             activos.Add(enemigo);
+            entradasEnCurso--;
+            porAparecer--;
+            ActualizarTexto();
             yield break;
         }
     }
@@ -270,7 +277,7 @@ public class DirectorOleadas : MonoBehaviour
     {
         if (textoOleadas == null) return;
         string nombre = oleadas[indiceOleada].nombre;
-        if (aviso != null) nombre = ladoAviso;
+        if (avisos.Count > 0) nombre = avisos.Count > 1 ? "Entradas múltiples · busca espacio" : ladoAviso;
         textoOleadas.text = "Oleada " + (indiceOleada + 1) + "/" + oleadas.Length +
             " · Restantes: " + (activos.Count + porAparecer) +
             (string.IsNullOrWhiteSpace(nombre) ? "" : "\n" + nombre);
@@ -282,6 +289,9 @@ public class DirectorOleadas : MonoBehaviour
         bool descanso = estado != EstadoOleadas.Combate && estado != EstadoOleadas.Jefe;
         if (disparo != null) disparo.SuspenderMejora = descanso;
         if (recompensas != null) recompensas.EnDescanso = descanso;
+        FeedbackCombate.Presion(gameObject.scene, estado == EstadoOleadas.Combate && indiceOleada == oleadas.Length - 1);
+        if (textoOleadas != null) textoOleadas.color = estado == EstadoOleadas.Combate && indiceOleada == oleadas.Length - 1
+            ? new Color(1f, 0.65f, 0.5f) : Color.white;
     }
 
     private void ActivarJefe()
@@ -312,8 +322,8 @@ public class DirectorOleadas : MonoBehaviour
 
     private void RetirarAviso()
     {
-        if (aviso != null) { aviso.SetActive(false); Destroy(aviso); }
-        aviso = null;
+        foreach (var aviso in avisos) if (aviso != null) { aviso.SetActive(false); Destroy(aviso); }
+        avisos.Clear(); entradasEnCurso = 0;
     }
 
     private void Detener()
