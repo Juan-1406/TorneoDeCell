@@ -11,7 +11,7 @@ public class AtaqueAbanico : BossAttack
     {
         if (objetivo == null) yield break;
 
-        Vector2 direccionBase = objetivo.position - transform.position;
+        Vector2 direccionBase = (Vector2)objetivo.position - OrigenDisparo;
 
         for (int i = 0; i < cantidad; i++)
         {

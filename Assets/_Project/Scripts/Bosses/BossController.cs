@@ -16,10 +16,14 @@ public class BossController : MonoBehaviour
     private BossAttack ultimoAtaque;
     private readonly List<BossAttack> candidatos = new List<BossAttack>();
     private bool iniciado;
+    private PresentacionRenato presentacion;
+    private int faseVisualPendiente = -1;
+    public int FaseActual => faseActual;
 
     private void Awake()
     {
         movimiento = GetComponent<SeguirCamaraX>();
+        presentacion = GetComponent<PresentacionRenato>();
     }
 
     private void OnEnable()
@@ -85,6 +89,12 @@ public class BossController : MonoBehaviour
         if (nueva < 0 || nueva == faseActual) return;
 
         faseActual = nueva;
+        if (movimiento != null) movimiento.EstablecerFase(nueva);
+        if (presentacion != null)
+        {
+            if (nueva == 0) presentacion.EstablecerFase(nueva);
+            else faseVisualPendiente = nueva;
+        }
         if (sprite != null) sprite.color = fases[nueva].color;
         if (movimiento != null)
             movimiento.ConfigurarOscilacion(fases[nueva].amplitudHorizontal,
@@ -94,10 +104,16 @@ public class BossController : MonoBehaviour
 
     private IEnumerator Combate()
     {
-        yield return new WaitForSeconds(Mathf.Max(0f, retardoInicial));
+        if (presentacion != null) yield return presentacion.Entrada();
+        yield return new WaitForSeconds(Mathf.Max(0f, retardoInicial - (presentacion != null ? 0.85f : 0f)));
 
         while (isActiveAndEnabled && vida != null && vida.VidaActual > 0)
         {
+            if (presentacion != null && faseVisualPendiente >= 0)
+            {
+                int pendiente = faseVisualPendiente; faseVisualPendiente = -1;
+                yield return presentacion.CambioFase(pendiente);
+            }
             FaseJefe fase = fases != null && faseActual >= 0 && faseActual < fases.Length
                 ? fases[faseActual] : null;
             BossAttack ataque = SeleccionarAtaque(fase);
@@ -109,13 +125,27 @@ public class BossController : MonoBehaviour
             }
 
             ultimoAtaque = ataque;
+            if (presentacion != null)
+            {
+                if (movimiento != null) yield return movimiento.ColocarParaAtaque(ataque, objetivo);
+                yield return new WaitForSeconds(presentacion.Preparar(ataque));
+                presentacion.IniciarAtaque(ataque);
+                // Permite al Animator aplicar la pose y alinear nariz e hitbox antes de disparar.
+                yield return null;
+            }
             ataqueActual = ataque;
             yield return StartCoroutine(ataque.Ejecutar(objetivo));
             if (ataqueActual != null) ataqueActual.Cancelar();
             ataqueActual = null;
 
             // La fase nueva se utiliza en la siguiente seleccion, sin solapar ataques.
-            yield return new WaitForSeconds(Mathf.Max(0f, fase.pausaEntreAtaques));
+            if (presentacion != null)
+            {
+                presentacion.Recuperar();
+                yield return new WaitForSeconds(0.4f);
+                presentacion.Reposo();
+            }
+            yield return new WaitForSeconds(Mathf.Max(0f, fase.pausaEntreAtaques - (presentacion != null ? 0.4f : 0f)));
         }
     }
 

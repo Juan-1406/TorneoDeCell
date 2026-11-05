@@ -65,7 +65,7 @@ public class Bullet : MonoBehaviour
         Collider2D colisionJefe = jefe != null ? jefe.GetComponent<Collider2D>() : null;
         if (colisionJefe != null && colisionJefe.enabled)
         {
-            direccion = jefe.transform.position - transform.position;
+            direccion = colisionJefe.bounds.center - transform.position;
         }
         else
         {

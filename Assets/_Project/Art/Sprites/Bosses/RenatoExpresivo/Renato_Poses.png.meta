@@ -1,0 +1,411 @@
+fileFormatVersion: 2
+guid: 1df333f7bf90de14b8d9d22fa8f8cdd2
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5950682005779509973
+    second: Renato_Poses_0
+  - first:
+      213: 6467201629922116867
+    second: Renato_Poses_1
+  - first:
+      213: 2875526724343939084
+    second: Renato_Poses_2
+  - first:
+      213: -1834477014701210751
+    second: Renato_Poses_3
+  - first:
+      213: -509143960230942806
+    second: Renato_Poses_4
+  - first:
+      213: 4744222739831799322
+    second: Renato_Poses_5
+  - first:
+      213: -8730002350459499606
+    second: Renato_Poses_6
+  - first:
+      213: -1437069134600670419
+    second: Renato_Poses_7
+  - first:
+      213: -3474291467877948793
+    second: Renato_Poses_8
+  - first:
+      213: 3112525672780222380
+    second: Renato_Poses_9
+  - first:
+      213: 5430522202535322840
+    second: Renato_Poses_10
+  - first:
+      213: 7353244199907700237
+    second: Renato_Poses_11
+  - first:
+      213: 4823754341546565364
+    second: Renato_Poses_12
+  - first:
+      213: -4756106098958957349
+    second: Renato_Poses_13
+  - first:
+      213: -7547890981820103392
+    second: Renato_Poses_14
+  - first:
+      213: -1880208920339376772
+    second: Renato_00_Reposo3q
+  - first:
+      213: 6146643519775221382
+    second: Renato_01_Perfil
+  - first:
+      213: 5574189775576997143
+    second: Renato_02_Frente
+  - first:
+      213: 1919829741693482769
+    second: Renato_03_Inhalacion
+  - first:
+      213: -6142946542544912997
+    second: Renato_04_Estornudo
+  - first:
+      213: -4655691207049290460
+    second: Renato_05_Abanico
+  - first:
+      213: 4854886595194424246
+    second: Renato_06_Recuperacion
+  - first:
+      213: -790674049124806485
+    second: Renato_07_Enfado
+  - first:
+      213: 6046098835373993215
+    second: Renato_08_Impacto
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Renato_00_Reposo3q
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 846
+        width: 344
+        height: 367
+      alignment: 9
+      pivot: {x: 0.48255813, y: 0.005449591}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7596afd2f728e5e0800000000000000
+      internalID: -1880208920339376772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_01_Perfil
+      rect:
+        serializedVersion: 2
+        x: 468
+        y: 846
+        width: 310
+        height: 356
+      alignment: 9
+      pivot: {x: 0.5129032, y: 0.0056179776}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 686a82507b34d4550800000000000000
+      internalID: 6146643519775221382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_02_Frente
+      rect:
+        serializedVersion: 2
+        x: 875
+        y: 846
+        width: 340
+        height: 376
+      alignment: 9
+      pivot: {x: 0.5, y: 0.005319149}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71d91eb41108b5d40800000000000000
+      internalID: 5574189775576997143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_03_Inhalacion
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 433
+        width: 339
+        height: 395
+      alignment: 9
+      pivot: {x: 0.48967552, y: 0.005063291}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 117bed67afa94aa10800000000000000
+      internalID: 1919829741693482769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_04_Estornudo
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 433
+        width: 365
+        height: 341
+      alignment: 9
+      pivot: {x: 0.5068493, y: 0.0058651026}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9d75619aaedfbaa0800000000000000
+      internalID: -6142946542544912997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_05_Abanico
+      rect:
+        serializedVersion: 2
+        x: 836
+        y: 433
+        width: 402
+        height: 387
+      alignment: 9
+      pivot: {x: 0.5199005, y: 0.005167959}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42ddaeb9389a36fb0800000000000000
+      internalID: -4655691207049290460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_06_Recuperacion
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 17
+        width: 322
+        height: 369
+      alignment: 9
+      pivot: {x: 0.4627329, y: 0.0054200543}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6bb8e53d2a5006340800000000000000
+      internalID: 4854886595194424246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_07_Enfado
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 17
+        width: 379
+        height: 384
+      alignment: 9
+      pivot: {x: 0.49868074, y: 0.0052083335}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba0dbc83426f605f0800000000000000
+      internalID: -790674049124806485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Renato_08_Impacto
+      rect:
+        serializedVersion: 2
+        x: 866
+        y: 17
+        width: 337
+        height: 378
+      alignment: 9
+      pivot: {x: 0.53115726, y: 0.005291005}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffcae5f6bde08e350800000000000000
+      internalID: 6046098835373993215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Renato_00_Reposo3q: -1880208920339376772
+      Renato_01_Perfil: 6146643519775221382
+      Renato_02_Frente: 5574189775576997143
+      Renato_03_Inhalacion: 1919829741693482769
+      Renato_04_Estornudo: -6142946542544912997
+      Renato_05_Abanico: -4655691207049290460
+      Renato_06_Recuperacion: 4854886595194424246
+      Renato_07_Enfado: -790674049124806485
+      Renato_08_Impacto: 6046098835373993215
+      Renato_Poses_0: -5950682005779509973
+      Renato_Poses_1: 6467201629922116867
+      Renato_Poses_10: 5430522202535322840
+      Renato_Poses_11: 7353244199907700237
+      Renato_Poses_12: 4823754341546565364
+      Renato_Poses_13: -4756106098958957349
+      Renato_Poses_14: -7547890981820103392
+      Renato_Poses_2: 2875526724343939084
+      Renato_Poses_3: -1834477014701210751
+      Renato_Poses_4: -509143960230942806
+      Renato_Poses_5: 4744222739831799322
+      Renato_Poses_6: -8730002350459499606
+      Renato_Poses_7: -1437069134600670419
+      Renato_Poses_8: -3474291467877948793
+      Renato_Poses_9: 3112525672780222380
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

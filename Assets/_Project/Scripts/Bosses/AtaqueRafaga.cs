@@ -12,7 +12,7 @@ public class AtaqueRafaga : BossAttack
         {
             if (objetivo == null) yield break;
 
-            Disparar(objetivo.position - transform.position);
+            Disparar((Vector2)objetivo.position - OrigenDisparo);
             yield return new WaitForSeconds(intervalo);
         }
     }
