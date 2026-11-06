@@ -1,0 +1,429 @@
+fileFormatVersion: 2
+guid: f0846b0b997355e4287a1e23c659586b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4540770932749866259
+    second: CellJunior_Melee_0
+  - first:
+      213: -8938889349307438513
+    second: CellJunior_Melee_1
+  - first:
+      213: -1905822269990806696
+    second: CellJunior_Melee_2
+  - first:
+      213: 1479971880571527763
+    second: CellJunior_Melee_3
+  - first:
+      213: -1241415416609751765
+    second: CellJunior_Melee_4
+  - first:
+      213: -8202548561616471363
+    second: CellJunior_Melee_5
+  - first:
+      213: -196413619228131591
+    second: CellJunior_Melee_6
+  - first:
+      213: 8321334858802905113
+    second: CellJunior_Melee_7
+  - first:
+      213: -7564295563107380331
+    second: CellJunior_Melee_8
+  - first:
+      213: 7429837411540280101
+    second: CellJunior_Melee_9
+  - first:
+      213: -1613365662674482714
+    second: CellJunior_Melee_10
+  - first:
+      213: -7693517713707102551
+    second: CellJunior_Melee_11
+  - first:
+      213: 6844849789983287589
+    second: CellJunior_Melee_12
+  - first:
+      213: 6991792551616544663
+    second: CellJunior_Melee_13
+  - first:
+      213: 6947880369478135975
+    second: CellJunior_Melee_14
+  - first:
+      213: -2897593282074498116
+    second: CellJunior_Melee_15
+  - first:
+      213: 474751566284970765
+    second: CellJunior_Melee_16
+  - first:
+      213: -8680354295785029383
+    second: CellJunior_Melee_17
+  - first:
+      213: -5534166425514860600
+    second: CellJunior_Melee_18
+  - first:
+      213: -2670863082830071455
+    second: CellJunior_Melee_19
+  - first:
+      213: 7420876962979356738
+    second: CellJunior_Melee_20
+  - first:
+      213: 2422194225244239959
+    second: CellJunior_Melee_21
+  - first:
+      213: 5756075889385512219
+    second: CellJunior_Melee_22
+  - first:
+      213: -6701989580934483754
+    second: CellJunior_Melee_23
+  - first:
+      213: -4733381698783354454
+    second: CellJunior_Melee_24
+  - first:
+      213: 8454286004258352016
+    second: CellJunior_Melee_25
+  - first:
+      213: 5319566013238113751
+    second: CellJunior_Melee_26
+  - first:
+      213: -8689205572117440307
+    second: CellJunior_Melee_27
+  - first:
+      213: 7617638213052190903
+    second: CellJunior_Melee_28
+  - first:
+      213: 8822641407956098227
+    second: CellJunior_Melee_29
+  - first:
+      213: 9049835824621596602
+    second: CellJunior_Melee_30
+  - first:
+      213: 6034640714924205463
+    second: CellJunior_Melee_31
+  - first:
+      213: -906718840768051805
+    second: CellJunior_Melee_32
+  - first:
+      213: -6348371771917809421
+    second: CellJunior_Melee_33
+  - first:
+      213: 6029254759878004248
+    second: CellJunior_Melee_34
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 210
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: CellJunior_Melee_00_Reposo
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 879
+        width: 223
+        height: 333
+      alignment: 9
+      pivot: {x: 0.529148, y: 0.006006006}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d73a83a6f4e54c43b67e7b39ca985e3
+      internalID: -1412070171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CellJunior_Melee_01_CarreraA
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 879
+        width: 247
+        height: 333
+      alignment: 9
+      pivot: {x: 0.57894737, y: 0.006006006}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b1b288aa4fc29544a10f7109392ff4e
+      internalID: 480529344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CellJunior_Melee_02_CarreraB
+      rect:
+        serializedVersion: 2
+        x: 911
+        y: 879
+        width: 228
+        height: 333
+      alignment: 9
+      pivot: {x: 0.5877193, y: 0.006006006}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4007e23be10e81f419d04f82f877d982
+      internalID: 581830680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CellJunior_Melee_03_Preparar
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 456
+        width: 246
+        height: 338
+      alignment: 9
+      pivot: {x: 0.5243902, y: 0.00591716}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 927fe59d63859034eb12c26ad81963d6
+      internalID: -1093679320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CellJunior_Melee_04_Golpear
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 456
+        width: 318
+        height: 342
+      alignment: 9
+      pivot: {x: 0.4874214, y: 0.0058479533}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c3caecf451b7264dba4c76dd42f60a6
+      internalID: -1818022161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CellJunior_Melee_05_Recuperar
+      rect:
+        serializedVersion: 2
+        x: 914
+        y: 456
+        width: 237
+        height: 339
+      alignment: 9
+      pivot: {x: 0.5527426, y: 0.005899705}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cec0895c864e53c4883456d5f0bccf93
+      internalID: -477556589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CellJunior_Melee_06_Danio
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 40
+        width: 269
+        height: 336
+      alignment: 9
+      pivot: {x: 0.4795539, y: 0.005952381}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5942489fbb2b8394ebb64fb3a72fafd5
+      internalID: -954031082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CellJunior_Melee_07_Caer
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 42
+        width: 264
+        height: 295
+      alignment: 9
+      pivot: {x: 0.5871212, y: 0.006779661}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4fb1b5aaade262e40a38ac1d696ddd01
+      internalID: 1864189400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CellJunior_Melee_08_Muerte
+      rect:
+        serializedVersion: 2
+        x: 851
+        y: 43
+        width: 348
+        height: 156
+      alignment: 9
+      pivot: {x: 0.5574713, y: 0.012820513}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ba978419c82d5644804e2d543e0dabc
+      internalID: 528418609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 580e622f0ca738b4abb2ab28b201333d
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      CellJunior_Melee_00_Reposo: -1412070171
+      CellJunior_Melee_01_CarreraA: 480529344
+      CellJunior_Melee_02_CarreraB: 581830680
+      CellJunior_Melee_03_Preparar: -1093679320
+      CellJunior_Melee_04_Golpear: -1818022161
+      CellJunior_Melee_05_Recuperar: -477556589
+      CellJunior_Melee_06_Danio: -954031082
+      CellJunior_Melee_07_Caer: 1864189400
+      CellJunior_Melee_08_Muerte: 528418609
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

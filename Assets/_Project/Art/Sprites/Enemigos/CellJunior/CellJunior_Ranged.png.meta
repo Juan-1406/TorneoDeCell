@@ -1,0 +1,609 @@
+fileFormatVersion: 2
+guid: ba4f33a9365997f49b0f88c8a8ac8ac4
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7281612929073155832
+    second: CellJunior_Ranged_0
+  - first:
+      213: 5215882682367620315
+    second: CellJunior_Ranged_1
+  - first:
+      213: -2811560305760765003
+    second: CellJunior_Ranged_2
+  - first:
+      213: -8567085750157663918
+    second: CellJunior_Ranged_3
+  - first:
+      213: -2536773882323356877
+    second: CellJunior_Ranged_4
+  - first:
+      213: 632152250406974021
+    second: CellJunior_Ranged_5
+  - first:
+      213: 154175818013728534
+    second: CellJunior_Ranged_6
+  - first:
+      213: 8966496370657752039
+    second: CellJunior_Ranged_7
+  - first:
+      213: 851450376625643789
+    second: CellJunior_Ranged_8
+  - first:
+      213: 4775920507203165076
+    second: CellJunior_Ranged_9
+  - first:
+      213: -367058289791061937
+    second: CellJunior_Ranged_10
+  - first:
+      213: -2600913740194057125
+    second: CellJunior_Ranged_11
+  - first:
+      213: -2329295471978803904
+    second: CellJunior_Ranged_12
+  - first:
+      213: 4374060476963812569
+    second: CellJunior_Ranged_13
+  - first:
+      213: 6889980846121607079
+    second: CellJunior_Ranged_14
+  - first:
+      213: 7817847543175785131
+    second: CellJunior_Ranged_15
+  - first:
+      213: 5917681247673053209
+    second: CellJunior_Ranged_16
+  - first:
+      213: -6583237264153765793
+    second: CellJunior_Ranged_17
+  - first:
+      213: 7678732312911205411
+    second: CellJunior_Ranged_18
+  - first:
+      213: 8991409807765679188
+    second: CellJunior_Ranged_19
+  - first:
+      213: -4088647907934042471
+    second: CellJunior_Ranged_20
+  - first:
+      213: 7501672183179356494
+    second: CellJunior_Ranged_21
+  - first:
+      213: 6993347582081671216
+    second: CellJunior_Ranged_22
+  - first:
+      213: -4380849116794214442
+    second: CellJunior_Ranged_23
+  - first:
+      213: 3799457772657569621
+    second: CellJunior_Ranged_24
+  - first:
+      213: -7433907047376303696
+    second: CellJunior_Ranged_25
+  - first:
+      213: 3715659501766946338
+    second: CellJunior_Ranged_26
+  - first:
+      213: 8300310937515509905
+    second: CellJunior_Ranged_27
+  - first:
+      213: -5529362559741483721
+    second: CellJunior_Ranged_28
+  - first:
+      213: 4053270317744300017
+    second: CellJunior_Ranged_29
+  - first:
+      213: 2377717034750369516
+    second: CellJunior_Ranged_30
+  - first:
+      213: 2634951113524924858
+    second: CellJunior_Ranged_31
+  - first:
+      213: 7078413836027065016
+    second: CellJunior_Ranged_32
+  - first:
+      213: -6803729200614005865
+    second: CellJunior_Ranged_33
+  - first:
+      213: 537444496307381996
+    second: CellJunior_Ranged_34
+  - first:
+      213: -5902253473438942287
+    second: CellJunior_Ranged_35
+  - first:
+      213: 8000463870361969859
+    second: CellJunior_Ranged_36
+  - first:
+      213: -4284842421252750713
+    second: CellJunior_Ranged_37
+  - first:
+      213: 89869554499774897
+    second: CellJunior_Ranged_38
+  - first:
+      213: -405250255070483511
+    second: CellJunior_Ranged_39
+  - first:
+      213: -7290731500247581824
+    second: CellJunior_Ranged_40
+  - first:
+      213: -5277999427954930335
+    second: CellJunior_Ranged_41
+  - first:
+      213: 4119549594041590431
+    second: CellJunior_Ranged_42
+  - first:
+      213: 4806152411863792354
+    second: CellJunior_Ranged_43
+  - first:
+      213: 3650479090629603930
+    second: CellJunior_Ranged_44
+  - first:
+      213: 4095020772686550005
+    second: CellJunior_Ranged_45
+  - first:
+      213: -3929979124395881776
+    second: CellJunior_Ranged_46
+  - first:
+      213: -8619542682527781310
+    second: CellJunior_Ranged_47
+  - first:
+      213: -9051343563640769191
+    second: CellJunior_Ranged_48
+  - first:
+      213: -1856573089351319523
+    second: CellJunior_Ranged_49
+  - first:
+      213: 6175465542555626255
+    second: CellJunior_Ranged_50
+  - first:
+      213: 5951432027663467935
+    second: CellJunior_Ranged_51
+  - first:
+      213: -538558248168901505
+    second: CellJunior_Ranged_52
+  - first:
+      213: -519780890867921845
+    second: CellJunior_Ranged_53
+  - first:
+      213: -4493198415747779135
+    second: CellJunior_Ranged_54
+  - first:
+      213: 8393989362903290927
+    second: CellJunior_Ranged_55
+  - first:
+      213: 7105943938065867397
+    second: CellJunior_Ranged_56
+  - first:
+      213: -2570203575993455258
+    second: CellJunior_Ranged_57
+  - first:
+      213: 7320802745885953073
+    second: CellJunior_Ranged_58
+  - first:
+      213: -5802707287833494567
+    second: CellJunior_Ranged_59
+  - first:
+      213: -8383568422321153103
+    second: CellJunior_Ranged_60
+  - first:
+      213: 5811979963538346435
+    second: CellJunior_Ranged_61
+  - first:
+      213: -2310727633049099836
+    second: CellJunior_Ranged_62
+  - first:
+      213: -7580064390327721783
+    second: CellJunior_Ranged_63
+  - first:
+      213: 329347256891563274
+    second: CellJunior_Ranged_64
+  - first:
+      213: -7005710541094360581
+    second: CellJunior_Ranged_65
+  - first:
+      213: -2465118950988195437
+    second: CellJunior_Ranged_66
+  - first:
+      213: -5348716444244695262
+    second: CellJunior_Ranged_67
+  - first:
+      213: -6216771601060259577
+    second: CellJunior_Ranged_68
+  - first:
+      213: -6432586461663384707
+    second: CellJunior_Ranged_69
+  - first:
+      213: 5863056681217296817
+    second: CellJunior_Ranged_70
+  - first:
+      213: 6061274755665361891
+    second: CellJunior_Ranged_71
+  - first:
+      213: 3858716591038598556
+    second: CellJunior_Ranged_72
+  - first:
+      213: 7318539064726301290
+    second: CellJunior_Ranged_73
+  - first:
+      213: 4807167133364852022
+    second: CellJunior_Ranged_74
+  - first:
+      213: -1467115105357780004
+    second: CellJunior_Ranged_75
+  - first:
+      213: -1208364237167916464
+    second: CellJunior_Ranged_76
+  - first:
+      213: -4858505023542539636
+    second: CellJunior_Ranged_77
+  - first:
+      213: -4481115187453868946
+    second: CellJunior_Ranged_78
+  - first:
+      213: -428483892726578723
+    second: CellJunior_Ranged_79
+  - first:
+      213: -5816411066055041474
+    second: CellJunior_Ranged_80
+  - first:
+      213: -2554294043030871629
+    second: CellJunior_Ranged_81
+  - first:
+      213: 8669550516811833642
+    second: CellJunior_Ranged_82
+  - first:
+      213: 2823835328692895026
+    second: CellJunior_Ranged_83
+  - first:
+      213: 1875972940592048264
+    second: CellJunior_Ranged_84
+  - first:
+      213: 1966919098405176533
+    second: CellJunior_Ranged_85
+  - first:
+      213: -6807267608091483789
+    second: CellJunior_Ranged_86
+  - first:
+      213: 4039426127796081903
+    second: CellJunior_Ranged_87
+  - first:
+      213: -1555144273827799256
+    second: CellJunior_Ranged_88
+  - first:
+      213: 6852629457357552690
+    second: CellJunior_Ranged_89
+  - first:
+      213: 1371651153833775944
+    second: CellJunior_Ranged_90
+  - first:
+      213: 8903566092675182287
+    second: CellJunior_Ranged_91
+  - first:
+      213: 1896237039329896722
+    second: CellJunior_Ranged_92
+  - first:
+      213: 4964213469587140118
+    second: CellJunior_Ranged_93
+  - first:
+      213: 7585245320110816022
+    second: CellJunior_Ranged_94
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 220
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: CellJunior_Ranged_00_Reposo
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 878
+        width: 223
+        height: 349
+      alignment: 9
+      pivot: {x: 0.58295965, y: 0.0057306592}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95a8d731dffe9cf419ddcef0e6b6204a
+      internalID: -1783532389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CellJunior_Ranged_01_PasoA
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 878
+        width: 221
+        height: 350
+      alignment: 9
+      pivot: {x: 0.6289593, y: 0.0057142857}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a78996218d7fab4d8cb821889d8537c
+      internalID: 1958675406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CellJunior_Ranged_02_PasoB
+      rect:
+        serializedVersion: 2
+        x: 908
+        y: 878
+        width: 214
+        height: 349
+      alignment: 9
+      pivot: {x: 0.6401869, y: 0.0057306592}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af368a26eb2fbc34c9290e5058836f66
+      internalID: 1378410629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CellJunior_Ranged_03_Apuntar
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 458
+        width: 264
+        height: 351
+      alignment: 9
+      pivot: {x: 0.4848485, y: 0.0056980057}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d26ed49bab500b846a915aa4868a8623
+      internalID: -807165227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CellJunior_Ranged_04_Preparar
+      rect:
+        serializedVersion: 2
+        x: 491
+        y: 458
+        width: 227
+        height: 351
+      alignment: 9
+      pivot: {x: 0.59911895, y: 0.0056980057}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 857bdd9b1c9d1ab4e960664a3a6c5eb3
+      internalID: -1911461348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CellJunior_Ranged_05_Disparar
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 457
+        width: 292
+        height: 352
+      alignment: 9
+      pivot: {x: 0.49657536, y: 0.0056818184}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d974bdff93b6c80499a376f979af1dbf
+      internalID: 362843154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CellJunior_Ranged_06_Recuperar
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 40
+        width: 245
+        height: 349
+      alignment: 9
+      pivot: {x: 0.52244896, y: 0.0057306592}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4617ac1cc991b9249887055c6aadda34
+      internalID: 1196133323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CellJunior_Ranged_07_Danio
+      rect:
+        serializedVersion: 2
+        x: 463
+        y: 40
+        width: 270
+        height: 349
+      alignment: 9
+      pivot: {x: 0.6074074, y: 0.0057306592}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61e45073d6784a04fb9d97310836eca1
+      internalID: -630640568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CellJunior_Ranged_08_Muerte
+      rect:
+        serializedVersion: 2
+        x: 857
+        y: 40
+        width: 345
+        height: 155
+      alignment: 9
+      pivot: {x: 0.54492754, y: 0.012903226}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9693b32544c3d2d479feed18d966ed1b
+      internalID: -136969121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: bc20d8139ea0f7b45ae44a319b4976fa
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      CellJunior_Ranged_00_Reposo: -1783532389
+      CellJunior_Ranged_01_PasoA: 1958675406
+      CellJunior_Ranged_02_PasoB: 1378410629
+      CellJunior_Ranged_03_Apuntar: -807165227
+      CellJunior_Ranged_04_Preparar: -1911461348
+      CellJunior_Ranged_05_Disparar: 362843154
+      CellJunior_Ranged_06_Recuperar: 1196133323
+      CellJunior_Ranged_07_Danio: -630640568
+      CellJunior_Ranged_08_Muerte: -136969121
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

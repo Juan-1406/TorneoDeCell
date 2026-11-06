@@ -37,6 +37,7 @@ public class EnemigoMenor : MonoBehaviour
     private CircleCollider2D colision;
     private SpriteRenderer imagen;
     private Transform visual;
+    private PresentacionEnemigoMenor presentacion;
     private Color colorBase;
     private float siguienteAtaque, velocidadX, flashHasta, reubicarHasta, revisarAmenaza;
     private float siguienteEvasion;
@@ -54,6 +55,9 @@ public class EnemigoMenor : MonoBehaviour
     public TipoAtaque Tipo => tipoAtaque;
     public float VelocidadHorizontal => velocidadX;
     public Health Vida => vida;
+    public Transform ObjetivoVisual => jugador != null ? jugador.transform : null;
+    public Vector2 PuntoApuntado => objetivoAtaque;
+    public float SentidoCarga => direccionCarga;
     public event Action<EnemigoMenor> Eliminado;
     public event Action<EnemigoMenor> Retirado;
 
@@ -65,20 +69,31 @@ public class EnemigoMenor : MonoBehaviour
         vida = GetComponent<Health>(); cuerpo = GetComponent<Rigidbody2D>(); colision = GetComponent<CircleCollider2D>();
         var original = GetComponent<SpriteRenderer>();
         colorBase = original.color;
-        var go = new GameObject("Visual enemigo");
-        visual = go.transform; visual.SetParent(transform, false);
-        imagen = go.AddComponent<SpriteRenderer>();
-        imagen.sprite = original.sprite != null ? original.sprite : FeedbackCombate.Punto;
-        imagen.sharedMaterial = original.sharedMaterial;
-        imagen.sortingLayerID = original.sortingLayerID; imagen.sortingOrder = original.sortingOrder;
-        imagen.color = colorBase; original.enabled = false;
+        presentacion = GetComponent<PresentacionEnemigoMenor>();
+        if (presentacion != null)
+        {
+            visual = presentacion.VisualEntrada;
+            imagen = presentacion.Imagen;
+            presentacion.Vincular(this, vida);
+        }
+        else
+        {
+            var go = new GameObject("Visual enemigo");
+            visual = go.transform; visual.SetParent(transform, false);
+            imagen = go.AddComponent<SpriteRenderer>();
+            imagen.sprite = original.sprite != null ? original.sprite : FeedbackCombate.Punto;
+            imagen.sharedMaterial = original.sharedMaterial;
+            imagen.sortingLayerID = original.sortingLayerID; imagen.sortingOrder = original.sortingOrder;
+            imagen.color = colorBase;
+        }
+        original.enabled = false;
         vida.OnMuerte += AlMorir;
         vida.OnDanioRecibido += AlRecibirDanio;
     }
     private void OnDisable()
     {
         presentes.Remove(this); StopAllCoroutines(); velocidadX = 0;
-        if (imagen != null) imagen.color = colorBase;
+        if (imagen != null) imagen.color = presentacion != null ? Color.white : colorBase;
     }
     private void OnDestroy()
     {
@@ -214,6 +229,7 @@ public class EnemigoMenor : MonoBehaviour
                     bala.Disparar(vector);
                 }
                 flashHasta = Time.time + 0.08f;
+                if (presentacion != null) presentacion.PulsoDisparo(direccion.normalized);
                 if (ronda < disparosRafaga - 1) yield return new WaitForSeconds(intervaloRafaga);
             }
         siguienteAtaque = Time.time + intervaloAtaque;
@@ -229,7 +245,7 @@ public class EnemigoMenor : MonoBehaviour
     }
     private void LateUpdate()
     {
-        if (visual == null || Entrando || SesionJuego.EnPausa || Time.timeScale == 0f) return;
+        if (presentacion != null || visual == null || Entrando || SesionJuego.EnPausa || Time.timeScale == 0f) return;
         Color tinte = PreparandoAtaque ? Color.Lerp(colorBase, Color.white, 0.55f + 0.2f * Mathf.Sin(Time.time * 18f)) : colorBase;
         imagen.color = Time.time < flashHasta ? Color.white : tinte;
         Vector3 escala = Vector3.one;
@@ -250,6 +266,7 @@ public class EnemigoMenor : MonoBehaviour
     {
         if (eliminado) return;
         eliminado = true; StopAllCoroutines();
+        if (presentacion != null) presentacion.MostrarDerrota();
         FeedbackCombate.Emitir(this, colorBase, 12, 4f, 0.06f);
         if (recompensas != null) recompensas.IntentarCrear(recompensaPrefab, probabilidadRecompensa, transform.position);
         Eliminado?.Invoke(this); gameObject.SetActive(false); Destroy(gameObject);
