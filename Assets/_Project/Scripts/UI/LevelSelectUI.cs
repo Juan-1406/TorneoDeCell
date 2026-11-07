@@ -47,6 +47,9 @@ public class LevelSelectUI : MonoBehaviour
             n.boton.interactable = existe && desbloqueado;
 
             if (!existe) n.etiqueta.text = n.nombre + "\nPRÓXIMAMENTE";
+            else if (i == 1 && !desbloqueado) n.etiqueta.text = n.nombre + "\nDerrota a René Puente para desbloquear";
+            else if (i == 1 && ProgresoJuego.PadrePastaFaseUnoSuperada) n.etiqueta.text = n.nombre + "\nFase 1 superada";
+            else if (i == 0 && derrotado) n.etiqueta.text = "René Puente derrotado";
             else if (!desbloqueado) n.etiqueta.text = "BLOQUEADO";
             else if (derrotado) n.etiqueta.text = n.nombre + "\n(DERROTADO)";
             else n.etiqueta.text = n.nombre;

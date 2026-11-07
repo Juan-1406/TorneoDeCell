@@ -20,6 +20,9 @@ public class Bullet : MonoBehaviour
     private SpriteRenderer sprite;
     private float expira;
     private ProyectilRenato proyectilRenato;
+    private Transform objetivoNota;
+    private float giroNota;
+    private bool notaMusical;
     internal bool EsProyectilRenato => proyectilRenato != null;
     private static readonly HashSet<Bullet> activas = new HashSet<Bullet>();
     public static IEnumerable<Bullet> Activas => activas;
@@ -52,6 +55,27 @@ public class Bullet : MonoBehaviour
         expira = Time.time + Mathf.Max(0.1f, tiempoVida);
     }
 
+    internal void DispararNota(Sprite nota, Vector2 direccion, float rapidez, Transform objetivo, float giro)
+    {
+        notaMusical = true;
+        sprite.sprite = nota;
+        velocidad = rapidez;
+        objetivoNota = objetivo;
+        giroNota = giro;
+        Disparar(direccion);
+    }
+
+    private void FixedUpdate()
+    {
+        if (objetivoNota == null) return;
+
+        Vector2 direccion = rb.linearVelocity;
+        Vector2 haciaObjetivo = (Vector2)objetivoNota.position - rb.position;
+        float giro = Mathf.Clamp(Vector2.SignedAngle(direccion, haciaObjetivo),
+            -giroNota * Time.fixedDeltaTime, giroNota * Time.fixedDeltaTime);
+        rb.linearVelocity = Quaternion.Euler(0f, 0f, giro) * direccion;
+    }
+
     private void Update()
     {
         if (expira > 0f && Time.time >= expira) Destroy(gameObject);
@@ -65,6 +89,7 @@ public class Bullet : MonoBehaviour
     internal void Reflejar(Vector2 direccionJugador)
     {
         if (!EsReflejable) return;
+        objetivoNota = null;
         if (proyectilRenato != null)
         {
             proyectilRenato.Devolver(direccionJugador);
@@ -111,7 +136,7 @@ public class Bullet : MonoBehaviour
 
     private void Orientar(Vector2 direccion)
     {
-        if (direccion.sqrMagnitude < 0.001f) return;
+        if (notaMusical || direccion.sqrMagnitude < 0.001f) return;
         float angulo = Mathf.Atan2(direccion.y, direccion.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, angulo - orientacionSpriteGrados);
     }
@@ -131,11 +156,16 @@ public class Bullet : MonoBehaviour
         {
             if (gameObject.layer == capaEnemiga && other.gameObject.layer != LayerMask.NameToLayer("Player")) return;
             if (gameObject.layer == capaJugador && other.gameObject.layer == LayerMask.NameToLayer("Player")) return;
-            bool recibioDanio = gameObject.layer == capaJugador &&
+            bool recibioDanio;
+            if (gameObject.layer == capaJugador &&
+                other.TryGetComponent(out PadrePasta padrePasta) && padrePasta.isActiveAndEnabled)
+                recibioDanio = padrePasta.RecibirDisparo(danio);
+            else if (gameObject.layer == capaJugador &&
                 other.TryGetComponent(out PresentacionRenato renato) && renato.isActiveAndEnabled &&
-                other.TryGetComponent(out BossController jefe) && jefe.isActiveAndEnabled
-                ? jefe.RecibirDisparoRenato(danio)
-                : vida.RecibirDanio(danio);
+                other.TryGetComponent(out BossController jefe) && jefe.isActiveAndEnabled)
+                recibioDanio = jefe.RecibirDisparoRenato(danio);
+            else
+                recibioDanio = vida.RecibirDanio(danio);
             if (recibioDanio) Destroy(gameObject);
             return;
         }

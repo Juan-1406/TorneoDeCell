@@ -4,6 +4,15 @@ public static class ProgresoJuego
 {
     private const string Prefijo = "jefe_derrotado_";
     private const int TotalJefes = 4;
+    private const string FaseUnoPadrePasta = "padre_pasta_fase_1_superada";
+
+    public static bool PadrePastaFaseUnoSuperada => PlayerPrefs.GetInt(FaseUnoPadrePasta, 0) == 1;
+
+    public static void MarcarPadrePastaFaseUnoSuperada()
+    {
+        PlayerPrefs.SetInt(FaseUnoPadrePasta, 1);
+        PlayerPrefs.Save();
+    }
 
     public static bool JefeDerrotado(int id)
     {
@@ -18,6 +27,7 @@ public static class ProgresoJuego
 
     public static bool NivelDesbloqueado(int id)
     {
+        if (id == 1) return JefeDerrotado(0);
         if (id < TotalJefes - 1) return true;
 
         for (int i = 0; i < TotalJefes - 1; i++)
@@ -29,6 +39,7 @@ public static class ProgresoJuego
 
     public static void Borrar()
     {
+        PlayerPrefs.DeleteKey(FaseUnoPadrePasta);
         for (int i = 0; i < TotalJefes; i++)
         {
             PlayerPrefs.DeleteKey(Prefijo + i);

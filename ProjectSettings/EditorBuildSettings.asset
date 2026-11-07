@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/_Project/Scenes/Level1_Renato.unity
     guid: a6d4211f4252d354284684028f455315
   - enabled: 1
+    path: Assets/_Project/Scenes/Level2_PadrePasta.unity
+    guid: ff7f643f2fb154b2b2651476ca605ae5
+  - enabled: 1
     path: Assets/_Project/Scenes/SandBox.unity
     guid: 4e12bc237b5ec0349944dcdaf8a54d62
   m_configObjects:
