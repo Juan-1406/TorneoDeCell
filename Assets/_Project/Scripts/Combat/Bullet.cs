@@ -116,7 +116,12 @@ public class Bullet : MonoBehaviour
         {
             if (gameObject.layer == capaEnemiga && other.gameObject.layer != LayerMask.NameToLayer("Player")) return;
             if (gameObject.layer == capaJugador && other.gameObject.layer == LayerMask.NameToLayer("Player")) return;
-            if (vida.RecibirDanio(danio)) Destroy(gameObject);
+            bool recibioDanio = gameObject.layer == capaJugador &&
+                other.TryGetComponent(out PresentacionRenato renato) && renato.isActiveAndEnabled &&
+                other.TryGetComponent(out BossController jefe) && jefe.isActiveAndEnabled
+                ? jefe.RecibirDisparoRenato(danio)
+                : vida.RecibirDanio(danio);
+            if (recibioDanio) Destroy(gameObject);
             return;
         }
 

@@ -26,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
     private bool enSuelo;
     private bool haciendoDash;
     private bool dashDisponible = true;
+    private float empujeHasta;
+    private float velocidadEmpujeX;
 
     private void Awake()
     {
@@ -40,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
         inputHorizontal = Input.GetAxisRaw("Horizontal");
         if (inputHorizontal != 0f) direccionMirada = Mathf.Sign(inputHorizontal);
 
-        if (haciendoDash) return;
+        if (haciendoDash || Time.time < empujeHasta) return;
 
         // Salto con la tecla W (también puedes agregar flecha arriba si quieres)
         if (Input.GetKeyDown(KeyCode.W) && enSuelo)
@@ -65,7 +67,21 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
+        if (Time.time < empujeHasta)
+        {
+            rb.linearVelocity = new Vector2(velocidadEmpujeX, rb.linearVelocity.y);
+            return;
+        }
+
         rb.linearVelocity = new Vector2(inputHorizontal * velocidad, rb.linearVelocity.y);
+    }
+
+    public void RecibirEmpuje(Vector2 impulso)
+    {
+        if (impulso == Vector2.zero) return;
+        rb.linearVelocity = impulso;
+        velocidadEmpujeX = impulso.x;
+        empujeHasta = Time.time + 0.22f;
     }
 
     private IEnumerator Dash()

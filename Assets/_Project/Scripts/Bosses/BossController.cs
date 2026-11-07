@@ -9,6 +9,20 @@ public class BossController : MonoBehaviour
     [SerializeField] private float retardoInicial = 1.5f;
     [SerializeField] private FaseJefe[] fases;
 
+    [Header("Manotazo de Renato")]
+    [SerializeField, Min(0f)] private float distanciaActivacionManotazo = 2.8f;
+    [SerializeField, Min(0f)] private float radioManotazo = 3.4f;
+    [SerializeField, Min(1)] private int danioManotazo = 1;
+    [SerializeField, Min(0f)] private float fuerzaEmpujeManotazo = 11f;
+    [SerializeField, Min(0f)] private float recargaManotazo = 5f;
+
+    [Header("Escudo de Renato")]
+    [SerializeField, Min(1)] private int disparosParaEscudo = 4;
+    [SerializeField, Min(0.1f)] private float ventanaDisparos = 1f;
+    [SerializeField, Min(0.1f)] private float duracionEscudo = 2.5f;
+    [SerializeField, Range(0f, 0.95f)] private float reduccionDanioEscudo = 0.65f;
+    [SerializeField, Min(0f)] private float recargaEscudo = 5f;
+
     private Transform objetivo;
     private SeguirCamaraX movimiento;
     private int faseActual = -1;
@@ -18,7 +32,12 @@ public class BossController : MonoBehaviour
     private bool iniciado;
     private PresentacionRenato presentacion;
     private int faseVisualPendiente = -1;
+    private float siguienteManotazo;
+    private readonly Queue<float> disparosRecientes = new Queue<float>();
+    private float escudoHasta;
+    private float siguienteEscudo;
     public int FaseActual => faseActual;
+    public bool EscudoActivo => Time.time < escudoHasta;
 
     private void Awake()
     {
@@ -70,6 +89,30 @@ public class BossController : MonoBehaviour
 
         RevisarFase(vida.VidaActual, vida.VidaMaxima);
         StartCoroutine(Combate());
+    }
+
+    public bool RecibirDisparoRenato(int danio)
+    {
+        if (danio <= 0 || vida.VidaActual <= 0 || vida.EsInvulnerable) return false;
+
+        float ahora = Time.time;
+        if (ahora >= siguienteEscudo)
+        {
+            while (disparosRecientes.Count > 0 && ahora - disparosRecientes.Peek() > ventanaDisparos)
+                disparosRecientes.Dequeue();
+            disparosRecientes.Enqueue(ahora);
+            if (disparosRecientes.Count >= disparosParaEscudo)
+            {
+                disparosRecientes.Clear();
+                escudoHasta = ahora + duracionEscudo;
+                siguienteEscudo = escudoHasta + recargaEscudo;
+                FeedbackCombate.Emitir(presentacion.Cuerpo, Color.cyan, 14, 3f);
+            }
+        }
+
+        if (EscudoActivo)
+            danio = Mathf.Max(1, Mathf.RoundToInt(danio * (1f - reduccionDanioEscudo)));
+        return vida.RecibirDanio(danio);
     }
 
     private void RevisarFase(int actual, int maxima)
@@ -127,7 +170,11 @@ public class BossController : MonoBehaviour
             ultimoAtaque = ataque;
             if (presentacion != null)
             {
+                if (PuedeDarManotazo()) yield return DarManotazo();
+                if (objetivo == null) continue;
                 if (movimiento != null) yield return movimiento.ColocarParaAtaque(ataque, objetivo);
+                if (PuedeDarManotazo()) yield return DarManotazo();
+                if (objetivo == null) continue;
                 yield return new WaitForSeconds(presentacion.Preparar(ataque));
                 presentacion.IniciarAtaque(ataque);
                 // Permite al Animator aplicar la pose y alinear nariz e hitbox antes de disparar.
@@ -145,7 +192,42 @@ public class BossController : MonoBehaviour
                 yield return new WaitForSeconds(0.4f);
                 presentacion.Reposo();
             }
-            yield return new WaitForSeconds(Mathf.Max(0f, fase.pausaEntreAtaques - (presentacion != null ? 0.4f : 0f)));
+            float pausa = Mathf.Max(0f, fase.pausaEntreAtaques - (presentacion != null ? 0.4f : 0f));
+            float finPausa = Time.time + pausa;
+            while (Time.time < finPausa)
+            {
+                if (PuedeDarManotazo()) yield return DarManotazo();
+                else yield return null;
+            }
+        }
+    }
+
+    private bool PuedeDarManotazo()
+    {
+        return presentacion != null && presentacion.isActiveAndEnabled && objetivo != null && !SesionJuego.EnPausa &&
+            Time.time >= siguienteManotazo &&
+            ((Vector2)objetivo.position - presentacion.CentroManotazo).sqrMagnitude <=
+                distanciaActivacionManotazo * distanciaActivacionManotazo;
+    }
+
+    private IEnumerator DarManotazo()
+    {
+        Vector2 centro = presentacion.CentroManotazo;
+        yield return presentacion.ManoAlSuelo(centro, radioManotazo, objetivo.position.x, () => ImpactarManotazo(centro));
+        siguienteManotazo = Time.time + recargaManotazo;
+    }
+
+    private void ImpactarManotazo(Vector2 centro)
+    {
+        if (objetivo == null) return;
+        Vector2 distancia = (Vector2)objetivo.position - centro;
+        if (distancia.sqrMagnitude > radioManotazo * radioManotazo) return;
+        if (!objetivo.TryGetComponent(out Health vidaJugador) || !vidaJugador.RecibirDanio(danioManotazo)) return;
+
+        if (objetivo.TryGetComponent(out PlayerMovement jugador))
+        {
+            float direccion = Mathf.Approximately(distancia.x, 0f) ? -presentacion.Orientacion : Mathf.Sign(distancia.x);
+            jugador.RecibirEmpuje(new Vector2(direccion, 0.4f) * fuerzaEmpujeManotazo);
         }
     }
 
@@ -176,6 +258,9 @@ public class BossController : MonoBehaviour
         // Cancelar la corutina no garantiza que se retiren sus avisos visuales.
         if (ataqueActual != null) ataqueActual.Cancelar();
         ataqueActual = null;
+        if (presentacion != null) presentacion.OcultarAreaManotazo();
+        disparosRecientes.Clear();
+        escudoHasta = siguienteEscudo = siguienteManotazo = 0f;
         if (movimiento != null) movimiento.enabled = false;
     }
 }

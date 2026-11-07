@@ -58,7 +58,8 @@ public static class ProbarRenatoVisual
         yield return null;Vincular();
         Check(vista!=null && vista.Animador!=null,"Presentación y Animator conectados");
         Check(!vista.Visible && !controlador.enabled,"Renato no aparece durante la preparación de la fase");
-        Check(vista.Animador.runtimeAnimatorController.animationClips.Length==14,"Catorce clips editables disponibles");
+        var clips = vista.Animador.runtimeAnimatorController.animationClips;
+        Check(clips.Length == 15 && clips.Any(clip => clip.name == "Manotazo"), "Quince clips editables, incluido el manotazo");
         Check(boss.GetComponent<SpriteRenderer>().sprite==null,"El sprite anterior no se duplica detrás del nuevo");
         Check(boss.transform.localScale==Vector3.one,"La raíz de combate no escala proyectiles ni hijos");
         yield return new WaitUntil(()=>director.JefeActivo);
@@ -77,7 +78,7 @@ public static class ProbarRenatoVisual
         Check(plano.Franja.sortingOrder>vista.Cuerpo.sortingOrder&&plano.Franja.sortingOrder<player.GetComponent<SpriteRenderer>().sortingOrder,"El jugador conserva prioridad visual delante de Renato y la cancha");
         Check(plano.Franja.sprite.texture==GameObject.Find("FondoMapaRenato").GetComponent<SpriteRenderer>().sprite.texture,"El primer plano reutiliza exactamente el fondo establecido");
         Check(Mathf.Abs(GameObject.Find("Ground").GetComponent<Collider2D>().bounds.size.x-26.1f)<0.01f,"Se conserva el ancho de combate de la arena");
-        Check(boss.VidaMaxima==500,"Se conserva la salud máxima del jefe");
+        Check(boss.VidaMaxima==750,"La salud máxima del jefe aumenta a 750");
         var box=boss.GetComponent<BoxCollider2D>();
         Check(box.enabled && box.isTrigger && box.GetComponent<Health>()==boss,"La hitbox conserva salud y capa del jefe");
         Capturar("02-reposo");
