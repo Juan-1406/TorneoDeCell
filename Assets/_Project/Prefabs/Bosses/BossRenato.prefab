@@ -744,7 +744,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faacfcad9bda1b3469c3f767138eebd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  vidaMaxima: 500
+  vidaMaxima: 750
   destruirAlMorir: 0
   tiempoInvulnerable: 0
 --- !u!114 &289859614525137634
@@ -795,6 +795,16 @@ MonoBehaviour:
     amplitudHorizontal: 1.1
     amplitudVertical: 0.65
     ciclosPorSegundo: 0.32
+  distanciaActivacionManotazo: 2.8
+  radioManotazo: 3.4
+  danioManotazo: 1
+  fuerzaEmpujeManotazo: 11
+  recargaManotazo: 5
+  disparosParaEscudo: 4
+  ventanaDisparos: 1
+  duracionEscudo: 2.5
+  reduccionDanioEscudo: 0.65
+  recargaEscudo: 5
 --- !u!114 &1997553605195989562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -871,6 +881,25 @@ MonoBehaviour:
     origenNasal: {x: 0.1, y: 2.62}
     centroVulnerable: {x: 0, y: 1.7}
     tamanoVulnerable: {x: 2.35, y: 3.1}
+  - sprite: {fileID: 763201001, guid: d361f0db22f84da8b80f36e31ee296cb, type: 3}
+    origenNasal: {x: -0.67, y: 2.25}
+    centroVulnerable: {x: 0.42, y: 1.55}
+    tamanoVulnerable: {x: 2.35, y: 2.9}
+  - sprite: {fileID: 763201002, guid: d361f0db22f84da8b80f36e31ee296cb, type: 3}
+    origenNasal: {x: -0.93, y: 1.85}
+    centroVulnerable: {x: 0.38, y: 1.56}
+    tamanoVulnerable: {x: 2.42, y: 2.95}
+    brazoFrente: {fileID: 763201005, guid: d361f0db22f84da8b80f36e31ee296cb, type: 3}
+  - sprite: {fileID: 763201003, guid: d361f0db22f84da8b80f36e31ee296cb, type: 3}
+    origenNasal: {x: -0.75, y: 2.15}
+    centroVulnerable: {x: 0.48, y: 1.69}
+    tamanoVulnerable: {x: 2.5, y: 2.95}
+    brazoFrente: {fileID: 763201006, guid: d361f0db22f84da8b80f36e31ee296cb, type: 3}
+    palmaEnSuelo: 1
+  - sprite: {fileID: 763201004, guid: d361f0db22f84da8b80f36e31ee296cb, type: 3}
+    origenNasal: {x: -0.52, y: 2.02}
+    centroVulnerable: {x: 0.44, y: 1.65}
+    tamanoVulnerable: {x: 2.35, y: 3.05}
   escalaBase: 2
   medioCuerpo: 1
   bordePrimerPlanoY: -2.376

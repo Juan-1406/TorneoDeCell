@@ -11,6 +11,8 @@ public class PresentacionRenato : MonoBehaviour
         public Vector2 origenNasal;
         public Vector2 centroVulnerable;
         public Vector2 tamanoVulnerable;
+        public Sprite brazoFrente;
+        public bool palmaEnSuelo;
     }
     public enum EstadoVisual { Reposo, Movimiento, Preparacion, Ataque, Recuperacion, CambioFase, Derrota }
     [SerializeField] private Health vida;
@@ -30,7 +32,11 @@ public class PresentacionRenato : MonoBehaviour
     private EstadoVisual estado;
     private string animacion = "Reposo";
     private int fase, signo = 1;
-    private float escala, objetivoEscala = 1f, golpeHasta, restaurarAnimacion;
+    private float escala, objetivoEscala = 1f, golpeHasta;
+    private SpriteRenderer areaManotazo;
+    private SpriteRenderer brazoManotazo;
+    private Vector3 posicionOrientacion;
+    private bool palmaAlineada;
     private bool muriendo;
     private float derrotaInicio;
     public EstadoVisual Estado => estado;
@@ -43,6 +49,8 @@ public class PresentacionRenato : MonoBehaviour
     public bool MedioCuerpo => medioCuerpo;
     public float BordePrimerPlanoY => bordePrimerPlanoY;
     public bool Visible => cuerpo != null && cuerpo.enabled;
+    public Vector2 CentroManotazo => new Vector2(transform.position.x,
+        medioCuerpo ? bordePrimerPlanoY : movimiento != null ? movimiento.SueloY : transform.position.y);
 
     private void Awake()
     {
@@ -69,12 +77,14 @@ public class PresentacionRenato : MonoBehaviour
     private void OnDisable()
     {
         if (vida != null) { vida.OnDanioRecibido -= ReaccionarDanio; vida.OnMuerte -= Morir; }
+        OcultarAreaManotazo();
+        if (brazoManotazo != null) brazoManotazo.enabled = false;
+        RestaurarApoyoManotazo();
         StopAllCoroutines();
     }
     private void Animar(string nombre, EstadoVisual nuevo)
     {
         estado = nuevo; animacion = nombre;
-        restaurarAnimacion = 0f;
         if (animador != null) { animador.enabled = true; animador.Play(nombre, 0, 0f); }
     }
     public IEnumerator Entrada()
@@ -119,6 +129,62 @@ public class PresentacionRenato : MonoBehaviour
         objetivoEscala = 1f;
         Animar("Recuperacion", EstadoVisual.Recuperacion);
     }
+    public IEnumerator ManoAlSuelo(Vector2 centro, float radio, float objetivoX, System.Action impacto)
+    {
+        const string nombre = "Manotazo";
+        // RenatoManotazo_Contacto entra en el segundo 0.45 del clip de 0.90 segundos.
+        const float puntoImpacto = 0.5f;
+        int estadoManotazo = Animator.StringToHash(nombre);
+        if (!Mathf.Approximately(objetivoX, centro.x)) signo = objetivoX > centro.x ? -1 : 1;
+        Vector3 posicionImpacto = new Vector3(centro.x, centro.y, transform.position.z);
+        MostrarAreaManotazo(posicionImpacto, radio);
+        Animar(nombre, EstadoVisual.Ataque);
+        yield return null;
+
+        bool impactoAplicado = false;
+        AnimatorStateInfo cuadro = animador.GetCurrentAnimatorStateInfo(0);
+        while (cuadro.shortNameHash == estadoManotazo && !muriendo && isActiveAndEnabled)
+        {
+            if (!impactoAplicado) areaManotazo.transform.position = posicionImpacto;
+            if (!impactoAplicado && cuadro.normalizedTime >= puntoImpacto)
+            {
+                impactoAplicado = true;
+                OcultarAreaManotazo();
+                FeedbackCombate.Emitir(areaManotazo, new Color(1f, 0.62f, 0.2f), 16, 5f, 0.1f);
+                impacto();
+            }
+
+            if (cuadro.normalizedTime >= 1f) break;
+            yield return null;
+            cuadro = animador.GetCurrentAnimatorStateInfo(0);
+        }
+
+        OcultarAreaManotazo();
+        if (!muriendo && isActiveAndEnabled) Reposo();
+    }
+
+    private void MostrarAreaManotazo(Vector3 posicion, float radio)
+    {
+        if (areaManotazo == null)
+        {
+            var area = new GameObject("Área del manotazo");
+            area.transform.SetParent(transform, false);
+            areaManotazo = area.AddComponent<SpriteRenderer>();
+            areaManotazo.sprite = FeedbackCombate.Aro;
+            areaManotazo.sortingOrder = 24;
+            areaManotazo.color = new Color(1f, 0.58f, 0.14f, 0.65f);
+        }
+        areaManotazo.transform.position = posicion;
+        // El borde del aro reutilizado queda a 30 píxeles del centro de la textura de 64.
+        areaManotazo.transform.localScale = Vector3.one * (radio * 64f / 30f);
+        areaManotazo.enabled = true;
+    }
+
+    public void OcultarAreaManotazo()
+    {
+        if (areaManotazo != null) areaManotazo.enabled = false;
+    }
+
     public void EstablecerFase(int indice) { fase = Mathf.Clamp(indice, 0, 2); }
     public IEnumerator CambioFase(int indice)
     {
@@ -131,13 +197,14 @@ public class PresentacionRenato : MonoBehaviour
     }
     private void ReaccionarDanio()
     {
+        if (controlador != null && controlador.EscudoActivo)
+        {
+            FeedbackCombate.Emitir(puntoDisparo, Color.cyan, 3, 2f);
+            return;
+        }
+
         golpeHasta = Time.time + 0.12f;
         reaccion.localPosition = new Vector3(0.1f * signo, 0.04f, 0f);
-        if (estado == EstadoVisual.Reposo || estado == EstadoVisual.Movimiento)
-        {
-            animador.Play("Danio", 0, 0);
-            restaurarAnimacion = Time.time + 0.2f;
-        }
         FeedbackCombate.Emitir(puntoDisparo, new Color(1f, 0.65f, 0.45f), 4, 2f);
     }
     private void Morir()
@@ -155,12 +222,12 @@ public class PresentacionRenato : MonoBehaviour
         cuerpo.enabled = visible;
         sombra.enabled = visible;
         animador.enabled = visible;
-        if (!visible || SesionJuego.EnPausa || Time.timeScale == 0f) return;
-        if (restaurarAnimacion > 0f && Time.time >= restaurarAnimacion)
+        if (!visible)
         {
-            restaurarAnimacion = 0;
-            animador.Play(animacion, 0, 0);
+            if (brazoManotazo != null) brazoManotazo.enabled = false;
+            RestaurarApoyoManotazo();
         }
+        if (!visible || SesionJuego.EnPausa || Time.timeScale == 0f) return;
         float deseada = escalaBase * (1f + fase * 0.035f) * objetivoEscala;
         Camera cam = Camera.main;
         if (cam != null && cam.orthographic)
@@ -173,6 +240,8 @@ public class PresentacionRenato : MonoBehaviour
         reaccion.localPosition = Vector3.Lerp(reaccion.localPosition, Vector3.zero, 15f * Time.deltaTime);
         Color tono = Color.Lerp(Color.white, new Color(1f, 0.8f, 0.72f), fase * 0.2f);
         cuerpo.color = Time.time < golpeHasta ? new Color(1f, 0.92f, 0.82f) : tono;
+        if (!muriendo && controlador != null && controlador.EscudoActivo)
+            cuerpo.color = Color.Lerp(new Color(0.2f, 0.85f, 1f), Color.white, 0.2f + 0.15f * Mathf.Sin(Time.time * 14f));
         if (muriendo)
         {
             Color c = cuerpo.color; c.a = 1f - Mathf.Clamp01((Time.time - derrotaInicio) / 0.7f); cuerpo.color = c;
@@ -194,6 +263,7 @@ public class PresentacionRenato : MonoBehaviour
         foreach (var configuracion in poses)
             if (configuracion != null && configuracion.sprite == cuerpo.sprite) { pose = configuracion; break; }
         if (pose == null) return;
+        ActualizarBrazoManotazo(pose);
         puntoDisparo.position = cuerpo.transform.TransformPoint(pose.origenNasal);
         // Caja vulnerable del torso, alineada con la pose, independiente de brazos y píxeles vacíos.
         Vector3 c = transform.InverseTransformPoint(cuerpo.transform.TransformPoint(pose.centroVulnerable));
@@ -210,6 +280,47 @@ public class PresentacionRenato : MonoBehaviour
         }
         hitbox.offset = new Vector2(c.x, c.y);
         hitbox.size = tamano;
+    }
+
+    private void ActualizarBrazoManotazo(PoseRenato pose)
+    {
+        if (!pose.palmaEnSuelo || !cuerpo.enabled) RestaurarApoyoManotazo();
+        if (pose.brazoFrente == null || !cuerpo.enabled)
+        {
+            if (brazoManotazo != null) brazoManotazo.enabled = false;
+            return;
+        }
+
+        if (pose.palmaEnSuelo)
+        {
+            // El pivote está en la palma. Ajusta el padre para dejar el Modelo bajo control del Animator.
+            if (!palmaAlineada) posicionOrientacion = orientacion.localPosition;
+            float piso = movimiento != null ? movimiento.SueloY - 0.25f : CentroManotazo.y;
+            orientacion.position += Vector3.up * (piso - cuerpo.transform.position.y);
+            palmaAlineada = true;
+        }
+
+        if (brazoManotazo == null)
+        {
+            var brazo = new GameObject("Brazo del manotazo");
+            brazo.transform.SetParent(cuerpo.transform, false);
+            brazoManotazo = brazo.AddComponent<SpriteRenderer>();
+            brazoManotazo.sharedMaterial = cuerpo.sharedMaterial;
+            brazoManotazo.sortingLayerID = cuerpo.sortingLayerID;
+            // Dibuja la mano delante de la cancha, con el torso detrás y el jugador por delante.
+            brazoManotazo.sortingOrder = cuerpo.sortingOrder + 2;
+        }
+
+        brazoManotazo.sprite = pose.brazoFrente;
+        brazoManotazo.color = cuerpo.color;
+        brazoManotazo.enabled = true;
+    }
+
+    private void RestaurarApoyoManotazo()
+    {
+        if (!palmaAlineada) return;
+        orientacion.localPosition = posicionOrientacion;
+        palmaAlineada = false;
     }
 }
 

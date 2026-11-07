@@ -1,0 +1,273 @@
+fileFormatVersion: 2
+guid: d361f0db22f84da8b80f36e31ee296cb
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 763201001
+    second: RenatoManotazo_Preparacion
+  - first:
+      213: 763201002
+    second: RenatoManotazo_Bajada
+  - first:
+      213: 763201003
+    second: RenatoManotazo_Contacto
+  - first:
+      213: 763201004
+    second: RenatoManotazo_Recuperacion
+  - first:
+      213: 763201005
+    second: RenatoManotazo_BrazoBajada
+  - first:
+      213: 763201006
+    second: RenatoManotazo_BrazoContacto
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: RenatoManotazo_Preparacion
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 477
+        width: 399
+        height: 441
+      alignment: 9
+      pivot: {x: 0.50390625, y: 0.01590106}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63bcef08c0c44868803c4e5fd5949df0
+      internalID: 763201001
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RenatoManotazo_Bajada
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 541
+        width: 478
+        height: 377
+      alignment: 9
+      pivot: {x: 0.61663948, y: 0.02277433}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63bcef08c0c44868803c4e5fd5949df1
+      internalID: 763201002
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RenatoManotazo_Contacto
+      rect:
+        serializedVersion: 2
+        x: 1034
+        y: 531
+        width: 459
+        height: 387
+      alignment: 9
+      pivot: {x: 0.50510204, y: 0.02016129}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63bcef08c0c44868803c4e5fd5949df2
+      internalID: 763201003
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RenatoManotazo_Recuperacion
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 62
+        width: 463
+        height: 392
+      alignment: 9
+      pivot: {x: 0.58010118, y: 0.01792829}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63bcef08c0c44868803c4e5fd5949df3
+      internalID: 763201004
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RenatoManotazo_BrazoBajada
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 77
+        width: 478
+        height: 377
+      alignment: 9
+      pivot: {x: 0.61663948, y: 0.02277433}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63bcef08c0c44868803c4e5fd5949df4
+      internalID: 763201005
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RenatoManotazo_BrazoContacto
+      rect:
+        serializedVersion: 2
+        x: 1034
+        y: 67
+        width: 459
+        height: 387
+      alignment: 9
+      pivot: {x: 0.50510204, y: 0.02016129}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63bcef08c0c44868803c4e5fd5949df5
+      internalID: 763201006
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    outline: []
+    customData:
+    physicsShape: []
+    bones: []
+    spriteID: 40472a08ad624102b3fe8b28395882c8
+    internalID: 0
+    vertices: []
+    indices:
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      RenatoManotazo_Preparacion: 763201001
+      RenatoManotazo_Bajada: 763201002
+      RenatoManotazo_Contacto: 763201003
+      RenatoManotazo_Recuperacion: 763201004
+      RenatoManotazo_BrazoBajada: 763201005
+      RenatoManotazo_BrazoContacto: 763201006
+  mipmapLimitGroupName:
+  pSDRemoveMatte: 0
+  userData:
+  assetBundleName:
+  assetBundleVariant:
