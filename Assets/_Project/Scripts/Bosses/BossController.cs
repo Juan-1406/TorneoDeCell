@@ -31,6 +31,7 @@ public class BossController : MonoBehaviour
     private readonly List<BossAttack> candidatos = new List<BossAttack>();
     private bool iniciado;
     private PresentacionRenato presentacion;
+    private SegundaFaseRenato segundaFase;
     private int faseVisualPendiente = -1;
     private float siguienteManotazo;
     private readonly Queue<float> disparosRecientes = new Queue<float>();
@@ -43,6 +44,7 @@ public class BossController : MonoBehaviour
     {
         movimiento = GetComponent<SeguirCamaraX>();
         presentacion = GetComponent<PresentacionRenato>();
+        segundaFase = GetComponent<SegundaFaseRenato>();
     }
 
     private void OnEnable()
@@ -93,6 +95,7 @@ public class BossController : MonoBehaviour
 
     public bool RecibirDisparoRenato(int danio)
     {
+        if (segundaFase != null && segundaFase.FueraDePrimeraFase) return false;
         if (danio <= 0 || vida.VidaActual <= 0 || vida.EsInvulnerable) return false;
 
         float ahora = Time.time;
@@ -117,6 +120,7 @@ public class BossController : MonoBehaviour
 
     private void RevisarFase(int actual, int maxima)
     {
+        if (segundaFase != null && segundaFase.FueraDePrimeraFase) return;
         if (actual <= 0 || maxima <= 0 || fases == null) return;
 
         float porcentaje = (float)actual / maxima;
@@ -252,7 +256,7 @@ public class BossController : MonoBehaviour
         return puedeRepetir ? ultimoAtaque : null;
     }
 
-    private void DetenerCombate()
+    internal void DetenerCombate()
     {
         StopAllCoroutines();
         // Cancelar la corutina no garantiza que se retiren sus avisos visuales.

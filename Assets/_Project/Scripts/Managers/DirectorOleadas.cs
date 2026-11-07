@@ -84,6 +84,8 @@ public class DirectorOleadas : MonoBehaviour
         if (jefe != null) jefe.Invulnerable = true;
         if (barraJefe != null) barraJefe.SetActive(false);
         if (jugador != null) disparo = jugador.GetComponent<PlayerShooting>();
+        if (jefe != null && jefe.TryGetComponent(out SegundaFaseRenato segundaFase))
+            segundaFase.Vincular(this, jugador, textoOleadas != null ? textoOleadas.font : null);
         CambiarEstado(EstadoOleadas.Preparacion);
     }
 
@@ -230,7 +232,7 @@ public class DirectorOleadas : MonoBehaviour
         return false;
     }
 
-    private IEnumerator AnunciarYCrear(Aparicion entrada, int numero)
+    private IEnumerator AnunciarYCrear(Aparicion entrada, int numero, bool refuerzo = false)
     {
         var prefab = entrada != null ? entrada.prefab : enemigoPrefab;
         while (!detenido)
@@ -254,13 +256,13 @@ public class DirectorOleadas : MonoBehaviour
             Limites(out float izquierda, out float derecha);
             var enemigo = Instantiate(prefab, posicion, Quaternion.identity, transform);
             enemigo.Configurar(jugador, izquierda, derecha);
-            if (entrada != null)
+            if (entrada != null && !refuerzo)
                 enemigo.ConfigurarRecompensa(entrada.recompensa, entrada.probabilidadRecompensa, recompensas);
             enemigo.Eliminado += AlEliminarEnemigo;
             enemigo.Retirado += AlEliminarEnemigo;
             activos.Add(enemigo);
             entradasEnCurso--;
-            porAparecer--;
+            if (!refuerzo) porAparecer--;
             ActualizarTexto();
             yield break;
         }
@@ -275,7 +277,7 @@ public class DirectorOleadas : MonoBehaviour
 
     private void ActualizarTexto()
     {
-        if (textoOleadas == null) return;
+        if (textoOleadas == null || indiceOleada >= oleadas.Length) return;
         string nombre = oleadas[indiceOleada].nombre;
         if (avisos.Count > 0) nombre = avisos.Count > 1 ? "Entradas múltiples · busca espacio" : ladoAviso;
         textoOleadas.text = "Oleada " + (indiceOleada + 1) + "/" + oleadas.Length +
@@ -310,7 +312,7 @@ public class DirectorOleadas : MonoBehaviour
         JefeHabilitado?.Invoke();
     }
 
-    private void LimpiarProyectiles()
+    internal void LimpiarProyectiles()
     {
         foreach (var bala in FindObjectsByType<Bullet>(FindObjectsSortMode.None))
             if (bala.gameObject.scene == gameObject.scene)
@@ -336,6 +338,47 @@ public class DirectorOleadas : MonoBehaviour
     }
 
     private void AlMorirJugador() => Detener();
+
+    internal void IniciarRefuerzosRenato(int maximo, float intervalo)
+    {
+        if (!detenido && jefeActivo && maximo > 0) StartCoroutine(RefuerzosRenato(maximo, intervalo));
+    }
+
+    internal bool FueraDeArena(Vector2 punto)
+    {
+        Limites(out float izquierda, out float derecha);
+        float piso = sueloArena != null ? sueloArena.bounds.max.y : alturaAparicion - 1f;
+        return punto.x < izquierda - 2f || punto.x > derecha + 2f ||
+            punto.y < piso - 2f || punto.y > piso + 16f;
+    }
+
+    private IEnumerator RefuerzosRenato(int maximo, float intervalo)
+    {
+        Aparicion[] secuencia = oleadas[oleadas.Length - 1].secuencia;
+        int numero = 0;
+        var espera = new WaitForSeconds(Mathf.Max(0.2f, intervalo));
+        while (!detenido)
+        {
+            yield return espera;
+            if (activos.Count + entradasEnCurso >= maximo) continue;
+            Aparicion entrada = secuencia != null && secuencia.Length > 0 ? secuencia[numero % secuencia.Length] : null;
+            entradasEnCurso++;
+            StartCoroutine(AnunciarYCrear(entrada, numero++, true));
+        }
+    }
+
+    internal void CerrarCombateRenato()
+    {
+        Detener();
+        LimpiarProyectiles();
+        foreach (var enemigo in new List<EnemigoMenor>(activos))
+            if (enemigo != null)
+            {
+                enemigo.gameObject.SetActive(false);
+                Destroy(enemigo.gameObject);
+            }
+    }
+
     private void AlVencerJefe()
     {
         Detener();

@@ -8,6 +8,8 @@ public class Health : MonoBehaviour
     [SerializeField] private float tiempoInvulnerable = 0f;
 
     private float invulnerableHasta;
+    private bool muerteNotificada;
+    internal Func<bool> AplazarMuerte { get; set; }
 
     public int VidaActual { get; private set; }
     public int VidaMaxima => vidaMaxima;
@@ -33,7 +35,14 @@ public class Health : MonoBehaviour
         VidaActual = Mathf.Clamp(vida, 0, vidaMaxima);
         invulnerableHasta = 0f;
         Invulnerable = false;
+        if (VidaActual > 0) muerteNotificada = false;
         OnVidaCambiada?.Invoke(VidaActual, vidaMaxima);
+    }
+
+    internal void IniciarEtapa(int nuevaVidaMaxima)
+    {
+        vidaMaxima = Mathf.Max(1, nuevaVidaMaxima);
+        RestaurarVida(vidaMaxima);
     }
 
     public bool Curar(int cantidad)
@@ -55,12 +64,16 @@ public class Health : MonoBehaviour
         OnVidaCambiada?.Invoke(VidaActual, vidaMaxima);
         OnDanioRecibido?.Invoke();
 
-        if (VidaActual == 0)
-        {
-            OnMuerte?.Invoke();
-            if (destruirAlMorir) Destroy(gameObject);
-        }
+        if (VidaActual == 0 && AplazarMuerte?.Invoke() != true) ConfirmarMuerte();
 
         return true;
+    }
+
+    internal void ConfirmarMuerte()
+    {
+        if (VidaActual != 0 || muerteNotificada) return;
+        muerteNotificada = true;
+        OnMuerte?.Invoke();
+        if (destruirAlMorir) Destroy(gameObject);
     }
 }

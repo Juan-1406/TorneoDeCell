@@ -19,6 +19,8 @@ public class Bullet : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer sprite;
     private float expira;
+    private ProyectilRenato proyectilRenato;
+    internal bool EsProyectilRenato => proyectilRenato != null;
     private static readonly HashSet<Bullet> activas = new HashSet<Bullet>();
     public static IEnumerable<Bullet> Activas => activas;
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -57,7 +59,19 @@ public class Bullet : MonoBehaviour
 
     public void Reflejar()
     {
+        Reflejar(Vector2.zero);
+    }
+
+    internal void Reflejar(Vector2 direccionJugador)
+    {
         if (!EsReflejable) return;
+        if (proyectilRenato != null)
+        {
+            proyectilRenato.Devolver(direccionJugador);
+            gameObject.layer = LayerMask.NameToLayer("PlayerBullet");
+            gameObject.tag = "Untagged";
+            return;
+        }
         expira = Time.time + Mathf.Max(0.1f, tiempoVida);
         Vector2 direccion = -rb.linearVelocity;
 
@@ -104,6 +118,7 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (proyectilRenato != null) return;
         int capaEnemiga = LayerMask.NameToLayer("EnemyBullet");
         int capaJugador = LayerMask.NameToLayer("PlayerBullet");
         if (gameObject.layer == capaEnemiga &&
@@ -129,5 +144,12 @@ public class Bullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    internal void DispararEnergia(SegundaFaseRenato origen, Vector2 direccion, float rapidez,
+        int danioDevuelto, int danioEnemigos, float radio)
+    {
+        proyectilRenato = gameObject.AddComponent<ProyectilRenato>();
+        proyectilRenato.Configurar(origen, rb, sprite, direccion, rapidez, danio, danioDevuelto, danioEnemigos, radio);
     }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -59,7 +60,8 @@ public static class ProbarRenatoVisual
         Check(vista!=null && vista.Animador!=null,"Presentación y Animator conectados");
         Check(!vista.Visible && !controlador.enabled,"Renato no aparece durante la preparación de la fase");
         var clips = vista.Animador.runtimeAnimatorController.animationClips;
-        Check(clips.Length == 15 && clips.Any(clip => clip.name == "Manotazo"), "Quince clips editables, incluido el manotazo");
+        string[] clipsNecesarios = { "Manotazo", "TransformacionRenato", "RenatoDoradoReposo", "RenatoDoradoDisparo", "RenatoAbatido" };
+        Check(clipsNecesarios.All(nombre => clips.Any(clip => clip.name == nombre)), "Manotazo y clips de la segunda fase conectados");
         Check(boss.GetComponent<SpriteRenderer>().sprite==null,"El sprite anterior no se duplica detrás del nuevo");
         Check(boss.transform.localScale==Vector3.one,"La raíz de combate no escala proyectiles ni hijos");
         yield return new WaitUntil(()=>director.JefeActivo);
@@ -191,13 +193,39 @@ public static class ProbarRenatoVisual
         yield return new WaitForSeconds(2f);Vincular();
         yield return new WaitUntil(()=>director.JefeActivo);yield return new WaitForSeconds(0.2f);
         Check(vista.Visible&&director.IndiceOleada==3,"El reintento restaura la presentación en la fase del jefe");
-        etapa="derrota";
+        etapa="transformación";
         box=boss.GetComponent<BoxCollider2D>();
-        boss.RestaurarVida(1);boss.RecibirDanio(1);yield return null;
-        Check(vista.Estado==PresentacionRenato.EstadoVisual.Derrota&&!box.enabled,"La derrota conserva su animación y desactiva la hitbox");
-        Capturar("11-derrota");
-        yield return new WaitForSeconds(0.8f);
-        Check(boss==null,"La presentación de derrota termina y retira al jefe");
+        int victorias = 0;
+        boss.OnMuerte += () => victorias++;
+        Vector3 anclaDorada = boss.transform.position;
+        boss.RestaurarVida(1);
+        boss.RecibirDanio(1);
+        yield return null;
+        Check(vista.Estado == PresentacionRenato.EstadoVisual.CambioFase && !box.enabled &&
+            victorias == 0 && GameObject.Find("Diálogo de René") != null, "La primera barra vacía abre el diálogo sin victoria");
+        Capturar("11-transformacion");
+        yield return new WaitUntil(() => boss.VidaActual > 0);
+        Check(boss.VidaActual == 375 && boss.VidaMaxima == 375 && box.enabled &&
+            GameObject.Find("Diálogo de René") == null && !boss.RecibirDanio(10), "La segunda barra se llena y exige energía devuelta");
+
+        etapa="energía devuelta";
+        yield return new WaitUntil(() => Balas().Any(b => b.GetComponent<ProyectilRenato>() != null));
+        Check(Vector3.Distance(anclaDorada, boss.transform.position) < 0.01f, "René dispara desde la misma posición");
+        var faseDorada = boss.GetComponent<SegundaFaseRenato>();
+        var energia = AssetDatabase.LoadAssetAtPath<Bullet>("Assets/_Project/Prefabs/Proyectiles/Renato Puente/BalaEnemigaAbanico.prefab");
+        var disparar = typeof(Bullet).GetMethod("DispararEnergia", BindingFlags.Instance | BindingFlags.NonPublic);
+        Vector2 lado = box.bounds.center.x > 0f ? Vector2.left : Vector2.right;
+        Vector2 origen = (Vector2)box.bounds.center + lado * (box.bounds.extents.x + 0.6f);
+        for (int i = 0; i < 5; i++)
+        {
+            var retorno = UnityEngine.Object.Instantiate(energia, origen, Quaternion.identity);
+            disparar.Invoke(retorno, new object[] { faseDorada, lado, 7f, 75, 12, 2.2f });
+            retorno.Reflejar();
+        }
+        yield return new WaitUntil(() => boss.VidaActual == 0);
+        Check(vista.Estado == PresentacionRenato.EstadoVisual.Derrota && !box.enabled && victorias == 0 &&
+            GameObject.Find("Diálogo de René") != null, "La energía devuelta derrota al jefe y la victoria espera el diálogo");
+        Capturar("12-despedida");
         Terminar(null);
     }
     static Bullet[] Balas()=>UnityEngine.Object.FindObjectsByType<Bullet>(FindObjectsSortMode.None);

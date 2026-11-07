@@ -55,7 +55,10 @@ public class PlayerParry : MonoBehaviour
         if (!isActiveAndEnabled || !parryActivo || SesionJuego.EnPausa || Time.timeScale == 0f ||
             bala == null || !bala.EsReflejable) return false;
 
-        bala.Reflejar();
+        Vector2 direccion = Vector2.zero;
+        if (bala.EsProyectilRenato && Camera.main != null)
+            direccion = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)bala.transform.position;
+        bala.Reflejar(direccion);
         if (!premioNotificado && Time.time - inicioParry <= Mathf.Min(ventanaPerfecta, ventanaParry))
         {
             premioNotificado = true;

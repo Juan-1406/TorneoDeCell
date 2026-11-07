@@ -1,0 +1,299 @@
+fileFormatVersion: 2
+guid: e5c79f2cfe4b4110bd1198612bad42be
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 764901001
+    second: RenatoDorado_Guardia
+  - first:
+      213: 764901002
+    second: RenatoDorado_Carga
+  - first:
+      213: 764901003
+    second: RenatoDorado_Lanzamiento
+  - first:
+      213: 764901004
+    second: RenatoAbatido
+  - first:
+      213: 764901005
+    second: RetratoRenatoDorado
+  - first:
+      213: 764901006
+    second: RetratoRenatoAbatido
+  - first:
+      213: 764901007
+    second: RenatoAbatido_Brazos
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: RenatoDorado_Guardia
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 862
+        width: 537
+        height: 390
+      alignment: 9
+      pivot: {x: 0.50391236, y: 0.02370690}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8abda84b65a145488ee983eaa33c8750
+      internalID: 764901001
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RenatoDorado_Carga
+      rect:
+        serializedVersion: 2
+        x: 648
+        y: 854
+        width: 501
+        height: 398
+      alignment: 9
+      pivot: {x: 0.42378559, y: 0.03797468}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8abda84b65a145488ee983eaa33c8751
+      internalID: 764901002
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RenatoDorado_Lanzamiento
+      rect:
+        serializedVersion: 2
+        x: 1288
+        y: 873
+        width: 522
+        height: 379
+      alignment: 9
+      pivot: {x: 0.59163987, y: 0.03104213}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8abda84b65a145488ee983eaa33c8752
+      internalID: 764901003
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RenatoAbatido
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 522
+        width: 612
+        height: 310
+      alignment: 9
+      pivot: {x: 0.50412088, y: 0.09756098}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8abda84b65a145488ee983eaa33c8753
+      internalID: 764901004
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RetratoRenatoDorado
+      rect:
+        serializedVersion: 2
+        x: 648
+        y: 585
+        width: 204
+        height: 247
+      alignment: 9
+      pivot: {x: 0.50000000, y: 0.50000000}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8abda84b65a145488ee983eaa33c8754
+      internalID: 764901005
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RetratoRenatoAbatido
+      rect:
+        serializedVersion: 2
+        x: 1288
+        y: 585
+        width: 200
+        height: 247
+      alignment: 9
+      pivot: {x: 0.50000000, y: 0.50000000}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8abda84b65a145488ee983eaa33c8755
+      internalID: 764901006
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RenatoAbatido_Brazos
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 102
+        width: 612
+        height: 310
+      alignment: 9
+      pivot: {x: 0.50412088, y: 0.09756098}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData:
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8abda84b65a145488ee983eaa33c8756
+      internalID: 764901007
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    outline: []
+    customData:
+    physicsShape: []
+    bones: []
+    spriteID: 8abda84b65a145488ee983eaa33c8760
+    internalID: 0
+    vertices: []
+    indices:
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      RenatoDorado_Guardia: 764901001
+      RenatoDorado_Carga: 764901002
+      RenatoDorado_Lanzamiento: 764901003
+      RenatoAbatido: 764901004
+      RetratoRenatoDorado: 764901005
+      RetratoRenatoAbatido: 764901006
+      RenatoAbatido_Brazos: 764901007
+  mipmapLimitGroupName:
+  pSDRemoveMatte: 0
+  userData:
+  assetBundleName:
+  assetBundleVariant:
