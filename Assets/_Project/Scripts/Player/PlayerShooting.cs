@@ -10,6 +10,7 @@ public class PlayerShooting : MonoBehaviour
     private float mejoraRestante;
     private float multiplicadorCadencia = 1f;
     public bool SuspenderMejora { get; set; }
+    internal bool BloqueadoPorDialogo { get; set; }
     public float SegundosMejora => mejoraRestante;
     public float CadenciaActual => cadencia * (mejoraRestante > 0f ? multiplicadorCadencia : 1f);
 
@@ -38,7 +39,7 @@ public class PlayerShooting : MonoBehaviour
 
     private void Update()
     {
-        if (SesionJuego.EnPausa || Time.timeScale == 0f) return;
+        if (SesionJuego.EnPausa || Time.timeScale == 0f || BloqueadoPorDialogo) return;
         if (!SuspenderMejora) mejoraRestante = Mathf.Max(0f, mejoraRestante - Time.deltaTime);
         if (Input.GetButton("Fire1") && Time.time >= siguienteDisparo)
         {

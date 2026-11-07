@@ -601,6 +601,7 @@ GameObject:
   - component: {fileID: 289859614525137634}
   - component: {fileID: 1997553605195989562}
   - component: {fileID: 1259758373023884908}
+  - component: {fileID: 764901099001}
   m_Layer: 7
   m_Name: BossRenato
   m_TagString: Boss
@@ -900,6 +901,47 @@ MonoBehaviour:
     origenNasal: {x: -0.52, y: 2.02}
     centroVulnerable: {x: 0.44, y: 1.65}
     tamanoVulnerable: {x: 2.35, y: 3.05}
+  - sprite: {fileID: 764901001, guid: e5c79f2cfe4b4110bd1198612bad42be, type: 3}
+    origenNasal: {x: -0.15, y: 2.02}
+    centroVulnerable: {x: 0, y: 1.58}
+    tamanoVulnerable: {x: 2.25, y: 2.85}
+  - sprite: {fileID: 764901002, guid: e5c79f2cfe4b4110bd1198612bad42be, type: 3}
+    origenNasal: {x: -0.05, y: 2.13}
+    centroVulnerable: {x: 0.09, y: 1.55}
+    tamanoVulnerable: {x: 2.25, y: 2.85}
+  - sprite: {fileID: 764901003, guid: e5c79f2cfe4b4110bd1198612bad42be, type: 3}
+    origenNasal: {x: -2.28, y: 1.64}
+    centroVulnerable: {x: 0, y: 1.5}
+    tamanoVulnerable: {x: 2.25, y: 2.85}
+  - sprite: {fileID: 764901004, guid: e5c79f2cfe4b4110bd1198612bad42be, type: 3}
+    origenNasal: {x: -0.15, y: 1.65}
+    centroVulnerable: {x: 0, y: 1.33}
+    tamanoVulnerable: {x: 2.25, y: 2.85}
+    brazoFrente: {fileID: 764901007, guid: e5c79f2cfe4b4110bd1198612bad42be, type: 3}
   escalaBase: 2
   medioCuerpo: 1
   bordePrimerPlanoY: -2.376
+--- !u!114 &764901099001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7395158996645031858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9ae66e0237248909a0be25c18cda74b, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::SegundaFaseRenato
+  duracionTransformacion: 4.4
+  retratoDorado: {fileID: 764901005, guid: e5c79f2cfe4b4110bd1198612bad42be, type: 3}
+  retratoAbatido: {fileID: 764901006, guid: e5c79f2cfe4b4110bd1198612bad42be, type: 3}
+  vidaTransformado: 375
+  proyectil: {fileID: 2645662892533427466, guid: 2a6aaff5eccd24c4b83476b6a2a1edd1, type: 3}
+  intervaloDisparo: 2.6
+  rapidezProyectil: 7
+  danioDevuelto: 75
+  danioEnemigos: 12
+  radioExplosion: 2.2
+  maximoRefuerzos: 2
+  intervaloRefuerzos: 5

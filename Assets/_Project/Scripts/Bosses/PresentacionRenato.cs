@@ -39,6 +39,11 @@ public class PresentacionRenato : MonoBehaviour
     private bool palmaAlineada;
     private bool muriendo;
     private float derrotaInicio;
+    private SegundaFaseRenato segundaFase;
+    private SpriteRenderer auraDorada;
+    private Texture2D texturaAura;
+    private float inicioAura;
+    internal const float InstanteDisparoDorado = 0.48f;
     public EstadoVisual Estado => estado;
     public SpriteRenderer Cuerpo => cuerpo;
     public Animator Animador => animador;
@@ -57,6 +62,7 @@ public class PresentacionRenato : MonoBehaviour
         escala = escalaBase;
         if (vida == null) vida = GetComponent<Health>();
         if (controlador == null) controlador = GetComponent<BossController>();
+        segundaFase = GetComponent<SegundaFaseRenato>();
         if (movimiento == null) movimiento = GetComponent<SeguirCamaraX>();
         if (hitbox == null) hitbox = GetComponent<BoxCollider2D>();
         if (sombra != null && sombra.sprite == null)
@@ -80,6 +86,7 @@ public class PresentacionRenato : MonoBehaviour
         OcultarAreaManotazo();
         if (brazoManotazo != null) brazoManotazo.enabled = false;
         RestaurarApoyoManotazo();
+        ApagarAuraDorada();
         StopAllCoroutines();
     }
     private void Animar(string nombre, EstadoVisual nuevo)
@@ -209,6 +216,7 @@ public class PresentacionRenato : MonoBehaviour
     }
     private void Morir()
     {
+        if (segundaFase != null && segundaFase.ConservarAbatido) return;
         muriendo = true; derrotaInicio = Time.time;
         if (hitbox != null) hitbox.enabled = false;
         if (movimiento != null) movimiento.enabled = false;
@@ -218,7 +226,8 @@ public class PresentacionRenato : MonoBehaviour
     }
     private void LateUpdate()
     {
-        bool visible = muriendo || (controlador != null && controlador.enabled && vida.VidaActual > 0);
+        bool visible = muriendo || (segundaFase != null && segundaFase.DurantePresentacion) ||
+            (controlador != null && controlador.enabled && vida.VidaActual > 0);
         cuerpo.enabled = visible;
         sombra.enabled = visible;
         animador.enabled = visible;
@@ -254,6 +263,86 @@ public class PresentacionRenato : MonoBehaviour
             sombra.transform.localScale = new Vector3(3.3f * escala, 0.18f, 1f);
         }
         ActualizarGeometria();
+        if (auraDorada != null && auraDorada.enabled)
+        {
+            Bounds contorno = cuerpo.bounds;
+            float pulso = 1f + 0.05f * Mathf.Sin(Time.time * 19f);
+            auraDorada.transform.position = contorno.center + Vector3.up * 0.16f;
+            auraDorada.transform.localScale = new Vector3((contorno.size.x * 1.2f + 0.65f) * pulso / 0.75f,
+                (contorno.size.y * 1.15f + 0.7f) * pulso, 1f);
+            auraDorada.color = new Color(1f, 1f, 1f,
+                Mathf.Lerp(0.2f, 0.88f, Mathf.Clamp01((Time.time - inicioAura) / 1.4f)));
+        }
+    }
+
+    internal void Transformarse(float duracion)
+    {
+        objetivoEscala = 1f;
+        if (auraDorada == null) CrearAuraDorada();
+        inicioAura = Time.time;
+        auraDorada.enabled = true;
+        animador.speed = 4.4f / duracion;
+        Animar("TransformacionRenato", EstadoVisual.CambioFase);
+    }
+
+    internal void ReposoDorado()
+    {
+        animador.speed = 1f;
+        Animar("RenatoDoradoReposo", EstadoVisual.Reposo);
+    }
+
+    internal void PrepararDisparoDorado(float xObjetivo)
+    {
+        if (!Mathf.Approximately(xObjetivo, transform.position.x))
+            signo = xObjetivo > transform.position.x ? -1 : 1;
+        Animar("RenatoDoradoDisparo", EstadoVisual.Ataque);
+    }
+
+    internal void MostrarAbatido()
+    {
+        ApagarAuraDorada();
+        objetivoEscala = 0.96f;
+        animador.speed = 1f;
+        Animar("RenatoAbatido", EstadoVisual.Derrota);
+    }
+
+    internal void ApagarAuraDorada()
+    {
+        if (auraDorada != null) auraDorada.enabled = false;
+    }
+
+    private void CrearAuraDorada()
+    {
+        const int ancho = 96, alto = 128;
+        texturaAura = new Texture2D(ancho, alto, TextureFormat.RGBA32, false) { filterMode = FilterMode.Point };
+        var pixeles = new Color[ancho * alto];
+        for (int y = 0; y < alto; y++)
+        for (int x = 0; x < ancho; x++)
+        {
+            var p = new Vector2((x + 0.5f) * 2f / ancho - 1f, (y + 0.5f) * 2f / alto - 1f);
+            float angulo = Mathf.Atan2(p.y, p.x);
+            float filo = 0.81f + 0.085f * Mathf.Cos(11f * angulo) + 0.065f * Mathf.Cos(17f * angulo + 1f);
+            float distancia = p.magnitude - filo;
+            float llama = Mathf.Clamp01(1f - Mathf.Abs(distancia + 0.025f) * 8f);
+            float relleno = distancia < 0f ? 0.24f : 0f;
+            pixeles[y * ancho + x] = new Color(1f, 0.57f + 0.41f * llama, 0.045f + 0.55f * llama,
+                Mathf.Max(relleno, llama));
+        }
+        texturaAura.SetPixels(pixeles);
+        texturaAura.Apply();
+        var objeto = new GameObject("Aura dorada de René");
+        objeto.transform.SetParent(transform, false);
+        auraDorada = objeto.AddComponent<SpriteRenderer>();
+        auraDorada.sprite = Sprite.Create(texturaAura, new Rect(0, 0, ancho, alto), Vector2.one * 0.5f, alto);
+        auraDorada.sharedMaterial = cuerpo.sharedMaterial;
+        auraDorada.sortingLayerID = cuerpo.sortingLayerID;
+        auraDorada.sortingOrder = cuerpo.sortingOrder - 1;
+    }
+
+    private void OnDestroy()
+    {
+        if (auraDorada != null) Destroy(auraDorada.sprite);
+        if (texturaAura != null) Destroy(texturaAura);
     }
     private void FixedUpdate() { if (cuerpo != null) ActualizarGeometria(); }
     private void ActualizarGeometria()
@@ -302,7 +391,7 @@ public class PresentacionRenato : MonoBehaviour
 
         if (brazoManotazo == null)
         {
-            var brazo = new GameObject("Brazo del manotazo");
+            var brazo = new GameObject("Brazos en primer plano");
             brazo.transform.SetParent(cuerpo.transform, false);
             brazoManotazo = brazo.AddComponent<SpriteRenderer>();
             brazoManotazo.sharedMaterial = cuerpo.sharedMaterial;

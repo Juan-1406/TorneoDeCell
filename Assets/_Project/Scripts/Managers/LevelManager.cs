@@ -48,6 +48,7 @@ public class LevelManager : MonoBehaviour
         {
             DirectorOleadas director = FindFirstObjectByType<DirectorOleadas>();
             if (jefe != null && jefe.VidaActual > 0 &&
+                (!jefe.TryGetComponent(out SegundaFaseRenato segundaFase) || !segundaFase.FueraDePrimeraFase) &&
                 (director == null || director.FaseJefeAlcanzada))
                 SesionJuego.GuardarVidaJefe(SceneManager.GetActiveScene().name, jefe.VidaActual);
             Invoke(nameof(RecargarNivel), retardo);
