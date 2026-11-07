@@ -59,7 +59,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        enSuelo = Physics2D.OverlapCircle(groundCheck.position, radioSuelo, capaSuelo);
+        Collider2D suelo = Physics2D.OverlapCircle(groundCheck.position, radioSuelo, capaSuelo);
+        enSuelo = suelo != null;
+        if (enSuelo && suelo.usedByEffector && suelo.TryGetComponent<ParlanteFlotante>(out _))
+            enSuelo = rb.linearVelocity.y <= 0.05f && groundCheck.position.y >= suelo.bounds.max.y - 0.05f;
 
         if (haciendoDash)
         {

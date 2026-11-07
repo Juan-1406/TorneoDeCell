@@ -12,6 +12,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Health jefe;
     [SerializeField] private int idJefe = 0;
     [SerializeField] private float retardoVictoria = 2f;
+    [SerializeField] private GameObject panelFaseUnoPadrePasta;
 
     private bool combateFinalizado;
 
@@ -85,6 +86,12 @@ public class LevelManager : MonoBehaviour
     {
         if (!FinalizarCombate()) return;
 
+        if (panelFaseUnoPadrePasta != null)
+        {
+            ProgresoJuego.MarcarPadrePastaFaseUnoSuperada();
+            panelFaseUnoPadrePasta.SetActive(true);
+            return;
+        }
         ProgresoJuego.MarcarDerrotado(idJefe);
         Invoke(nameof(VolverASeleccion), retardoVictoria);
     }
@@ -110,6 +117,8 @@ public class LevelManager : MonoBehaviour
         }
 
         if (jefe != null) jefe.Invulnerable = true;
+        if (jefe != null && jefe.TryGetComponent(out PadrePasta padrePasta))
+            DetenerComponente(padrePasta);
 
         // Tambien cubre escenas de pruebas sin un jefe asignado al LevelManager.
         foreach (BossController controlador in FindObjectsByType<BossController>(FindObjectsSortMode.None))
@@ -146,7 +155,7 @@ public class LevelManager : MonoBehaviour
         componente.enabled = false;
     }
 
-    private void VolverASeleccion()
+    public void VolverASeleccion()
     {
         SceneManager.LoadScene("LevelSelect");
     }

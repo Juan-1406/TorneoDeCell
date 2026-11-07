@@ -34,11 +34,9 @@ public class BossController : MonoBehaviour
     private SegundaFaseRenato segundaFase;
     private int faseVisualPendiente = -1;
     private float siguienteManotazo;
-    private readonly Queue<float> disparosRecientes = new Queue<float>();
-    private float escudoHasta;
-    private float siguienteEscudo;
+    private readonly EscudoPorDisparos escudo = new EscudoPorDisparos();
     public int FaseActual => faseActual;
-    public bool EscudoActivo => Time.time < escudoHasta;
+    public bool EscudoActivo => escudo.Activo;
 
     private void Awake()
     {
@@ -98,24 +96,9 @@ public class BossController : MonoBehaviour
         if (segundaFase != null && segundaFase.FueraDePrimeraFase) return false;
         if (danio <= 0 || vida.VidaActual <= 0 || vida.EsInvulnerable) return false;
 
-        float ahora = Time.time;
-        if (ahora >= siguienteEscudo)
-        {
-            while (disparosRecientes.Count > 0 && ahora - disparosRecientes.Peek() > ventanaDisparos)
-                disparosRecientes.Dequeue();
-            disparosRecientes.Enqueue(ahora);
-            if (disparosRecientes.Count >= disparosParaEscudo)
-            {
-                disparosRecientes.Clear();
-                escudoHasta = ahora + duracionEscudo;
-                siguienteEscudo = escudoHasta + recargaEscudo;
-                FeedbackCombate.Emitir(presentacion.Cuerpo, Color.cyan, 14, 3f);
-            }
-        }
-
-        if (EscudoActivo)
-            danio = Mathf.Max(1, Mathf.RoundToInt(danio * (1f - reduccionDanioEscudo)));
-        return vida.RecibirDanio(danio);
+        if (escudo.Registrar(disparosParaEscudo, ventanaDisparos, duracionEscudo, recargaEscudo))
+            FeedbackCombate.Emitir(presentacion.Cuerpo, Color.cyan, 14, 3f);
+        return vida.RecibirDanio(escudo.AjustarDanio(danio, reduccionDanioEscudo));
     }
 
     private void RevisarFase(int actual, int maxima)
@@ -263,8 +246,8 @@ public class BossController : MonoBehaviour
         if (ataqueActual != null) ataqueActual.Cancelar();
         ataqueActual = null;
         if (presentacion != null) presentacion.OcultarAreaManotazo();
-        disparosRecientes.Clear();
-        escudoHasta = siguienteEscudo = siguienteManotazo = 0f;
+        escudo.Reiniciar();
+        siguienteManotazo = 0f;
         if (movimiento != null) movimiento.enabled = false;
     }
 }
