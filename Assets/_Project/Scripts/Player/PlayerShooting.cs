@@ -5,7 +5,10 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private GameObject balaPrefab;
     [SerializeField] private float cadencia = 0.2f;
 
-    private Camera cam;
+    internal static bool EntradaDisparoActiva => Input.GetMouseButton(0) || Input.GetButton("Fire1");
+
+    private PlayerMovement movimiento;
+    private MateoSpriteAnimator visual;
     private float siguienteDisparo;
     private float mejoraRestante;
     private float multiplicadorCadencia = 1f;
@@ -34,14 +37,15 @@ public class PlayerShooting : MonoBehaviour
 
     private void Awake()
     {
-        cam = Camera.main;
+        movimiento = GetComponent<PlayerMovement>();
+        visual = GetComponent<MateoSpriteAnimator>();
     }
 
     private void Update()
     {
-        if (SesionJuego.EnPausa || Time.timeScale == 0f || BloqueadoPorDialogo) return;
+        if (SesionJuego.EnPausa || Time.timeScale == 0f || BloqueadoPorDialogo || DialogoRenato.ConsumioClic) return;
         if (!SuspenderMejora) mejoraRestante = Mathf.Max(0f, mejoraRestante - Time.deltaTime);
-        if (Input.GetButton("Fire1") && Time.time >= siguienteDisparo)
+        if (EntradaDisparoActiva && Time.time >= siguienteDisparo)
         {
             Disparar();
             siguienteDisparo = Time.time + CadenciaActual;
@@ -50,12 +54,12 @@ public class PlayerShooting : MonoBehaviour
 
     private void Disparar()
     {
-        Vector3 mouseMundo = cam.ScreenToWorldPoint(Input.mousePosition);
-        mouseMundo.z = 0f;
+        Vector2 direccion = movimiento != null ? movimiento.DireccionDisparo : Vector2.right;
 
-        Vector2 direccion = mouseMundo - transform.position;
-
-        GameObject bala = Instantiate(balaPrefab, transform.position, Quaternion.identity);
+        float lado = movimiento != null ? movimiento.DireccionMirada : 1f;
+        Vector3 origen = visual != null ? visual.PuntaCanon(direccion, lado) : transform.position;
+        GameObject bala = Instantiate(balaPrefab, origen, Quaternion.identity);
         bala.GetComponent<Bullet>().Disparar(direccion);
+        if (visual != null) visual.MostrarDisparo(origen, direccion, lado);
     }
 }
