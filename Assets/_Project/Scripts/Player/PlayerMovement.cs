@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
+[DefaultExecutionOrder(-10)]
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movimiento")]
@@ -25,9 +26,17 @@ public class PlayerMovement : MonoBehaviour
     private float direccionMirada = 1f;
     private bool enSuelo;
     private bool haciendoDash;
+    private float direccionDash;
     private bool dashDisponible = true;
     private float empujeHasta;
     private float velocidadEmpujeX;
+
+    public float DireccionMirada => direccionMirada;
+    internal bool ApuntadoFijo { get; private set; }
+    internal bool HaciendoDash => haciendoDash;
+    internal bool EnSueloVisual => enSuelo && rb.linearVelocity.y >= -0.05f && rb.linearVelocity.y <= 0.2f;
+    internal float InstanteSalto { get; private set; } = float.NegativeInfinity;
+    public Vector2 DireccionDisparo { get; private set; } = Vector2.right;
 
     private void Awake()
     {
@@ -38,23 +47,35 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (SesionJuego.EnPausa) return;
-        inputHorizontal = Input.GetAxisRaw("Horizontal");
-        if (inputHorizontal != 0f) direccionMirada = Mathf.Sign(inputHorizontal);
+        if (SesionJuego.EnPausa || Time.timeScale == 0f) return;
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) ? 1f : 0f) -
+            (Input.GetKey(KeyCode.DownArrow) ? 1f : 0f);
+        ApuntadoFijo = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+        inputHorizontal = ApuntadoFijo ? 0f : horizontal;
+        float lado = Mathf.Sign(horizontal);
+        if (horizontal != 0f) direccionMirada = lado;
+        DireccionDisparo = vertical == 0f
+            ? new Vector2(direccionMirada, 0f)
+            : new Vector2(horizontal == 0f ? 0f : lado, vertical);
 
         if (haciendoDash || Time.time < empujeHasta) return;
 
-        // Salto con la tecla W (también puedes agregar flecha arriba si quieres)
-        if (Input.GetKeyDown(KeyCode.W) && enSuelo)
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, fuerzaSalto);
-        }
+        // Las teclas de apuntado vertical quedan disponibles durante el salto.
+        if (Input.GetKeyDown(KeyCode.Space)) Saltar();
 
-        // Dash con la barra espaciadora
-        if (Input.GetKeyDown(KeyCode.Space) && dashDisponible)
+        // Una pulsación del botón derecho inicia el dash.
+        if (Input.GetMouseButtonDown(1) && dashDisponible)
         {
             StartCoroutine(Dash());
         }
+    }
+
+    private void Saltar()
+    {
+        if (!enSuelo) return;
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, fuerzaSalto);
+        InstanteSalto = Time.time;
     }
 
     private void FixedUpdate()
@@ -66,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (haciendoDash)
         {
-            rb.linearVelocity = new Vector2(direccionMirada * velocidadDash, 0f);
+            rb.linearVelocity = new Vector2(direccionDash * velocidadDash, 0f);
             return;
         }
 
@@ -91,6 +112,7 @@ public class PlayerMovement : MonoBehaviour
     {
         dashDisponible = false;
         haciendoDash = true;
+        direccionDash = direccionMirada;
 
         float gravedadOriginal = rb.gravityScale;
         rb.gravityScale = 0f;

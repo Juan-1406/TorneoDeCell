@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
+[DefaultExecutionOrder(-5)]
 public class PlayerParry : MonoBehaviour
 {
     [SerializeField] private GameObject escudo;
@@ -13,6 +14,7 @@ public class PlayerParry : MonoBehaviour
     private bool premioNotificado;
 
     private bool parryActivo;
+    internal bool EscudoActivo => parryActivo;
     private float siguienteParry;
 
     private void Awake()

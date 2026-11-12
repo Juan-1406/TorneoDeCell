@@ -1,0 +1,381 @@
+fileFormatVersion: 2
+guid: 24c427cc82d746ecb35ba3bc197df991
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 165
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Mateo_Carrera1
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 756
+        width: 264
+        height: 330
+      alignment: 9
+      pivot: {x: 0.5113636363636364, y: 0.4696969696969697}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24c427cc82d746ecb35ba3bc197d0001
+      internalID: 725310001
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mateo_Carrera2
+      rect:
+        serializedVersion: 2
+        x: 415
+        y: 756
+        width: 257
+        height: 330
+      alignment: 9
+      pivot: {x: 0.48249027237354086, y: 0.4696969696969697}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24c427cc82d746ecb35ba3bc197d0002
+      internalID: 725310002
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mateo_Carrera3
+      rect:
+        serializedVersion: 2
+        x: 781
+        y: 756
+        width: 220
+        height: 330
+      alignment: 9
+      pivot: {x: 0.5272727272727272, y: 0.4696969696969697}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24c427cc82d746ecb35ba3bc197d0003
+      internalID: 725310003
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mateo_Carrera4
+      rect:
+        serializedVersion: 2
+        x: 1115
+        y: 756
+        width: 236
+        height: 330
+      alignment: 9
+      pivot: {x: 0.5466101694915254, y: 0.4696969696969697}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24c427cc82d746ecb35ba3bc197d0004
+      internalID: 725310004
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mateo_Horizontal
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 393
+        width: 261
+        height: 341
+      alignment: 9
+      pivot: {x: 0.42528735632183906, y: 0.4633431085043988}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24c427cc82d746ecb35ba3bc197d0005
+      internalID: 725310005
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mateo_DiagonalArriba
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 393
+        width: 223
+        height: 340
+      alignment: 9
+      pivot: {x: 0.47085201793721976, y: 0.4647058823529412}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24c427cc82d746ecb35ba3bc197d0006
+      internalID: 725310006
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mateo_Arriba
+      rect:
+        serializedVersion: 2
+        x: 770
+        y: 393
+        width: 225
+        height: 363
+      alignment: 9
+      pivot: {x: 0.5288888888888889, y: 0.43526170798898073}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24c427cc82d746ecb35ba3bc197d0007
+      internalID: 725310007
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mateo_DiagonalAbajo
+      rect:
+        serializedVersion: 2
+        x: 1120
+        y: 389
+        width: 237
+        height: 342
+      alignment: 9
+      pivot: {x: 0.4641350210970464, y: 0.47368421052631576}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24c427cc82d746ecb35ba3bc197d0008
+      internalID: 725310008
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mateo_Abajo
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 71
+        width: 191
+        height: 301
+      alignment: 9
+      pivot: {x: 0.4973821989528796, y: 0.53156146179402}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24c427cc82d746ecb35ba3bc197d0009
+      internalID: 725310009
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mateo_Destello1
+      rect:
+        serializedVersion: 2
+        x: 710
+        y: 132
+        width: 127
+        height: 129
+      alignment: 9
+      pivot: {x: 0.4566929133858268, y: 0.43410852713178294}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24c427cc82d746ecb35ba3bc197d000a
+      internalID: 725310010
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mateo_Destello2
+      rect:
+        serializedVersion: 2
+        x: 898
+        y: 90
+        width: 241
+        height: 218
+      alignment: 9
+      pivot: {x: 0.49377593360995853, y: 0.47706422018348627}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24c427cc82d746ecb35ba3bc197d000b
+      internalID: 725310011
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mateo_Destello3
+      rect:
+        serializedVersion: 2
+        x: 1206
+        y: 110
+        width: 165
+        height: 166
+      alignment: 9
+      pivot: {x: 0.47878787878787876, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24c427cc82d746ecb35ba3bc197d000c
+      internalID: 725310012
+      vertices: []
+      indices:
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 26cd6c03908650e4996066c12faf9aac
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Mateo_Carrera1: 725310001
+      Mateo_Carrera2: 725310002
+      Mateo_Carrera3: 725310003
+      Mateo_Carrera4: 725310004
+      Mateo_Horizontal: 725310005
+      Mateo_DiagonalArriba: 725310006
+      Mateo_Arriba: 725310007
+      Mateo_DiagonalAbajo: 725310008
+      Mateo_Abajo: 725310009
+      Mateo_Destello1: 725310010
+      Mateo_Destello2: 725310011
+      Mateo_Destello3: 725310012
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

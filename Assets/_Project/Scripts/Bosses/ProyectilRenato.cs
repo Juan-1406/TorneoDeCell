@@ -5,6 +5,7 @@ using UnityEngine;
 public sealed class ProyectilRenato : MonoBehaviour
 {
     private static readonly Color Oro = new Color(1f, 0.7f, 0.12f);
+    private static readonly Color RosadoParry = new Color(1f, 0.32f, 0.72f);
     private static readonly Color Devuelto = new Color(0.25f, 1f, 1f);
     private readonly List<RaycastHit2D> impactos = new List<RaycastHit2D>();
     private readonly List<Collider2D> vecinos = new List<Collider2D>();
@@ -24,7 +25,7 @@ public sealed class ProyectilRenato : MonoBehaviour
         imagen = sprite;
         rb.simulated = false;
         imagen.sprite = FeedbackCombate.Aro;
-        imagen.color = Oro;
+        imagen.color = GetComponent<Bullet>().EsReflejable ? RosadoParry : Oro;
         filtro.SetLayerMask(LayerMask.GetMask("Player", "Enemy", "Ground"));
         filtro.useTriggers = true;
         velocidad = direccion.normalized * rapidez;

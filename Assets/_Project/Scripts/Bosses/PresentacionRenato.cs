@@ -139,8 +139,8 @@ public class PresentacionRenato : MonoBehaviour
     public IEnumerator ManoAlSuelo(Vector2 centro, float radio, float objetivoX, System.Action impacto)
     {
         const string nombre = "Manotazo";
-        // RenatoManotazo_Contacto entra en el segundo 0.45 del clip de 0.90 segundos.
-        const float puntoImpacto = 0.5f;
+        // RenatoManotazo_Contacto entra en el segundo 0.70 del clip de 1.15 segundos.
+        const float puntoImpacto = 0.70f / 1.15f;
         int estadoManotazo = Animator.StringToHash(nombre);
         if (!Mathf.Approximately(objetivoX, centro.x)) signo = objetivoX > centro.x ? -1 : 1;
         Vector3 posicionImpacto = new Vector3(centro.x, centro.y, transform.position.z);
@@ -152,7 +152,13 @@ public class PresentacionRenato : MonoBehaviour
         AnimatorStateInfo cuadro = animador.GetCurrentAnimatorStateInfo(0);
         while (cuadro.shortNameHash == estadoManotazo && !muriendo && isActiveAndEnabled)
         {
-            if (!impactoAplicado) areaManotazo.transform.position = posicionImpacto;
+            if (!impactoAplicado)
+            {
+                AjustarAreaManotazo(posicionImpacto, radio);
+                float avance = Mathf.Clamp01(cuadro.normalizedTime / puntoImpacto);
+                areaManotazo.color = new Color(1f, Mathf.Lerp(0.65f, 0.28f, avance), 0.14f,
+                    Mathf.Lerp(0.72f, 1f, avance));
+            }
             if (!impactoAplicado && cuadro.normalizedTime >= puntoImpacto)
             {
                 impactoAplicado = true;
@@ -179,12 +185,21 @@ public class PresentacionRenato : MonoBehaviour
             areaManotazo = area.AddComponent<SpriteRenderer>();
             areaManotazo.sprite = FeedbackCombate.Aro;
             areaManotazo.sortingOrder = 24;
-            areaManotazo.color = new Color(1f, 0.58f, 0.14f, 0.65f);
+            areaManotazo.sortingLayerID = cuerpo.sortingLayerID;
         }
-        areaManotazo.transform.position = posicion;
-        // El borde del aro reutilizado queda a 30 píxeles del centro de la textura de 64.
-        areaManotazo.transform.localScale = Vector3.one * (radio * 64f / 30f);
+        AjustarAreaManotazo(posicion, radio);
+        areaManotazo.color = new Color(1f, 0.65f, 0.14f, 0.72f);
         areaManotazo.enabled = true;
+    }
+
+    private void AjustarAreaManotazo(Vector3 posicion, float radio)
+    {
+        areaManotazo.transform.position = posicion;
+        // El borde queda a 30 píxeles del centro de la textura de 64.
+        float escala = radio * 64f / 30f;
+        Vector3 escalaJefe = transform.lossyScale;
+        areaManotazo.transform.localScale = new Vector3(
+            escala / Mathf.Abs(escalaJefe.x), escala / Mathf.Abs(escalaJefe.y), 1f);
     }
 
     public void OcultarAreaManotazo()
