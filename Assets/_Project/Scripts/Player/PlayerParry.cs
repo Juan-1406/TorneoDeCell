@@ -33,7 +33,8 @@ public class PlayerParry : MonoBehaviour
     private void Update()
     {
         if (SesionJuego.EnPausa) return;
-        if (Input.GetButtonDown("Fire2") && Time.time >= siguienteParry)
+        // El parry usa el clic derecho: se ignora el clic con el que se cerró el menú de pausa.
+        if (!SesionJuego.SoltarEntradaDeMenu && Input.GetButtonDown("Fire2") && Time.time >= siguienteParry)
         {
             StartCoroutine(Parry());
         }

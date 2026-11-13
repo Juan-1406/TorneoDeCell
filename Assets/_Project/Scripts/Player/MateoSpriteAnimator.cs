@@ -66,8 +66,17 @@ public sealed class MateoSpriteAnimator : MonoBehaviour
         return vertical >= -1f ? 2 : 3;
     }
 
+    private bool Agachado => TieneSalto && movimiento.Agachado;
+
     private Sprite SeleccionarPose(Vector2 direccion, out Vector2 punta)
     {
+        // Agachado se reutiliza el cuadro de aterrizaje (rodillas flexionadas) y se dispara de frente.
+        if (Agachado)
+        {
+            punta = PuntaAgachado;
+            return salto[4];
+        }
+
         int indice = IndicePose(direccion);
         punta = Puntas[indice];
         if (TieneSalto && !movimiento.EnSueloVisual && disparoAereo != null && disparoAereo.Length == 3)
@@ -88,12 +97,14 @@ public sealed class MateoSpriteAnimator : MonoBehaviour
 
         if (TieneSalto && movimiento.EnSueloVisual && (!estabaEnSuelo || Time.time < aterrizajeHasta))
         {
-            punta = new Vector2(144f, 21f);
+            punta = PuntaAgachado;
             return salto[4];
         }
 
         return poses != null && indice < poses.Length ? poses[indice] : null;
     }
+
+    private static readonly Vector2 PuntaAgachado = new Vector2(144f, 21f);
 
     private static readonly Vector2[] PuntasAire =
     {
@@ -171,8 +182,12 @@ public sealed class MateoSpriteAnimator : MonoBehaviour
         bool aterrizando = TieneSalto && Time.time < aterrizajeHasta;
         Sprite cuadro = frames[0];
 
+        bool agachado = !dash && Agachado;
+
         if (dash)
             cuadro = frames[Mathf.Min(3, frames.Length - 1)];
+        else if (agachado)
+            cuadro = salto[4];
         else if (TieneSalto && (!enSuelo || impulso))
             cuadro = salto[FaseSalto(verticalSpeed)];
         else if (aterrizando)
@@ -205,7 +220,7 @@ public sealed class MateoSpriteAnimator : MonoBehaviour
 
         spriteRenderer.sprite = cuadro;
         spriteRenderer.flipX = lado < 0f;
-        MostrarReposo(reposo != null && enSuelo && !aterrizando && !impulso && !mostrarPose && !dash &&
+        MostrarReposo(reposo != null && enSuelo && !agachado && !aterrizando && !impulso && !mostrarPose && !dash &&
             Mathf.Abs(horizontalSpeed) <= moveThreshold && Mathf.Abs(verticalSpeed) <= 0.2f);
     }
 
