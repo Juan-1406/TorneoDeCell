@@ -42,16 +42,16 @@ public class LevelSelectUI : MonoBehaviour
 
             bool existe = Application.CanStreamedLevelBeLoaded(n.escena);
             bool desbloqueado = ProgresoJuego.NivelDesbloqueado(i);
-            bool derrotado = ProgresoJuego.JefeDerrotado(i);
+            bool completado = ProgresoJuego.NivelCompletado(i);
 
-            n.boton.interactable = existe && desbloqueado;
+            n.boton.interactable = existe && ProgresoJuego.PuedeJugarNivel(i);
 
             if (!existe) n.etiqueta.text = n.nombre + "\nPRÓXIMAMENTE";
+            else if (completado) n.etiqueta.text = n.nombre +
+                (i == 1 && !ProgresoJuego.JefeDerrotado(i) ? "\nFase 1 superada" : "\nCOMPLETADO") +
+                "\n<size=14>Reinicia el progreso para repetir</size>";
             else if (i == 1 && !desbloqueado) n.etiqueta.text = n.nombre + "\nDerrota a René Puente para desbloquear";
-            else if (i == 1 && ProgresoJuego.PadrePastaFaseUnoSuperada) n.etiqueta.text = n.nombre + "\nFase 1 superada";
-            else if (i == 0 && derrotado) n.etiqueta.text = "René Puente derrotado";
             else if (!desbloqueado) n.etiqueta.text = "BLOQUEADO";
-            else if (derrotado) n.etiqueta.text = n.nombre + "\n(DERROTADO)";
             else n.etiqueta.text = n.nombre;
         }
     }

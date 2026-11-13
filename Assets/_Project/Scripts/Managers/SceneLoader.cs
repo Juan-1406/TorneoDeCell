@@ -5,6 +5,8 @@ public class SceneLoader : MonoBehaviour
 {
     public void CargarEscena(string nombre)
     {
+        if (!ProgresoJuego.PuedeCargarEscena(nombre)) return;
+
         Time.timeScale = 1f;
         SesionJuego.Reiniciar();
         SceneManager.LoadScene(nombre);

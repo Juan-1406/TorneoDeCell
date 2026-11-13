@@ -25,6 +25,29 @@ public static class ProgresoJuego
         PlayerPrefs.Save();
     }
 
+    public static bool NivelCompletado(int id)
+    {
+        // Padre Pasta solo tiene su primera fase disponible por ahora.
+        return JefeDerrotado(id) || (id == 1 && PadrePastaFaseUnoSuperada);
+    }
+
+    public static bool PuedeJugarNivel(int id)
+    {
+        return id >= 0 && id < TotalJefes && NivelDesbloqueado(id) && !NivelCompletado(id);
+    }
+
+    public static bool PuedeCargarEscena(string escena)
+    {
+        switch (escena)
+        {
+            case "Level1_Renato": return PuedeJugarNivel(0);
+            case "Level2_PadrePasta": return PuedeJugarNivel(1);
+            case "Level3_JBL": return PuedeJugarNivel(2);
+            case "Level4_Diddy": return PuedeJugarNivel(3);
+            default: return true;
+        }
+    }
+
     public static bool NivelDesbloqueado(int id)
     {
         if (id == 1) return JefeDerrotado(0);
@@ -45,5 +68,6 @@ public static class ProgresoJuego
             PlayerPrefs.DeleteKey(Prefijo + i);
         }
         PlayerPrefs.Save();
+        SesionJuego.Reiniciar();
     }
 }

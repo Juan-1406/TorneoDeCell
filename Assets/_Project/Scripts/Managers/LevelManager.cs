@@ -31,6 +31,12 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         Time.timeScale = 1f;
+        if (!ProgresoJuego.PuedeCargarEscena(gameObject.scene.name))
+        {
+            VolverASeleccion();
+            return;
+        }
+
         if (panelGameOver != null) panelGameOver.SetActive(false);
         ActualizarTexto();
 
@@ -74,6 +80,12 @@ public class LevelManager : MonoBehaviour
 
     private void RecargarNivel()
     {
+        if (!ProgresoJuego.PuedeCargarEscena(gameObject.scene.name))
+        {
+            VolverASeleccion();
+            return;
+        }
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
