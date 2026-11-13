@@ -153,19 +153,28 @@ MonoBehaviour:
     escena: Level1_Renato
     boton: {fileID: 1532084196}
     etiqueta: {fileID: 962179619}
+    retrato: {fileID: -1162088669, guid: ed8f903ddb1b1674389d9fa7bd720400, type: 3}
+    escenario: {fileID: 21300000, guid: 2b522a271af92614ca86b2737152d47e, type: 3}
   - nombre: Padre Pasta
     escena: Level2_PadrePasta
     boton: {fileID: 530094040}
     etiqueta: {fileID: 437165499}
+    retrato: {fileID: 21300000, guid: 533fbcd20896598896c307ebc54f109d, type: 3}
+    escenario: {fileID: 21300000, guid: f8c2aa52e60b4d57a73d5789eac0d416, type: 3}
   - nombre: JBL LA VOZ
     escena: Level3_JBL
     boton: {fileID: 866789407}
     etiqueta: {fileID: 1307406665}
+    escenario: {fileID: 21300000, guid: 033a8c8220f64c3b8e45a083635d6628, type: 3}
   - nombre: "DIDDY GONZ\xC1LEZ"
     escena: Level4_Diddy
     boton: {fileID: 903613043}
     etiqueta: {fileID: 1404416410}
+    escenario: {fileID: 21300000, guid: 754cf897c49948858d730174f8907b94, type: 3}
   cargador: {fileID: 1580402468}
+  botonVolver: {fileID: 696476419}
+  candado: {fileID: 21300000, guid: 81846d2503154ca2bc2ab5f970ed1eec, type: 3}
+  fondoAfiche: {fileID: 2800000, guid: 49bc64b76dea0ee4ebef20756920f7b3, type: 3}
 --- !u!4 &103806888
 Transform:
   m_ObjectHideFlags: 0

@@ -44,6 +44,12 @@ public class PlayerShooting : MonoBehaviour
     private void Update()
     {
         if (SesionJuego.EnPausa || Time.timeScale == 0f || BloqueadoPorDialogo || DialogoRenato.ConsumioClic) return;
+        if (SesionJuego.SoltarEntradaDeMenu)
+        {
+            if (EntradaDisparoActiva || Input.GetMouseButton(1)) return;
+            SesionJuego.SoltarEntradaDeMenu = false;
+            return;
+        }
         if (!SuspenderMejora) mejoraRestante = Mathf.Max(0f, mejoraRestante - Time.deltaTime);
         if (EntradaDisparoActiva && Time.time >= siguienteDisparo)
         {

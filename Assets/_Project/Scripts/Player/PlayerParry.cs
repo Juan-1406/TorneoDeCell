@@ -10,6 +10,7 @@ public class PlayerParry : MonoBehaviour
     [SerializeField] private float recargaParry = 0.6f;
     [SerializeField, Min(0f)] private float ventanaPerfecta = 0.1f;
     public event Action ParryPerfecto;
+    internal event Action ProyectilDevuelto;
     private float inicioParry;
     private bool premioNotificado;
 
@@ -61,6 +62,7 @@ public class PlayerParry : MonoBehaviour
         if (bala.EsProyectilRenato && Camera.main != null)
             direccion = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition) - (Vector2)bala.transform.position;
         bala.Reflejar(direccion);
+        ProyectilDevuelto?.Invoke();
         if (!premioNotificado && Time.time - inicioParry <= Mathf.Min(ventanaPerfecta, ventanaParry))
         {
             premioNotificado = true;

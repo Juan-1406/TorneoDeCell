@@ -65,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space)) Saltar();
 
         // Una pulsación del botón derecho inicia el dash.
-        if (Input.GetMouseButtonDown(1) && dashDisponible)
+        if (!SesionJuego.SoltarEntradaDeMenu && Input.GetMouseButtonDown(1) && dashDisponible)
         {
             StartCoroutine(Dash());
         }
