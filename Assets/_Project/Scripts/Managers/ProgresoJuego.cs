@@ -38,6 +38,7 @@ public static class ProgresoJuego
 
     public static bool PuedeCargarEscena(string escena)
     {
+        if (SesionJuego.EscenaRepeticion == escena) return true;
         switch (escena)
         {
             case "Level1_Renato": return PuedeJugarNivel(0);

@@ -3,6 +3,9 @@ public static class SesionJuego
     public const int VidasIniciales = 3;
     public static int VidasExtra = VidasIniciales;
     public static bool EnPausa;
+    internal static bool SoltarEntradaDeMenu;
+    internal static string EscenaRepeticion { get; private set; }
+    internal static void HabilitarRepeticion(string escena) => EscenaRepeticion = escena;
 
     private static string escenaJefePendiente;
     private static int vidaJefePendiente = -1;
@@ -53,6 +56,13 @@ public static class SesionJuego
 
     public static void Reiniciar()
     {
+        EscenaRepeticion = null;
+        ReiniciarIntento();
+    }
+
+    internal static void ReiniciarIntento()
+    {
+        SoltarEntradaDeMenu = false;
         VidasExtra = VidasIniciales;
         EnPausa = false;
         LimpiarVidaJefe();

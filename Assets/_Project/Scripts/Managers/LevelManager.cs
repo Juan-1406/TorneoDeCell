@@ -11,21 +11,43 @@ public class LevelManager : MonoBehaviour
     [Header("Victoria")]
     [SerializeField] private Health jefe;
     [SerializeField] private int idJefe = 0;
-    [SerializeField] private float retardoVictoria = 2f;
-    [SerializeField] private GameObject panelFaseUnoPadrePasta;
+    [SerializeField] private Sprite poseVictoriaMateo;
 
     private bool combateFinalizado;
+    private bool cambiandoEscena;
+    private bool victoria;
+    private float segundosActivos;
+    private int parries;
+    private PlayerParry parry;
+    private SegundaFaseRenato faseRenato;
+    private GameObject resultados;
+
+    private void Awake()
+    {
+        if (jugador != null) parry = jugador.GetComponent<PlayerParry>();
+        if (jefe != null) faseRenato = jefe.GetComponent<SegundaFaseRenato>();
+    }
 
     private void OnEnable()
     {
         if (jugador != null) jugador.OnMuerte += AlMorirJugador;
         if (jefe != null) jefe.OnMuerte += AlVencerJefe;
+        if (parry != null) parry.ProyectilDevuelto += ContarParry;
     }
 
     private void OnDisable()
     {
         if (jugador != null) jugador.OnMuerte -= AlMorirJugador;
         if (jefe != null) jefe.OnMuerte -= AlVencerJefe;
+        if (parry != null) parry.ProyectilDevuelto -= ContarParry;
+    }
+
+    private void ContarParry() => parries++;
+
+    private void Update()
+    {
+        if (!combateFinalizado && !SesionJuego.EnPausa && (faseRenato == null || !faseRenato.EnDialogo))
+            segundosActivos += Time.deltaTime;
     }
 
     private void Start()
@@ -38,6 +60,14 @@ public class LevelManager : MonoBehaviour
         }
 
         if (panelGameOver != null) panelGameOver.SetActive(false);
+        if (textoVidas != null)
+        {
+            textoVidas.color = EstiloTorneo.Papel;
+            textoVidas.fontStyle = FontStyles.Bold;
+            var fondo = EstiloTorneo.Imagen(textoVidas.transform, "Fondo de vidas", EstiloTorneo.Tinta, -.06f, 0, 1.12f, 1);
+            fondo.transform.SetParent(textoVidas.transform.parent, true);
+            fondo.transform.SetSiblingIndex(textoVidas.transform.GetSiblingIndex());
+        }
         ActualizarTexto();
 
         if (jefe != null && SesionJuego.IntentarRestaurarVidaJefe(SceneManager.GetActiveScene().name, out int vidaJefe))
@@ -74,18 +104,29 @@ public class LevelManager : MonoBehaviour
 
     public void ReintentarJuego()
     {
-        SesionJuego.Reiniciar();
+        if (cambiandoEscena) return;
+        SesionJuego.ReiniciarIntento();
         RecargarNivel();
+    }
+
+    public void ReintentarVictoria()
+    {
+        if (!victoria || cambiandoEscena) return;
+        SesionJuego.HabilitarRepeticion(gameObject.scene.name);
+        ReintentarJuego();
     }
 
     private void RecargarNivel()
     {
+        if (cambiandoEscena) return;
         if (!ProgresoJuego.PuedeCargarEscena(gameObject.scene.name))
         {
             VolverASeleccion();
             return;
         }
 
+        cambiandoEscena = true;
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -98,14 +139,23 @@ public class LevelManager : MonoBehaviour
     {
         if (!FinalizarCombate()) return;
 
-        if (panelFaseUnoPadrePasta != null)
+        victoria = true;
+        bool padrePasta = idJefe == 1 && jefe.TryGetComponent<PadrePasta>(out _);
+        if (padrePasta)
         {
-            ProgresoJuego.MarcarPadrePastaFaseUnoSuperada();
-            panelFaseUnoPadrePasta.SetActive(true);
+            if (!ProgresoJuego.PadrePastaFaseUnoSuperada) ProgresoJuego.MarcarPadrePastaFaseUnoSuperada();
+        }
+        else if (!ProgresoJuego.JefeDerrotado(idJefe)) ProgresoJuego.MarcarDerrotado(idJefe);
+
+        Canvas canvas = textoVidas != null ? textoVidas.GetComponentInParent<Canvas>() : null;
+        if (canvas == null || jugador == null)
+        {
+            VolverASeleccion();
             return;
         }
-        ProgresoJuego.MarcarDerrotado(idJefe);
-        Invoke(nameof(VolverASeleccion), retardoVictoria);
+        string nombre = padrePasta ? "Padre Pasta" : "René Puente";
+        resultados = ResultadosCombate.Mostrar(canvas, textoVidas.font, poseVictoriaMateo, nombre,
+            padrePasta ? "Fase 1 superada" : "René Puente derrotado", segundosActivos, jugador, parries, this);
     }
 
     private bool FinalizarCombate()
@@ -169,6 +219,11 @@ public class LevelManager : MonoBehaviour
 
     public void VolverASeleccion()
     {
+        if (cambiandoEscena) return;
+        cambiandoEscena = true;
+        if (resultados != null) resultados.SetActive(false);
+        Time.timeScale = 1f;
+        SesionJuego.Reiniciar();
         SceneManager.LoadScene("LevelSelect");
     }
 }

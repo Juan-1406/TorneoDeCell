@@ -20,8 +20,6 @@ public class Bullet : MonoBehaviour
     private SpriteRenderer sprite;
     private float expira;
     private ProyectilRenato proyectilRenato;
-    private Transform objetivoNota;
-    private float giroNota;
     private bool notaMusical;
     internal bool EsProyectilRenato => proyectilRenato != null;
     private static readonly HashSet<Bullet> activas = new HashSet<Bullet>();
@@ -55,25 +53,14 @@ public class Bullet : MonoBehaviour
         expira = Time.time + Mathf.Max(0.1f, tiempoVida);
     }
 
-    internal void DispararNota(Sprite nota, Vector2 direccion, float rapidez, Transform objetivo, float giro)
+    internal void DispararNota(Sprite nota, Vector2 direccion, float rapidez, int impacto, float duracion)
     {
         notaMusical = true;
         sprite.sprite = nota;
         velocidad = rapidez;
-        objetivoNota = objetivo;
-        giroNota = giro;
+        danio = impacto;
+        tiempoVida = duracion;
         Disparar(direccion);
-    }
-
-    private void FixedUpdate()
-    {
-        if (objetivoNota == null) return;
-
-        Vector2 direccion = rb.linearVelocity;
-        Vector2 haciaObjetivo = (Vector2)objetivoNota.position - rb.position;
-        float giro = Mathf.Clamp(Vector2.SignedAngle(direccion, haciaObjetivo),
-            -giroNota * Time.fixedDeltaTime, giroNota * Time.fixedDeltaTime);
-        rb.linearVelocity = Quaternion.Euler(0f, 0f, giro) * direccion;
     }
 
     private void Update()
@@ -89,7 +76,6 @@ public class Bullet : MonoBehaviour
     internal void Reflejar(Vector2 direccionJugador)
     {
         if (!EsReflejable) return;
-        objetivoNota = null;
         if (proyectilRenato != null)
         {
             proyectilRenato.Devolver(direccionJugador);

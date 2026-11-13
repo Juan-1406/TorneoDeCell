@@ -1,0 +1,53 @@
+{
+  "version": 2,
+  "skills": {
+    "audio-design": {
+      "source": "gamedev-skills/awesome-gamedev-agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/disciplines/audio-design/SKILL.md",
+      "computedHash": "9cc7466f3e608710f6d6c56337f9ace788fb7569038c4dc26c8b30b2200c511d"
+    },
+    "create-game-assets": {
+      "source": "gamedev-skills/awesome-gamedev-agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/disciplines/create-game-assets/SKILL.md",
+      "computedHash": "9fa157004c040ab3de38ac8cc3a7a49238821fcde7e384e0b94b10657c6e6a53"
+    },
+    "dialogue-systems": {
+      "source": "gamedev-skills/awesome-gamedev-agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/disciplines/dialogue-systems/SKILL.md",
+      "computedHash": "6faa9c0781da4739e4273864a820a969c03c10f293845cca2431ecade3b94060"
+    },
+    "game-feel": {
+      "source": "gamedev-skills/awesome-gamedev-agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/disciplines/game-feel/SKILL.md",
+      "computedHash": "f0a2becd199feabc7e8720f8f5626c84571ef763a0a5edefcdae8a039ce64338"
+    },
+    "game-ui-ux": {
+      "source": "gamedev-skills/awesome-gamedev-agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/disciplines/game-ui-ux/SKILL.md",
+      "computedHash": "8bf85f22ef57c78fd2a5b14c086e6cb4a1a0f6b729111abeed29be96cf615610"
+    },
+    "input-systems": {
+      "source": "gamedev-skills/awesome-gamedev-agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/disciplines/input-systems/SKILL.md",
+      "computedHash": "c155987a41e88c82d0126dbf0959114cae1e0892695777aa58501f31fd363090"
+    },
+    "save-systems": {
+      "source": "gamedev-skills/awesome-gamedev-agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/disciplines/save-systems/SKILL.md",
+      "computedHash": "5248469a72bb24bc02e137d59b92ae1286be94ccc76a0ef5560140545517f875"
+    },
+    "unity-csharp-scripting": {
+      "source": "gamedev-skills/awesome-gamedev-agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/unity/unity-csharp-scripting/SKILL.md",
+      "computedHash": "faebf524fafd23ad2c81f2b3e68a5a39a194fd3ba253fae62328a418fa1bff6c"
+    }
+  }
+}

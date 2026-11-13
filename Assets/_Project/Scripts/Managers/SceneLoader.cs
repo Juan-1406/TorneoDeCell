@@ -3,13 +3,24 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+    private bool cargando;
+
     public void CargarEscena(string nombre)
     {
-        if (!ProgresoJuego.PuedeCargarEscena(nombre)) return;
+        IntentarCargarEscena(nombre);
+    }
 
+    public bool IntentarCargarEscena(string nombre)
+    {
+        if (cargando || !Application.CanStreamedLevelBeLoaded(nombre) ||
+            !ProgresoJuego.PuedeCargarEscena(nombre)) return false;
+
+        cargando = true;
         Time.timeScale = 1f;
-        SesionJuego.Reiniciar();
+        if (SesionJuego.EscenaRepeticion == nombre) SesionJuego.ReiniciarIntento();
+        else SesionJuego.Reiniciar();
         SceneManager.LoadScene(nombre);
+        return true;
     }
 
     public void ReiniciarEscena()

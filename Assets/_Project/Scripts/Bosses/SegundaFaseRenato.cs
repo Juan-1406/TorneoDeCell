@@ -195,6 +195,8 @@ public sealed class SegundaFaseRenato : MonoBehaviour
         if (cuerpoJugador != null) { simulacionPrevia = cuerpoJugador.simulated; cuerpoJugador.simulated = false; }
     }
 
+    internal bool EnDialogo => bloqueado;
+
     private void DevolverControl()
     {
         bloqueado = false;
