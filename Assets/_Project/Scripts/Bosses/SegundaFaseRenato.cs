@@ -207,8 +207,8 @@ public sealed class SegundaFaseRenato : MonoBehaviour
 
     private void Update()
     {
-        // Un clic que empezó durante el cuadro no se convierte en un disparo al cerrarlo.
-        if (!rearmarDisparo || Input.GetButton("Fire1")) return;
+        // Una pulsación de disparo mantenida durante el diálogo debe soltarse para rearmar.
+        if (!rearmarDisparo || PlayerShooting.EntradaDisparoActiva) return;
         rearmarDisparo = false;
         if (disparo != null && !bloqueado) disparo.BloqueadoPorDialogo = disparoPrevio;
     }

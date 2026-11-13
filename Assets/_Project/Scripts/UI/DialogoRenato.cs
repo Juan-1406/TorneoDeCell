@@ -67,6 +67,8 @@ internal sealed class DialogoRenato
 
     private readonly RectTransform areaClic;
     private int cuadroApertura;
+    private static int cuadroClic = -1;
+    internal static bool ConsumioClic => cuadroClic == Time.frameCount;
 
     internal void Abrir(Sprite cara, string mensaje, string indicacion)
     {
@@ -83,9 +85,17 @@ internal sealed class DialogoRenato
         pie.text = indicacion;
     }
 
-    internal bool ClicDentro() => Time.frameCount > cuadroApertura && Input.GetMouseButtonDown(0) &&
-        RectTransformUtility.RectangleContainsScreenPoint(areaClic, Input.mousePosition,
-            canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera);
+    internal bool ClicDentro()
+    {
+        if (Time.frameCount <= cuadroApertura || !Input.GetMouseButtonDown(0) ||
+            !RectTransformUtility.RectangleContainsScreenPoint(areaClic, Input.mousePosition,
+                canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera))
+            return false;
+
+        cuadroClic = Time.frameCount;
+        return true;
+    }
+
 
     internal void Cerrar()
     {

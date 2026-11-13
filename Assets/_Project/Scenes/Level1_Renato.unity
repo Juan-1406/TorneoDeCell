@@ -2852,6 +2852,32 @@ MonoBehaviour:
   - {fileID: -973805220, guid: eec2789f00ca3d145a96f25f3a658ae6, type: 3}
   - {fileID: -120844920, guid: eec2789f00ca3d145a96f25f3a658ae6, type: 3}
   - {fileID: 588295927, guid: eec2789f00ca3d145a96f25f3a658ae6, type: 3}
+  reposo: {fileID: 725320001, guid: 6d832e9b28aa43a6ad6325c2974bf509, type: 3}
+  carrera:
+  - {fileID: 725310001, guid: 24c427cc82d746ecb35ba3bc197df991, type: 3}
+  - {fileID: 725310002, guid: 24c427cc82d746ecb35ba3bc197df991, type: 3}
+  - {fileID: 725310003, guid: 24c427cc82d746ecb35ba3bc197df991, type: 3}
+  - {fileID: 725310004, guid: 24c427cc82d746ecb35ba3bc197df991, type: 3}
+  poses:
+  - {fileID: 725310005, guid: 24c427cc82d746ecb35ba3bc197df991, type: 3}
+  - {fileID: 725310006, guid: 24c427cc82d746ecb35ba3bc197df991, type: 3}
+  - {fileID: 725310007, guid: 24c427cc82d746ecb35ba3bc197df991, type: 3}
+  - {fileID: 725310008, guid: 24c427cc82d746ecb35ba3bc197df991, type: 3}
+  - {fileID: 725310009, guid: 24c427cc82d746ecb35ba3bc197df991, type: 3}
+  destellos:
+  - {fileID: 725310010, guid: 24c427cc82d746ecb35ba3bc197df991, type: 3}
+  - {fileID: 725310011, guid: 24c427cc82d746ecb35ba3bc197df991, type: 3}
+  - {fileID: 725310012, guid: 24c427cc82d746ecb35ba3bc197df991, type: 3}
+  salto:
+  - {fileID: 725330001, guid: 8a31fbd1a1284ec9a8d04152baf26944, type: 3}
+  - {fileID: 725330002, guid: 8a31fbd1a1284ec9a8d04152baf26944, type: 3}
+  - {fileID: 725330003, guid: 8a31fbd1a1284ec9a8d04152baf26944, type: 3}
+  - {fileID: 725330004, guid: 8a31fbd1a1284ec9a8d04152baf26944, type: 3}
+  - {fileID: 725330005, guid: 8a31fbd1a1284ec9a8d04152baf26944, type: 3}
+  disparoAereo:
+  - {fileID: 725330006, guid: 8a31fbd1a1284ec9a8d04152baf26944, type: 3}
+  - {fileID: 725330007, guid: 8a31fbd1a1284ec9a8d04152baf26944, type: 3}
+  - {fileID: 725330008, guid: 8a31fbd1a1284ec9a8d04152baf26944, type: 3}
   runFramesPerSecond: 8
   moveThreshold: 0.1
   dashThreshold: 12
@@ -3626,7 +3652,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1223349239
 RectTransform:
   m_ObjectHideFlags: 0
