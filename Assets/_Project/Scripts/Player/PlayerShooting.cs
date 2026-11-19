@@ -14,12 +14,21 @@ public class PlayerShooting : MonoBehaviour
     private float multiplicadorCadencia = 1f;
     public bool SuspenderMejora { get; set; }
     internal bool BloqueadoPorDialogo { get; set; }
+    public event System.Action CambioDuracionMejora;
+
+    private void ActualizarDuracion(float segundos)
+    {
+        int anterior = Mathf.CeilToInt(mejoraRestante);
+        mejoraRestante = segundos;
+        if (Mathf.CeilToInt(segundos) != anterior) CambioDuracionMejora?.Invoke();
+    }
+
     public float SegundosMejora => mejoraRestante;
     public float CadenciaActual => cadencia * (mejoraRestante > 0f ? multiplicadorCadencia : 1f);
 
     public void LimpiarMejora()
     {
-        mejoraRestante = 0f;
+        ActualizarDuracion(0f);
         multiplicadorCadencia = 1f;
     }
 
@@ -31,7 +40,7 @@ public class PlayerShooting : MonoBehaviour
 
         multiplicadorCadencia = mejoraRestante > 0f
             ? Mathf.Min(multiplicadorCadencia, multiplicador) : multiplicador;
-        mejoraRestante = Mathf.Max(mejoraRestante, duracion);
+        ActualizarDuracion(Mathf.Max(mejoraRestante, duracion));
         siguienteDisparo = Mathf.Min(siguienteDisparo, Time.time + cadencia * multiplicadorCadencia);
     }
 
@@ -50,7 +59,7 @@ public class PlayerShooting : MonoBehaviour
             SesionJuego.SoltarEntradaDeMenu = false;
             return;
         }
-        if (!SuspenderMejora) mejoraRestante = Mathf.Max(0f, mejoraRestante - Time.deltaTime);
+        if (!SuspenderMejora && mejoraRestante > 0f) ActualizarDuracion(Mathf.Max(0f, mejoraRestante - Time.deltaTime));
         if (EntradaDisparoActiva && Time.time >= siguienteDisparo)
         {
             Disparar();

@@ -1,14 +1,14 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.UI;
 
 internal sealed class DialogoRenato
 {
-    private static readonly Color Madera = new Color32(75, 39, 29, 255);
-    private static readonly Color Borde = new Color32(225, 151, 75, 255);
-    private static readonly Color Papel = new Color32(255, 224, 170, 255);
-    private static readonly Color Tinta = new Color32(61, 30, 28, 255);
     private readonly Canvas canvas;
+    private readonly TMP_Text titulo;
+    private readonly Image acento;
     private readonly RectTransform panel;
     private readonly Image retrato;
     private readonly TMP_Text texto, pie;
@@ -23,7 +23,7 @@ internal sealed class DialogoRenato
             break;
         }
 
-        var lienzo = new GameObject("Diálogo de René", typeof(RectTransform), typeof(Canvas));
+        var lienzo = new GameObject("Diálogo de Renato", typeof(RectTransform), typeof(Canvas));
         if (canvas != null)
         {
             lienzo.transform.SetParent(canvas.transform, false);
@@ -43,26 +43,23 @@ internal sealed class DialogoRenato
         }
 
         panel = (RectTransform)lienzo.transform;
-        var caja = Imagen(panel, "Marco", Madera, 0.08f, 0.035f, 0.92f, 0.27f);
-        var filete = Imagen(caja.rectTransform, "Borde dorado", Borde, 0.008f, 0.035f, 0.992f, 0.965f);
-        var interior = Imagen(filete.rectTransform, "Papel", Papel, 0.008f, 0.038f, 0.992f, 0.962f);
-        var zona = interior.rectTransform;
-        Imagen(zona, "Separador", Borde, 0.715f, 0.06f, 0.721f, 0.94f);
-        var marcoRetrato = Imagen(zona, "Marco del retrato", Madera, 0.742f, 0.078f, 0.974f, 0.922f);
-        var fondoRetrato = Imagen(marcoRetrato.rectTransform, "Fondo del retrato", Borde, 0.037f, 0.038f, 0.963f, 0.962f);
-        retrato = Imagen(fondoRetrato.rectTransform, "Retrato", Color.white, 0.03f, 0.03f, 0.97f, 0.97f);
+        var area = AreaSeguraCombate.Crear(panel, "Área segura del aviso");
+        var marco = EstiloTorneo.Caja(area.Contenido, "Marco del aviso");
+        EstiloTorneo.Anclar(marco, new Vector2(.5f, 0), new Vector2(0, 34), new Vector2(890, 172));
+        var placa = PlacaCombate.Crear(marco, "Afiche", EstiloTorneo.Tinta, EstiloTorneo.Acero, 3, 20);
+        var zona = placa.rectTransform;
+        acento = EstiloTorneo.Imagen(zona, "Banda de fase", EstiloTorneo.Energia, .018f, .12f, .009f, .76f);
+        var fondo = EstiloTorneo.Imagen(zona, "Fondo del retrato", EstiloTorneo.Azul, .83f, .05f, .15f, .90f);
+        retrato = EstiloTorneo.Imagen(fondo.transform, "Retrato", Color.white, 0, 0, 1, 1);
         retrato.preserveAspect = true;
-        var etiqueta = Imagen(zona, "Placa del nombre", Madera, 0.027f, 0.73f, 0.365f, 0.924f);
-        TMP_Text nombre = Etiqueta(etiqueta.rectTransform, "Nombre", fuente, 0.04f, 0f, 0.96f, 1f);
-        nombre.color = Papel;
-        nombre.fontStyle = FontStyles.Bold;
-        nombre.alignment = TextAlignmentOptions.MidlineLeft;
-        nombre.text = "René Puente";
-        texto = Etiqueta(zona, "Mensaje", fuente, 0.03f, 0.22f, 0.689f, 0.707f);
-        pie = Etiqueta(zona, "Indicador", fuente, 0.36f, 0.04f, 0.689f, 0.195f);
-        pie.alignment = TextAlignmentOptions.BottomRight;
-        pie.fontSizeMax = 19f;
-        areaClic = caja.rectTransform;
+        titulo = EstiloTorneo.Texto(zona, "Título de fase", fuente, 46, .051f, .58f, .76f, .37f, EstiloTorneo.Oro);
+        titulo.alignment = TextAlignmentOptions.MidlineLeft;
+        titulo.fontStyle |= FontStyles.Italic;
+        texto = EstiloTorneo.Texto(zona, "Mensaje", fuente, 29, .051f, .28f, .76f, .28f, EstiloTorneo.Papel);
+        texto.alignment = TextAlignmentOptions.MidlineLeft;
+        pie = EstiloTorneo.Texto(zona, "Indicador", fuente, 25, .051f, .055f, .76f, .21f, EstiloTorneo.Foco);
+        pie.alignment = TextAlignmentOptions.MidlineLeft;
+        areaClic = marco;
     }
 
     private readonly RectTransform areaClic;
@@ -70,8 +67,11 @@ internal sealed class DialogoRenato
     private static int cuadroClic = -1;
     internal static bool ConsumioClic => cuadroClic == Time.frameCount;
 
-    internal void Abrir(Sprite cara, string mensaje, string indicacion)
+    internal void Abrir(Sprite cara, bool victoria, string mensaje, string indicacion)
     {
+        titulo.text = victoria ? "¡VICTORIA DEFINITIVA!" : "FASE 2";
+        titulo.fontSizeMax = victoria ? 54 : 44;
+        acento.color = titulo.color = victoria ? EstiloTorneo.Oro : EstiloTorneo.Energia;
         retrato.sprite = cara;
         Mostrar(mensaje, indicacion);
         cuadroApertura = Time.frameCount;
@@ -87,10 +87,11 @@ internal sealed class DialogoRenato
 
     internal bool ClicDentro()
     {
-        if (Time.frameCount <= cuadroApertura || !Input.GetMouseButtonDown(0) ||
-            !RectTransformUtility.RectangleContainsScreenPoint(areaClic, Input.mousePosition,
-                canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera))
-            return false;
+        if (Time.frameCount <= cuadroApertura) return false;
+        bool clic = Input.GetMouseButtonDown(0) && RectTransformUtility.RectangleContainsScreenPoint(
+            areaClic, Input.mousePosition, canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera);
+        var modulo = EventSystem.current != null ? EventSystem.current.currentInputModule as InputSystemUIInputModule : null;
+        if (!clic && modulo?.submit?.action?.WasPressedThisFrame() != true) return false;
 
         cuadroClic = Time.frameCount;
         return true;
@@ -105,33 +106,6 @@ internal sealed class DialogoRenato
     internal void Destruir()
     {
         if (panel != null) Object.Destroy(panel.gameObject);
-    }
-
-    private static Image Imagen(RectTransform padre, string nombre, Color color, float x, float y, float maxX, float maxY)
-    {
-        var imagen = new GameObject(nombre, typeof(RectTransform), typeof(Image)).GetComponent<Image>();
-        imagen.rectTransform.SetParent(padre, false);
-        Colocar(imagen.rectTransform, x, y, maxX, maxY);
-        imagen.color = color;
-        imagen.raycastTarget = false;
-        return imagen;
-    }
-
-    private static TMP_Text Etiqueta(RectTransform padre, string nombre, TMP_FontAsset fuente,
-        float x, float y, float maxX, float maxY)
-    {
-        var etiqueta = new GameObject(nombre, typeof(RectTransform), typeof(TextMeshProUGUI))
-            .GetComponent<TextMeshProUGUI>();
-        etiqueta.rectTransform.SetParent(padre, false);
-        Colocar(etiqueta.rectTransform, x, y, maxX, maxY);
-        if (fuente != null) etiqueta.font = fuente;
-        etiqueta.color = Tinta;
-        etiqueta.fontSizeMin = 12f;
-        etiqueta.fontSizeMax = 44f;
-        etiqueta.enableAutoSizing = true;
-        etiqueta.alignment = TextAlignmentOptions.TopLeft;
-        etiqueta.raycastTarget = false;
-        return etiqueta;
     }
 
     private static void Colocar(RectTransform rect, float x, float y, float maxX, float maxY)

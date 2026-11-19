@@ -61,11 +61,6 @@ public class PauseManager : MonoBehaviour
         SalirDeLaPausa(SceneManager.GetActiveScene().name);
     }
 
-    public void VolverAlMenu()
-    {
-        SalirDeLaPausa("MainMenu");
-    }
-
     public void VolverASeleccion()
     {
         SalirDeLaPausa("LevelSelect");

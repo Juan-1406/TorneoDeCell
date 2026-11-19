@@ -6,11 +6,13 @@ using UnityEngine;
 public sealed class SegundaFaseRenato : MonoBehaviour
 {
     private enum Etapa { Primera, Transformacion, Segunda, Despedida, Victoria, Interrumpida }
+    internal const string InstruccionFaseDorada = "Devuelve los proyectiles dorados.";
+
     private static readonly string[] Despedida =
     {
-        "No puede ser… ¿de verdad perdí?",
-        "Pensé que con esta transformación me iba a alcanzar…",
-        "Ya… ganaste. Solo déjame recuperar el aliento."
+        "¿En serio perdí?",
+        "Ni con todo ese poder pude ganarte…",
+        "Está bien, ganaste. Déjame tomar aire."
     };
 
     [Header("Transformación")]
@@ -56,7 +58,7 @@ public sealed class SegundaFaseRenato : MonoBehaviour
         if (director != null || objetivo == null) return;
         if (proyectil == null || retratoDorado == null || retratoAbatido == null)
         {
-            Debug.LogError("La segunda fase de René necesita proyectil y ambos retratos.", this);
+            Debug.LogError("La segunda fase de Renato necesita proyectil y ambos retratos.", this);
             return;
         }
 
@@ -109,13 +111,16 @@ public sealed class SegundaFaseRenato : MonoBehaviour
     private IEnumerator Transformar()
     {
         dialogo ??= new DialogoRenato(this, fuente);
-        dialogo.Abrir(retratoDorado, "¡No me detendrás…! ¡Todavía me queda una última fase!", "");
+        director.OcultarObjetivo();
+        dialogo.Abrir(retratoDorado, false, "¡La pelea sigue!", InstruccionFaseDorada);
         presentacion.Transformarse(duracionTransformacion);
-        yield return new WaitForSeconds(duracionTransformacion);
-
+        float lectura = Mathf.Min(3.4f, duracionTransformacion);
+        yield return new WaitForSeconds(lectura);
         dialogo.Cerrar();
+        yield return new WaitForSeconds(duracionTransformacion - lectura);
         etapa = Etapa.Segunda;
         Vida.IniciarEtapa(vidaTransformado);
+        director.ObjetivoFaseDorada();
         Vida.Invulnerable = true;
         hitbox.enabled = true;
         presentacion.ReposoDorado();
@@ -148,7 +153,8 @@ public sealed class SegundaFaseRenato : MonoBehaviour
     {
         presentacion.MostrarAbatido();
         dialogo ??= new DialogoRenato(this, fuente);
-        dialogo.Abrir(retratoAbatido, Despedida[0], "Clic para continuar  ·  1/3");
+        dialogo.Abrir(retratoAbatido, true, Despedida[0], "Haz clic o confirma  ·  1/3");
+        yield return new WaitForSecondsRealtime(1.2f);
         int pagina = 0;
         while (pagina < Despedida.Length)
         {
@@ -157,7 +163,7 @@ public sealed class SegundaFaseRenato : MonoBehaviour
             pagina++;
             if (pagina < Despedida.Length)
                 dialogo.Mostrar(Despedida[pagina], pagina == Despedida.Length - 1
-                    ? "Clic para cerrar  ·  3/3" : $"Clic para continuar  ·  {pagina + 1}/3");
+                    ? "Confirma para ver resultados  ·  3/3" : $"Clic o confirmar  ·  {pagina + 1}/3");
         }
         dialogo.Cerrar();
         etapa = Etapa.Victoria;

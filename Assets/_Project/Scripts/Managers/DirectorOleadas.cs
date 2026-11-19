@@ -61,7 +61,6 @@ public class DirectorOleadas : MonoBehaviour
     private bool detenido;
     private readonly HashSet<GameObject> avisos = new HashSet<GameObject>();
     private int entradasEnCurso;
-    private string ladoAviso;
     private PlayerShooting disparo;
     public int EntradasEnCurso => entradasEnCurso;
     public int CupoActual => oleadas[Mathf.Clamp(indiceOleada, 0, oleadas.Length - 1)].maximoSimultaneos;
@@ -141,7 +140,7 @@ public class DirectorOleadas : MonoBehaviour
 
     private IEnumerator EjecutarOleadas()
     {
-        yield return Esperar(esperaInicial, "Prepárate", EstadoOleadas.Preparacion);
+        yield return Esperar(esperaInicial, EstadoOleadas.Preparacion);
         for (; indiceOleada < oleadas.Length && !detenido; indiceOleada++)
         {
             var ronda = oleadas[indiceOleada];
@@ -172,7 +171,7 @@ public class DirectorOleadas : MonoBehaviour
             SesionJuego.GuardarProgresoOleadas(gameObject.scene.name, indiceOleada + 1);
             OleadaSuperada?.Invoke(indiceOleada + 1);
             if (indiceOleada < oleadas.Length - 1)
-                yield return Esperar(esperaEntreOleadas, "Oleada superada · recoge los ítems", EstadoOleadas.Descanso);
+                yield return Esperar(esperaEntreOleadas, EstadoOleadas.Descanso);
         }
         if (!detenido) yield return EntrarJefe();
     }
@@ -181,17 +180,30 @@ public class DirectorOleadas : MonoBehaviour
     {
         jefe.Invulnerable = true;
         LimpiarProyectiles();
-        yield return Esperar(esperaAntesJefe, "Prepárate para el jefe", EstadoOleadas.EntradaJefe);
+        yield return Esperar(esperaAntesJefe, EstadoOleadas.EntradaJefe);
         if (!detenido) ActivarJefe();
     }
 
-    private IEnumerator Esperar(float segundos, string mensaje, EstadoOleadas estado)
+    private IEnumerator Esperar(float segundos, EstadoOleadas estado)
     {
         CambiarEstado(estado);
+        string oleada = $"OLEADA {indiceOleada + 1}/{oleadas.Length}";
+        (string titulo, string mensaje) = estado switch
+        {
+            EstadoOleadas.EntradaJefe => ("RENATO PUENTE", "Llega en "),
+            EstadoOleadas.Descanso => ($"{oleada} SUPERADA", "Recoge las recompensas · "),
+            _ => (oleada, "Empieza en ")
+        };
+        int ultimoSegundo = -1;
         float restante = Mathf.Max(0f, segundos);
         while (restante > 0f && !detenido)
         {
-            if (textoOleadas != null) textoOleadas.text = mensaje + " · " + Mathf.CeilToInt(restante);
+            int segundo = Mathf.CeilToInt(restante);
+            if (segundo != ultimoSegundo)
+            {
+                ultimoSegundo = segundo;
+                MostrarObjetivo(titulo, $"{mensaje}{segundo} s");
+            }
             restante -= Time.deltaTime;
             yield return null;
         }
@@ -217,10 +229,22 @@ public class DirectorOleadas : MonoBehaviour
         return obstaculo == null || obstaculo.isTrigger;
     }
 
-    private bool BuscarPosicion(int numero, out Vector2 posicion)
+    private bool BuscarPosicion(int numero, bool cercano, out Vector2 posicion)
     {
         Limites(out float izquierda, out float derecha);
         bool desdeIzquierda = (numero + indiceOleada) % 2 == 0;
+        if (cercano)
+        {
+            // Anunciar en el flanco de la oleada, a una distancia que permita disputar la entrada.
+            float distancia = distanciaSeguraJugador + 1.8f;
+            for (int lado = 0; lado < 2; lado++)
+            {
+                float signo = desdeIzquierda == (lado == 0) ? -1f : 1f;
+                float x = Mathf.Clamp(jugador.transform.position.x + signo * distancia, izquierda, derecha);
+                posicion = new Vector2(x, alturaAparicion);
+                if (EsSeguro(posicion)) return true;
+            }
+        }
         for (int i = 0; i <= 20; i++)
         {
             float t = i / 20f;
@@ -237,14 +261,13 @@ public class DirectorOleadas : MonoBehaviour
         var prefab = entrada != null ? entrada.prefab : enemigoPrefab;
         while (!detenido)
         {
-            if (!BuscarPosicion(numero, out Vector2 posicion)) { yield return null; continue; }
+            if (!BuscarPosicion(numero, prefab.Tipo == EnemigoMenor.TipoAtaque.Cercano, out Vector2 posicion)) { yield return null; continue; }
             var aviso = new GameObject("Aviso de entrada");
             aviso.transform.SetParent(transform);
             aviso.transform.position = posicion;
             var color = prefab.GetComponent<SpriteRenderer>().color;
             aviso.AddComponent<AvisoEntradaEnemigo>().Configurar(color, avisoAparicion);
             avisos.Add(aviso);
-            ladoAviso = posicion.x < jugador.transform.position.x ? "Entrada por la izquierda" : "Entrada por la derecha";
             ActualizarTexto();
             yield return new WaitForSeconds(Mathf.Max(0.1f, avisoAparicion));
             bool seguro = EsSeguro(posicion, aviso);
@@ -252,7 +275,11 @@ public class DirectorOleadas : MonoBehaviour
             aviso.SetActive(false); Destroy(aviso);
             // Se vuelve a comprobar: el jugador pudo acercarse durante el aviso.
             if (detenido) yield break;
-            if (!seguro) continue;
+            if (!seguro)
+            {
+                ActualizarTexto();
+                continue;
+            }
             Limites(out float izquierda, out float derecha);
             var enemigo = Instantiate(prefab, posicion, Quaternion.identity, transform);
             enemigo.Configurar(jugador, izquierda, derecha);
@@ -279,11 +306,23 @@ public class DirectorOleadas : MonoBehaviour
     {
         if (textoOleadas == null || indiceOleada >= oleadas.Length) return;
         string nombre = oleadas[indiceOleada].nombre;
-        if (avisos.Count > 0) nombre = avisos.Count > 1 ? "Entradas múltiples · busca espacio" : ladoAviso;
-        textoOleadas.text = "Oleada " + (indiceOleada + 1) + "/" + oleadas.Length +
-            " · Restantes: " + (activos.Count + porAparecer) +
-            (string.IsNullOrWhiteSpace(nombre) ? "" : "\n" + nombre);
+        if (avisos.Count > 1) nombre = "Llegan varios enemigos";
+        else
+            foreach (var aviso in avisos)
+                nombre = aviso.transform.position.x < jugador.transform.position.x ? "Enemigos por la izquierda" : "Enemigos por la derecha";
+        int restantes = activos.Count + porAparecer;
+        string enemigos = restantes == 1 ? "ENEMIGO" : "ENEMIGOS";
+        MostrarObjetivo($"OLEADA {indiceOleada + 1}/{oleadas.Length}  ·  {restantes} {enemigos}", nombre);
     }
+
+    private void MostrarObjetivo(string titulo, string detalle)
+    {
+        HudCombate.MostrarIndicador(textoOleadas, $"<b><color=#FAB443>{titulo}</color></b>\n{detalle}");
+    }
+
+    internal void OcultarObjetivo() => HudCombate.MostrarIndicador(textoOleadas, "");
+
+    internal void ObjetivoFaseDorada() => MostrarObjetivo("RENATO PUENTE · FASE 2/2", SegundaFaseRenato.InstruccionFaseDorada);
 
     private void CambiarEstado(EstadoOleadas estado)
     {
@@ -292,8 +331,7 @@ public class DirectorOleadas : MonoBehaviour
         if (disparo != null) disparo.SuspenderMejora = descanso;
         if (recompensas != null) recompensas.EnDescanso = descanso;
         FeedbackCombate.Presion(gameObject.scene, estado == EstadoOleadas.Combate && indiceOleada == oleadas.Length - 1);
-        if (textoOleadas != null) textoOleadas.color = estado == EstadoOleadas.Combate && indiceOleada == oleadas.Length - 1
-            ? new Color(1f, 0.65f, 0.5f) : Color.white;
+        if (estado == EstadoOleadas.Detenido) OcultarObjetivo();
     }
 
     private void ActivarJefe()
@@ -303,7 +341,7 @@ public class DirectorOleadas : MonoBehaviour
         jefeActivo = true;
         CambiarEstado(EstadoOleadas.Jefe);
         SesionJuego.GuardarProgresoOleadas(gameObject.scene.name, oleadas.Length);
-        if (textoOleadas != null) textoOleadas.gameObject.SetActive(false);
+        MostrarObjetivo("RENATO PUENTE · FASE 1/2", "Esquiva y dispara.");
         if (barraJefe != null) barraJefe.SetActive(true);
         jefe.Invulnerable = false;
         if (imagenJefe != null) imagenJefe.enabled = true;
@@ -385,4 +423,3 @@ public class DirectorOleadas : MonoBehaviour
         SesionJuego.LimpiarProgresoOleadas();
     }
 }
-

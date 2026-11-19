@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [DefaultExecutionOrder(-10)]
 public class PlayerMovement : MonoBehaviour
@@ -18,7 +19,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float duracionDash = 0.15f;
     [SerializeField] private float recargaDash = 1f;
 
+    internal const float AlturaAgachado = .72f;
+
     private Rigidbody2D rb;
+    private BoxCollider2D cuerpo;
+    private Vector2 tamanoDePie, centroDePie;
     private Health vida;
     private SpriteRenderer sprite;
 
@@ -34,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
     public float DireccionMirada => direccionMirada;
     internal bool ApuntadoFijo { get; private set; }
     internal bool HaciendoDash => haciendoDash;
+    internal bool Agachado { get; private set; }
     internal bool EnSueloVisual => enSuelo && rb.linearVelocity.y >= -0.05f && rb.linearVelocity.y <= 0.2f;
     internal float InstanteSalto { get; private set; } = float.NegativeInfinity;
     public Vector2 DireccionDisparo { get; private set; } = Vector2.right;
@@ -41,6 +47,12 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        cuerpo = GetComponent<BoxCollider2D>();
+        if (cuerpo != null)
+        {
+            tamanoDePie = cuerpo.size;
+            centroDePie = cuerpo.offset;
+        }
         vida = GetComponent<Health>();
         sprite = GetComponent<SpriteRenderer>();
     }
@@ -48,6 +60,8 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         if (SesionJuego.EnPausa || Time.timeScale == 0f) return;
+        bool ocupado = haciendoDash || Time.time < empujeHasta;
+        CambiarPostura(!ocupado && EnSueloVisual && Keyboard.current?.sKey.isPressed == true);
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) ? 1f : 0f) -
             (Input.GetKey(KeyCode.DownArrow) ? 1f : 0f);
@@ -55,11 +69,11 @@ public class PlayerMovement : MonoBehaviour
         inputHorizontal = ApuntadoFijo ? 0f : horizontal;
         float lado = Mathf.Sign(horizontal);
         if (horizontal != 0f) direccionMirada = lado;
-        DireccionDisparo = vertical == 0f
+        DireccionDisparo = Agachado || vertical == 0f
             ? new Vector2(direccionMirada, 0f)
             : new Vector2(horizontal == 0f ? 0f : lado, vertical);
 
-        if (haciendoDash || Time.time < empujeHasta) return;
+        if (ocupado) return;
 
         // Las teclas de apuntado vertical quedan disponibles durante el salto.
         if (Input.GetKeyDown(KeyCode.Space)) Saltar();
@@ -74,6 +88,7 @@ public class PlayerMovement : MonoBehaviour
     private void Saltar()
     {
         if (!enSuelo) return;
+        CambiarPostura(false);
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, fuerzaSalto);
         InstanteSalto = Time.time;
     }
@@ -97,12 +112,13 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        rb.linearVelocity = new Vector2(inputHorizontal * velocidad, rb.linearVelocity.y);
+        rb.linearVelocity = new Vector2(Agachado ? 0f : inputHorizontal * velocidad, rb.linearVelocity.y);
     }
 
     public void RecibirEmpuje(Vector2 impulso)
     {
         if (impulso == Vector2.zero) return;
+        CambiarPostura(false);
         rb.linearVelocity = impulso;
         velocidadEmpujeX = impulso.x;
         empujeHasta = Time.time + 0.22f;
@@ -112,6 +128,7 @@ public class PlayerMovement : MonoBehaviour
     {
         dashDisponible = false;
         haciendoDash = true;
+        CambiarPostura(false);
         direccionDash = direccionMirada;
 
         float gravedadOriginal = rb.gravityScale;
@@ -129,6 +146,19 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(recargaDash);
         dashDisponible = true;
     }
+
+    private void CambiarPostura(bool agachado)
+    {
+        if (cuerpo == null || agachado == Agachado) return;
+
+        Agachado = agachado;
+        float altura = agachado ? tamanoDePie.y * AlturaAgachado : tamanoDePie.y;
+        cuerpo.size = new Vector2(tamanoDePie.x, altura);
+        // Baja el centro junto con la parte superior para conservar el contacto de los pies.
+        cuerpo.offset = centroDePie + Vector2.up * ((altura - tamanoDePie.y) * .5f);
+    }
+
+    private void OnDisable() => CambiarPostura(false);
 
     private void OnDrawGizmosSelected()
     {

@@ -129,7 +129,6 @@ internal sealed class VistaMenuCombate : MonoBehaviour
         indicador.rectTransform.localRotation = Quaternion.Euler(0, 0, 45);
 
         TMP_Text etiqueta = boton.GetComponentInChildren<TMP_Text>(true);
-        if (etiqueta.text == "Volver al menú") etiqueta.text = "Volver al menú principal";
         etiqueta.transform.SetAsLastSibling();
         EstiloTorneo.Ubicar(etiqueta.rectTransform, 0, 0, 1, 1);
         etiqueta.rectTransform.offsetMin = new Vector2(63, 4);

@@ -16,7 +16,7 @@ public static class ProbarInterfazCombate
     private static IEnumerator Revisar()
     {
         yield return RevisarPadrePasta();
-        yield return RevisarRene();
+        yield return RevisarRenato();
         yield return RevisarSandbox();
         yield return Pruebas();
     }
@@ -79,8 +79,10 @@ public static class ProbarInterfazCombate
         RectTransform marco = MarcoDerrota();
         Button[] opciones = marco.GetComponentsInChildren<Button>();
         CanvasGroup cabecera = marco.GetComponentInChildren<CanvasGroup>();
-        Check(opciones.Length == 2 && opciones[0].GetComponentInChildren<TMP_Text>().text == "Reintentar",
-            "La derrota presenta Reintentar como primera de sus dos acciones.");
+        Check(cabecera.GetComponentInChildren<TMP_Text>().text == "DERROTA" &&
+            opciones.Length == 2 && opciones[0].GetComponentInChildren<TMP_Text>().text == "Reintentar" &&
+            opciones[1].GetComponentInChildren<TMP_Text>().text == "Menú principal",
+            "Derrota muestra Reintentar y Menú principal en el orden esperado.");
         Check(EnFoco(opciones[0]), "Reintentar recibe el foco y el rombo al abrir Game Over.");
         Check(opciones[0].IsInteractable() && cabecera.alpha < 1, "Reintentar está disponible durante la entrada del afiche.");
         yield return new WaitForSecondsRealtime(.32f);
@@ -92,7 +94,7 @@ public static class ProbarInterfazCombate
         Check(Time.timeScale == 0 && !SesionJuego.EnPausa && EnFoco(opciones[0]), "Escape durante la derrota mantiene el menú y su foco.");
         yield return EstadoMando(new GamepadState().WithButton(GamepadButton.DpadDown));
         yield return Clic(new Vector2(8, 8));
-        Check(EnFoco(opciones[1]), "La cruceta alcanza Menú Principal y un clic en el fondo mantiene la selección.");
+        Check(EnFoco(opciones[1]), "La cruceta alcanza Menú principal y un clic en el fondo mantiene la selección.");
         yield return EstadoMando(new GamepadState { leftStick = Vector2.up });
         Check(EnFoco(opciones[0]), "La palanca devuelve el foco a Reintentar.");
         yield return EstadoMando(new GamepadState().WithButton(GamepadButton.South));
@@ -101,32 +103,32 @@ public static class ProbarInterfazCombate
             "Reintentar con el mando reinicia el combate, los puntos de vida y las vidas de reserva.");
     }
 
-    private static IEnumerator RevisarRene()
+    private static IEnumerator RevisarRenato()
     {
         PermitirReintento("Level1_Renato");
         SesionJuego.GuardarProgresoOleadas("Level1_Renato", 3);
         SceneManager.LoadScene("Level1_Renato");
         yield return null;
         Check(GameObject.Find("Slider") == null && GameObject.Find("SliderJugador") != null,
-            "La ficha de Mateo aparece antes que la de René mientras el director prepara al jefe.");
+            "La ficha de Mateo aparece antes que la de Renato mientras el director prepara al jefe.");
         yield return new WaitUntil(() => GameObject.Find("Slider") != null);
         Slider mateo = GameObject.Find("SliderJugador").GetComponent<Slider>();
         Slider rene = GameObject.Find("Slider").GetComponent<Slider>();
         Health jefe = Object.FindFirstObjectByType<SegundaFaseRenato>().GetComponent<Health>();
-        Check(MuestraVida(rene, jefe) && Texto(rene, "RENÉ PUENTE") != null && jefe.RecibirDanio(100) && ImpactoCorrecto(rene, true),
-            "La entrada de René muestra su nombre, su vida y la reacción al golpe.");
+        Check(MuestraVida(rene, jefe) && Texto(rene, "RENATO PUENTE") != null && jefe.RecibirDanio(100) && ImpactoCorrecto(rene, true),
+            "La entrada de Renato muestra su nombre, su vida y la reacción al golpe.");
         yield return new WaitForSeconds(.6f);
         yield return Capturar("Rene", 1920, 1080, () => ComprobarHud(mateo, rene, new Vector2Int(1920, 1080)));
         int primerMaximo = jefe.VidaMaxima;
         Image retrato = rene.GetComponentsInChildren<Image>().Single(i => i.name == "Retrato");
         Sprite faseInicial = retrato.sprite;
         Check(jefe.RecibirDanio(jefe.VidaActual) && MuestraVida(rene, jefe) && jefe.VidaActual == 0,
-            "La barra de René llega a cero al agotar su primera fase.");
+            "La barra de Renato llega a cero al agotar su primera fase.");
         yield return new WaitUntil(() => jefe.VidaMaxima != primerMaximo);
         Check(jefe.VidaActual == jefe.VidaMaxima && MuestraVida(rene, jefe) && ImpactoCorrecto(rene, false),
             $"La transformación rellena la barra con el nuevo máximo de {jefe.VidaMaxima} y sin destello de daño.");
         Check(retrato.sprite != null && retrato.sprite != faseInicial && PrimerPlanoCompleto(retrato),
-            "El retrato dorado de René cabe completo en la ficha de su segunda fase.");
+            "El retrato dorado de Renato cabe completo en la ficha de su segunda fase.");
         SesionJuego.VidasExtra = 1;
         Health jugador = Jugador();
         jugador.RestaurarVida(jugador.VidaMaxima);
@@ -134,7 +136,7 @@ public static class ProbarInterfazCombate
         yield return new WaitUntil(() => Time.timeScale == 0);
         RectTransform marco = MarcoDerrota();
         Button[] opciones = marco.GetComponentsInChildren<Button>();
-        Check(opciones.Length == 2 && EnFoco(opciones[0]), "La derrota ante René también abre en Reintentar.");
+        Check(opciones.Length == 2 && EnFoco(opciones[0]), "La derrota ante Renato también abre en Reintentar.");
         yield return new WaitForSecondsRealtime(.32f);
         Image retratoDerrota = marco.GetComponentsInChildren<Image>().Single(i => i.name == "Retrato");
         Check(retratoDerrota.sprite == retrato.sprite && PrimerPlanoCompleto(retratoDerrota),
@@ -142,7 +144,7 @@ public static class ProbarInterfazCombate
         yield return Capturar("Rene-GameOver", 1280, 720);
         yield return Tecla(Key.DownArrow);
         yield return Tecla(Key.Enter);
-        Check(SceneManager.GetActiveScene().name == "MainMenu", "Menú Principal en Game Over abre el menú principal.");
+        Check(SceneManager.GetActiveScene().name == "MainMenu", "Menú principal en Game Over abre el menú principal.");
     }
 
     private static IEnumerator RevisarSandbox()
@@ -220,7 +222,7 @@ public static class ProbarInterfazCombate
                     $"{tamano.x}×{tamano.y} muestra «{texto.text}» entero a {pixeles:F1} px.");
             }
             TMP_Text cantidad = Texto(barra, "Vida numérica");
-            TMP_Text nombre = textos.Single(t => t.text == "MATEO" || t.text == "PADRE PASTA" || t.text == "RENÉ PUENTE");
+            TMP_Text nombre = textos.Single(t => t.text == "MATEO" || t.text == "PADRE PASTA" || t.text == "RENATO PUENTE");
             ComprobarSeparacion(nombre, cantidad, camara, tamano);
             if (barra == jugador)
                 ComprobarSeparacion(Texto(barra, "Estado"), textos.Single(t => t.text.StartsWith("Vidas extra")), camara, tamano);

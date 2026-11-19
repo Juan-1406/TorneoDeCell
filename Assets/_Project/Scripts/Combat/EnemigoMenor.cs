@@ -146,7 +146,7 @@ public class EnemigoMenor : MonoBehaviour
             { golpeAplicado = true; jugador.RecibirDanio(danio); }
             return;
         }
-        if (EstadoActual == EstadoEnemigo.Amago) direccion = -direccionCarga * 0.25f;
+        if (EstadoActual == EstadoEnemigo.Amago) return;
         else if (EstadoActual == EstadoEnemigo.Reposicion) direccion = direccionReubicar * 1.45f;
         else if (EstadoActual == EstadoEnemigo.Buscando)
         {
@@ -167,6 +167,7 @@ public class EnemigoMenor : MonoBehaviour
             {
                 if (otro == this || otro == null || otro.vida.VidaActual <= 0 || otro.gameObject.scene != gameObject.scene) continue;
                 float distancia = Mathf.Abs(otro.transform.position.x - cuerpo.position.x);
+                if (tipoAtaque == TipoAtaque.Cercano && otro.Tipo == TipoAtaque.Proyectil) continue;
                 if (Mathf.Abs(otro.transform.position.x - x) < 1.1f &&
                     Mathf.Abs(otro.transform.position.x - x) < distancia) { velocidadX = 0f; return; }
             }
@@ -188,15 +189,21 @@ public class EnemigoMenor : MonoBehaviour
                 { Reposicionar(); break; }
         }
         if (EstadoActual != EstadoEnemigo.Buscando || Time.time < siguienteAtaque) return;
-        float rango = tipoAtaque == TipoAtaque.Cercano ? alcanceCarga : distanciaAtaque;
-        if (Vector2.Distance(transform.position, jugador.transform.position) > rango ||
+        Vector2 delta = (Vector2)jugador.transform.position - cuerpo.position;
+        // La carga apunta una vez y sólo recorre el eje horizontal.
+        float recorrido = velocidadCarga * Mathf.Max(0f, duracionCarga - Time.fixedDeltaTime);
+        float alcanceHorizontal = Mathf.Sqrt(Mathf.Max(0f, distanciaAtaque * distanciaAtaque - delta.y * delta.y));
+        bool enRango = tipoAtaque == TipoAtaque.Cercano
+            ? Mathf.Abs(delta.y) < distanciaAtaque && Mathf.Abs(delta.x) <= Mathf.Min(alcanceCarga, recorrido + alcanceHorizontal * .8f)
+            : delta.magnitude <= distanciaAtaque;
+        if (!enRango ||
             !TieneLineaLibre(jugador.transform.position)) return;
         if (tipoAtaque == TipoAtaque.Proyectil && proyectilPrefab == null) return;
         StartCoroutine(tipoAtaque == TipoAtaque.Cercano ? Cargar() : Rafaga());
     }
     private IEnumerator Cargar()
     {
-        EstadoActual = EstadoEnemigo.Amago; golpeAplicado = false;
+        EstadoActual = EstadoEnemigo.Amago; golpeAplicado = false; velocidadX = 0f;
         objetivoAtaque = jugador.transform.position;
         direccionCarga = objetivoAtaque.x >= cuerpo.position.x ? 1f : -1f;
         yield return new WaitForSeconds(Mathf.Max(0.45f, avisoAtaque));
@@ -277,4 +284,3 @@ public class EnemigoMenor : MonoBehaviour
         return impacto.collider == null || impacto.collider.isTrigger;
     }
 }
-

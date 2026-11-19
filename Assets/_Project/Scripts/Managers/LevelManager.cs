@@ -154,9 +154,9 @@ public class LevelManager : MonoBehaviour
             VolverASeleccion();
             return;
         }
-        string nombre = padrePasta ? "Padre Pasta" : "René Puente";
+        string nombre = padrePasta ? "Padre Pasta" : "Renato Puente";
         resultados = ResultadosCombate.Mostrar(canvas, textoVidas.font, poseVictoriaMateo, nombre,
-            padrePasta ? "Fase 1 superada" : "René Puente derrotado", segundosActivos, jugador, parries, this);
+            padrePasta ? "Fase 1 superada" : "Combate superado", segundosActivos, jugador, parries, this);
     }
 
     private bool FinalizarCombate()

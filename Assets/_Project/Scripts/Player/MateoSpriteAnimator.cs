@@ -42,6 +42,8 @@ public sealed class MateoSpriteAnimator : MonoBehaviour
     private bool PrioridadDefensiva => (movimiento != null && movimiento.HaciendoDash) ||
         (parry != null && parry.EscudoActivo);
     private float ladoDisparo;
+    private bool disparoAgachado;
+    private Sprite PoseAgachado => TieneSalto ? salto[4] : null;
 
     private void Awake()
     {
@@ -68,6 +70,12 @@ public sealed class MateoSpriteAnimator : MonoBehaviour
 
     private Sprite SeleccionarPose(Vector2 direccion, out Vector2 punta)
     {
+        if (movimiento != null && movimiento.Agachado && PoseAgachado != null)
+        {
+            punta = new Vector2(144f, 21f);
+            return PoseAgachado;
+        }
+
         int indice = IndicePose(direccion);
         punta = Puntas[indice];
         if (TieneSalto && !movimiento.EnSueloVisual && disparoAereo != null && disparoAereo.Length == 3)
@@ -116,6 +124,8 @@ public sealed class MateoSpriteAnimator : MonoBehaviour
         if (pose == null) return transform.position;
         punta /= pose.pixelsPerUnit;
         punta.x *= lado;
+        if (movimiento != null && movimiento.Agachado && pose == PoseAgachado)
+            punta.y = punta.y * PlayerMovement.AlturaAgachado + DesplazamientoAgachado(pose);
         return transform.TransformPoint(punta);
     }
 
@@ -133,6 +143,7 @@ public sealed class MateoSpriteAnimator : MonoBehaviour
 
         inicioDestello = Time.time;
         poseDisparo = SeleccionarPose(direccion, out _);
+        disparoAgachado = movimiento != null && movimiento.Agachado;
         ladoDisparo = lado;
         destello.transform.SetPositionAndRotation(origen,
             Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.right, direccion)));
@@ -143,7 +154,7 @@ public sealed class MateoSpriteAnimator : MonoBehaviour
     private void OnDisable()
     {
         if (destello != null) destello.enabled = false;
-        MostrarReposo(false);
+        MostrarPoseAnclada(null, 1f, 0f);
     }
 
     private void LateUpdate()
@@ -169,6 +180,7 @@ public sealed class MateoSpriteAnimator : MonoBehaviour
         estabaEnSuelo = enSuelo;
         if (!enSuelo || impulso) aterrizajeHasta = 0f;
         bool aterrizando = TieneSalto && Time.time < aterrizajeHasta;
+        bool agachado = PoseAgachado != null && movimiento.Agachado;
         Sprite cuadro = frames[0];
 
         if (dash)
@@ -190,7 +202,7 @@ public sealed class MateoSpriteAnimator : MonoBehaviour
         if (destello != null && destello.enabled)
         {
             int cuadroDestello = Mathf.FloorToInt((Time.time - inicioDestello) * CuadrosDestelloPorSegundo);
-            destello.enabled = cuadroDestello < destellos.Length;
+            destello.enabled = cuadroDestello < destellos.Length && disparoAgachado == agachado;
             if (destello.enabled)
             {
                 destello.sprite = destellos[cuadroDestello];
@@ -205,13 +217,27 @@ public sealed class MateoSpriteAnimator : MonoBehaviour
 
         spriteRenderer.sprite = cuadro;
         spriteRenderer.flipX = lado < 0f;
-        MostrarReposo(reposo != null && enSuelo && !aterrizando && !impulso && !mostrarPose && !dash &&
-            Mathf.Abs(horizontalSpeed) <= moveThreshold && Mathf.Abs(verticalSpeed) <= 0.2f);
+        if (agachado)
+            MostrarPoseAnclada(PoseAgachado, PlayerMovement.AlturaAgachado, DesplazamientoAgachado(PoseAgachado));
+        else if (reposo != null && enSuelo && !aterrizando && !impulso && !mostrarPose && !dash &&
+            Mathf.Abs(horizontalSpeed) <= moveThreshold && Mathf.Abs(verticalSpeed) <= 0.2f)
+        {
+            if (respiracion == null || !respiracion.enabled || respiracion.sprite != reposo) inicioReposo = Time.time;
+            float altura = 1f + 0.012f * (1f - Mathf.Cos((Time.time - inicioReposo) * 3.5f));
+            MostrarPoseAnclada(reposo, altura, reposo.bounds.min.y * (1f - altura));
+        }
+        else MostrarPoseAnclada(null, 1f, 0f);
     }
 
-    private void MostrarReposo(bool activo)
+    private float DesplazamientoAgachado(Sprite pose)
     {
-        if (!activo)
+        float pies = reposo != null ? reposo.bounds.min.y : pose.bounds.min.y;
+        return pies - pose.bounds.min.y * PlayerMovement.AlturaAgachado;
+    }
+
+    private void MostrarPoseAnclada(Sprite pose, float altura, float desplazamiento)
+    {
+        if (pose == null)
         {
             if (respiracion != null) respiracion.enabled = false;
             if (spriteRenderer != null) spriteRenderer.forceRenderingOff = false;
@@ -220,19 +246,16 @@ public sealed class MateoSpriteAnimator : MonoBehaviour
 
         if (respiracion == null)
         {
-            respiracion = new GameObject("Respiración de Mateo").AddComponent<SpriteRenderer>();
+            respiracion = new GameObject("Pose anclada de Mateo").AddComponent<SpriteRenderer>();
             respiracion.transform.SetParent(transform, false);
             respiracion.sharedMaterial = spriteRenderer.sharedMaterial;
             respiracion.sortingLayerID = spriteRenderer.sortingLayerID;
             respiracion.sortingOrder = spriteRenderer.sortingOrder;
-            respiracion.sprite = reposo;
-            respiracion.enabled = false;
         }
 
-        if (!respiracion.enabled) inicioReposo = Time.time;
-        float altura = 1f + 0.012f * (1f - Mathf.Cos((Time.time - inicioReposo) * 3.5f));
+        respiracion.sprite = pose;
         respiracion.transform.localScale = new Vector3(1f, altura, 1f);
-        respiracion.transform.localPosition = Vector3.up * (reposo.bounds.min.y * (1f - altura));
+        respiracion.transform.localPosition = Vector3.up * desplazamiento;
         respiracion.flipX = spriteRenderer.flipX;
         respiracion.color = spriteRenderer.color;
         respiracion.enabled = spriteRenderer.enabled;

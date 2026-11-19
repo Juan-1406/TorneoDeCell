@@ -96,7 +96,9 @@ public static class ProbarMenuPausa
         ComprobarFoco(botones[1], "Flecha abajo pasa a Reintentar.");
         yield return Capturar("Renato-Reintentar", 2560, 1080, () => ComprobarTamano(2560, 1080));
         yield return Tecla(Key.S);
-        ComprobarFoco(botones[2], "S pasa a Volver al menú principal.");
+        Check(botones[2].GetComponentInChildren<TMP_Text>().text == "Elegir nivel",
+            "Renato usa la etiqueta Elegir nivel.");
+        ComprobarFoco(botones[2], "S pasa a Elegir nivel.");
         yield return Capturar("Renato-Volver", 1080, 2340, () => ComprobarTamano(1080, 2340));
         yield return Tecla(Key.DownArrow);
         yield return Tecla(Key.LeftArrow);
@@ -151,8 +153,8 @@ public static class ProbarMenuPausa
         yield return Tecla(Key.S);
         yield return Tecla(Key.S);
         yield return Tecla(Key.Enter);
-        Check(SceneManager.GetActiveScene().name == "MainMenu" && !SesionJuego.EnPausa,
-            "Volver al menú principal carga MainMenu.");
+        Check(SceneManager.GetActiveScene().name == "LevelSelect" && !SesionJuego.EnPausa,
+            "Elegir nivel abre LevelSelect desde Renato.");
 
         PermitirReintento("Level2_PadrePasta");
         SceneManager.LoadScene("Level2_PadrePasta");
@@ -170,11 +172,77 @@ public static class ProbarMenuPausa
         botones = BotonesDePausa();
         yield return EstadoMando(new GamepadState().WithButton(GamepadButton.DpadDown));
         yield return EstadoMando(new GamepadState().WithButton(GamepadButton.DpadDown));
-        ComprobarFoco(botones[2], "Padre Pasta conserva su opción Volver a la selección.");
+        Check(botones[2].GetComponentInChildren<TMP_Text>().text == "Elegir nivel",
+            "Padre Pasta usa la misma etiqueta Elegir nivel.");
+        ComprobarFoco(botones[2], "La cruceta selecciona Elegir nivel.");
         yield return Capturar("PadrePasta-Volver", 1920, 1080, () => ComprobarTamano(1920, 1080));
         yield return EstadoMando(new GamepadState().WithButton(GamepadButton.South));
         Check(SceneManager.GetActiveScene().name == "LevelSelect" && !SesionJuego.EnPausa,
-            "Confirmar Volver a la selección carga LevelSelect.");
+            "Confirmar Elegir nivel carga LevelSelect.");
+        yield return ProbarSelector();
+    }
+
+    private static IEnumerator ProbarSelector()
+    {
+        Transform afiche = GameObject.Find("Afiche de niveles").transform;
+        Button[] botones = afiche.GetComponentsInChildren<Button>();
+        Button volver = botones.Single(b => b.name == "BotonVolver");
+        Button reiniciar = botones.Single(b => b.name == "BotonReiniciarProgreso");
+        Button disponible = botones.Take(4).FirstOrDefault(b => b.interactable);
+        Button esperado = disponible ?? volver;
+        bool Enfocado(Button boton) => EventSystem.current.currentSelectedGameObject == boton.gameObject &&
+            (boton.transform.Find("Doble borde dorado") is Transform borde ? borde.gameObject.activeSelf :
+                boton.GetComponentsInChildren<Image>().Single(i => i.name == "Indicador de selección").enabled);
+        Check(Enfocado(esperado), "El selector abre con un foco visible.");
+        var fondo = GameObject.Find("Fondo nocturno de Rivales").GetComponent<RawImage>();
+        Check(fondo.texture != null && fondo.texture.name == "FondoRivales",
+            "El selector carga su propio fondo nocturno.");
+        var titulo = afiche.Find("Titulo").GetComponent<TMP_Text>();
+        Check(titulo.text == "RIVALES DEL TORNEO" && titulo.font.name == "KenVectorFuture SDF" && titulo.font.HasCharacters(titulo.text),
+            "El título usa KenVector Future y dispone de todos sus caracteres.");
+        var nombres = botones.Take(4).Select(b => b.transform.Find("Placa del nombre")
+            .GetComponentInChildren<TMP_Text>()).ToArray();
+        Check(nombres.All(n => n.font.name == "Tuffy-Bold SDF" &&
+            n.font.HasCharacters(n.text) && n.fontStyle == FontStyles.Normal),
+            "Los cuatro nombres usan Tuffy Bold recta y disponen de todos sus caracteres.");
+        if (disponible != null)
+            Check(disponible.transform.Find("Acción Jugar").gameObject.activeSelf &&
+                botones.Take(4).Count(b => b.transform.Find("Acción Jugar").gameObject.activeSelf) == 1,
+                "Solo la tarjeta seleccionada muestra Jugar y su doble marco.");
+        yield return Clic(new Vector2(8, 8));
+        Check(Enfocado(esperado), "Clicar el fondo del selector conserva el foco.");
+        Check(volver.GetComponentInChildren<TMP_Text>().text == "Menú principal" &&
+            botones[0].GetComponentInChildren<TMP_Text>().text == "Renato Puente",
+            "El selector muestra Renato Puente y Menú principal.");
+        Button futuro = botones.Single(b => b.name == "BotonJBL");
+        yield return Clic(RectTransformUtility.WorldToScreenPoint(null, futuro.transform.position));
+        Check(!futuro.interactable && Enfocado(esperado), "Clicar una tarjeta no disponible conserva el foco.");
+        if (disponible != null) yield return EstadoMando(new GamepadState().WithButton(GamepadButton.DpadDown));
+        Button accion = disponible?.navigation.selectOnDown as Button ?? volver;
+        Check(Enfocado(accion), "La cruceta llega desde el combate disponible hasta una acción del selector.");
+        bool haciaDerecha = accion == volver;
+        yield return Tecla(haciaDerecha ? Key.RightArrow : Key.LeftArrow);
+        Check(Enfocado(haciaDerecha ? reiniciar : volver), "El teclado conecta las dos acciones inferiores.");
+        EventSystem.current.SetSelectedGameObject(esperado.gameObject);
+
+        foreach (var formato in new[] { new Vector2Int(1280, 720), new Vector2Int(2560, 1080), new Vector2Int(1080, 2340) })
+            yield return Capturar("Selector", formato.x, formato.y, () =>
+            {
+                Camera camara = Camera.main;
+                Rect[] tarjetas = botones.Take(4).Select(b => RectEnPantalla((RectTransform)b.transform, camara)).ToArray();
+                Check(tarjetas.All(r => r.xMin > 0 && r.xMax < formato.x && r.yMin > 0 && r.yMax < formato.y) &&
+                    Enumerable.Range(0, tarjetas.Length - 1).All(i => tarjetas[i].xMax < tarjetas[i + 1].xMin),
+                    $"Las cuatro tarjetas caben en fila y en orden a {formato.x}×{formato.y}.");
+                var alturas = nombres.Select(n => RectEnPantalla(n.rectTransform, camara).center.y).ToArray();
+                Check(alturas.All(y => Mathf.Abs(y - alturas[0]) < 1f),
+                    $"Los nombres comparten la misma altura a {formato.x}×{formato.y}.");
+                Check(afiche.GetComponentsInChildren<TMP_Text>().All(t =>
+                {
+                    t.ForceMeshUpdate();
+                    return (t == titulo || t.font == nombres[0].font) &&
+                        t.font.HasCharacters(t.text.Replace("\n", "")) && !t.isTextOverflowing;
+                }), $"Los textos del selector se renderizan con las fuentes nuevas y caben a {formato.x}×{formato.y}.");
+            });
     }
 
     private static Button CrearControlDeFondo()
@@ -200,12 +268,15 @@ public static class ProbarMenuPausa
             RomboVisible(esperado) && BotonesDePausa().Count(RomboVisible) == 1, mensaje);
     }
 
+    internal static void MantenerTeclas(params Key[] teclas) =>
+        InputSystem.QueueStateEvent(teclado, new KeyboardState(teclas));
+
     internal static IEnumerator Tecla(Key tecla)
     {
-        InputSystem.QueueStateEvent(teclado, new KeyboardState(tecla));
+        MantenerTeclas(tecla);
         yield return null;
         yield return null;
-        InputSystem.QueueStateEvent(teclado, new KeyboardState());
+        MantenerTeclas();
         yield return null;
         yield return null;
     }
@@ -253,6 +324,9 @@ public static class ProbarMenuPausa
         Check(pantalla.xMin > 0 && pantalla.yMin > 0 && pantalla.xMax < ancho && pantalla.yMax < alto &&
             Vector2.Distance(pantalla.center, new Vector2(ancho, alto) * .5f) < 2f,
             $"{ancho}×{alto} mantiene el marco centrado dentro de la pantalla.");
+        TMP_Text titulo = marco.transform.Find("Cartel/Opciones/Encabezado/Afiche").GetComponentInChildren<TMP_Text>();
+        titulo.ForceMeshUpdate();
+        Check(!titulo.isTextOverflowing, $"{ancho}×{alto} deja «{titulo.text}» dentro de su encabezado.");
         float filaAnterior = pantalla.yMax;
         foreach (Button boton in botones)
         {

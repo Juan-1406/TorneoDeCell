@@ -43,8 +43,11 @@ public class PresentacionEnemigoMenor : MonoBehaviour
     {
         if (vida.VidaActual <= 0) return;
         danioHasta = Time.time + 0.14f;
-        Reproducir("Danio", true);
+        if (!AnunciaCarga) Reproducir("Danio", true);
     }
+
+    private bool AnunciaCarga => enemigo.EstadoActual == EnemigoMenor.EstadoEnemigo.Amago ||
+        enemigo.EstadoActual == EnemigoMenor.EstadoEnemigo.Carga;
 
     public void PulsoDisparo(Vector2 direccion)
     {
@@ -91,7 +94,7 @@ public class PresentacionEnemigoMenor : MonoBehaviour
             case EnemigoMenor.EstadoEnemigo.Buscando:
                 nombre = Mathf.Abs(enemigo.VelocidadHorizontal) > 0.2f ? "Desplazar" : "Reposo"; break;
         }
-        if (Time.time < danioHasta) nombre = "Danio";
+        if (Time.time < danioHasta && !AnunciaCarga) nombre = "Danio";
         else if (tirador && Time.time < pulsoHasta) nombre = "Disparar";
         Reproducir(nombre);
         imagen.color = Time.time < danioHasta ? new Color(1f, 0.8f, 0.8f) : Color.white;

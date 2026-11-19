@@ -27,6 +27,7 @@ public static class ProbarMejoraProfunda
         if (!Application.isBatchMode) throw new InvalidOperationException("Ejecutar estas pruebas con Unity en batchmode.");
         EditorSceneManager.OpenScene("Assets/_Project/Scenes/Level1_Renato.unity");
         SesionJuego.Reiniciar();
+        ProbarMenuPausa.PermitirReintento("Level1_Renato");
         inicio = EditorApplication.timeSinceStartup;
         EditorApplication.playModeStateChanged += Iniciar;
         EditorApplication.update += Vigilar;
@@ -345,4 +346,3 @@ public static class ProbarMejoraProfunda
         EditorApplication.delayCall += () => EditorApplication.Exit(error == null ? 0 : 1);
     }
 }
-

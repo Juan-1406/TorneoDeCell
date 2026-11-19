@@ -101,6 +101,16 @@ public static class ProbarProgresoJuego
     static SceneLoader Cargador() => UnityEngine.Object.FindFirstObjectByType<SceneLoader>();
     static LevelManager Gestor() => UnityEngine.Object.FindFirstObjectByType<LevelManager>();
     static Health VidaJefe() => (Health)typeof(LevelManager).GetField("jefe", Privado).GetValue(Gestor());
+    static bool FocoEn(Button boton) =>
+        UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject == boton.gameObject;
+
+    static void VolverDesdePausa()
+    {
+        Button boton = GameObject.Find("PanelPausa").GetComponentsInChildren<Button>()
+            .Single(b => b.GetComponentInChildren<TMPro.TMP_Text>().text == "Elegir nivel");
+        boton.onClick.Invoke();
+    }
+
     static void PulsarReinicio()
     {
         Button boton = UnityEngine.Object.FindObjectsByType<Button>(FindObjectsSortMode.None)
@@ -136,6 +146,11 @@ public static class ProbarProgresoJuego
         yield return Esperar(() => Selector() != null && !TransicionPapelAfiche.EnCurso, "selector desde Jugar");
         Check(SceneManager.GetActiveScene().name == "LevelSelect", "Jugar abre el selector desde el afiche inicial");
         CapturarInterfaz("Selector");
+        Check(Entradas()[1].estado.text == "Bloqueado" &&
+            Entradas()[1].requisito.text == "Derrota a Renato" && Entradas()[1].selloCandado.activeSelf,
+            "Padre Pasta muestra el candado y el requisito para desbloquearlo");
+        Check(Entradas()[2].estado.text == "Por estrenar" && Entradas()[3].estado.text == "Por estrenar",
+            "JBL La Voz y Diddy González aparecen como Por estrenar");
         Check(Entradas()[0].boton.interactable && !Entradas()[1].boton.interactable,
             "Una partida nueva permite Renato y exige su victoria para Padre Pasta");
         Check(!Entradas()[2].boton.interactable && !Entradas()[3].boton.interactable,
@@ -162,8 +177,19 @@ public static class ProbarProgresoJuego
         yield return null;
         yield return null;
         Check(SceneManager.GetActiveScene().name == "Level1_Renato", "El boton de Renato abre una partida nueva");
-        var jugador = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
         var pausa = UnityEngine.Object.FindFirstObjectByType<PauseManager>();
+        pausa.Pausar();
+        VolverDesdePausa();
+        yield return Esperar(() => Selector() != null, "selector desde la pausa de Renato");
+        Check(FocoEn(Entradas()[0].boton) && Time.timeScale == 1f && !SesionJuego.EnPausa,
+            "Renato vuelve al selector con la partida fuera de pausa y su tarjeta enfocada");
+        Entradas()[0].boton.onClick.Invoke();
+        yield return null;
+        yield return null;
+        Check(SceneManager.GetActiveScene().name == "Level1_Renato" && SesionJuego.VidasExtra == SesionJuego.VidasIniciales,
+            "Desde el selector se inicia otra partida de Renato con las vidas completas");
+        var jugador = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
+        pausa = UnityEngine.Object.FindFirstObjectByType<PauseManager>();
         pausa.Pausar();
         yield return new WaitForSecondsRealtime(.2f);
         CapturarInterfaz("Pausa");
@@ -178,7 +204,7 @@ public static class ProbarProgresoJuego
         PrepararSesion();
         pausa.Pausar();
         pausa.Reintentar();
-        pausa.VolverAlMenu();
+        pausa.VolverASeleccion();
         yield return null;
         yield return null;
         Check(SceneManager.GetActiveScene().name == "Level1_Renato" &&
@@ -201,8 +227,8 @@ public static class ProbarProgresoJuego
         Check(SceneManager.GetActiveScene().name == "LevelSelect", "La victoria regresa al selector");
         Check(!Entradas()[0].boton.interactable && Entradas()[1].boton.interactable,
             "La victoria bloquea Renato y desbloquea Padre Pasta");
-        Check(Entradas()[0].etiqueta.text.Contains("COMPLETADO") &&
-            Entradas()[0].etiqueta.text.Contains("Reinicia"), "El nivel completado explica como volver a jugar");
+        Check(Entradas()[0].estado.text == "COMPLETADO" &&
+            Entradas()[0].requisito.text.Contains("Reinicia"), "El nivel completado explica como volver a jugar");
         Cargador().CargarEscena("Level1_Renato");
         Entradas()[0].boton.onClick.Invoke();
         yield return null;
@@ -227,17 +253,16 @@ public static class ProbarProgresoJuego
         yield return ProbarMuellePadrePasta();
         pausa = UnityEngine.Object.FindFirstObjectByType<PauseManager>();
         pausa.Pausar();
-        pausa.VolverAlMenu();
-        yield return null;
-        yield return null;
-        Check(SceneManager.GetActiveScene().name == "MainMenu" && Time.timeScale == 1f &&
+        VolverDesdePausa();
+        yield return Esperar(() => Selector() != null, "selector desde la pausa de Padre Pasta");
+        Check(FocoEn(Entradas()[1].boton) && Time.timeScale == 1f &&
             !SesionJuego.EnPausa && ProgresoJuego.JefeDerrotado(0),
-            "Volver al menu desde pausa conserva la victoria y restaura el tiempo");
-        TransicionPapelAfiche.Cargar("LevelSelect");
-        yield return new WaitForSeconds(1.2f);
+            "Padre Pasta vuelve al selector con su tarjeta enfocada y conserva la victoria de Renato");
         Entradas()[1].boton.onClick.Invoke();
         yield return null;
         yield return null;
+        Check(SceneManager.GetActiveScene().name == "Level2_PadrePasta" && SesionJuego.VidasExtra == SesionJuego.VidasIniciales,
+            "Desde el selector se inicia otra partida de Padre Pasta con las vidas completas");
         var ataquesPasta = UnityEngine.Object.FindFirstObjectByType<PadrePasta>()
             .transform.Find("Ataques de Padre Pasta");
         yield return Esperar(() => ataquesPasta.GetComponentInChildren<Bullet>() != null, "nota activa antes de la victoria");
@@ -262,7 +287,7 @@ public static class ProbarProgresoJuego
         yield return null;
         Check(SceneManager.GetActiveScene().name == "LevelSelect" && !Entradas()[1].boton.interactable,
             "La fase disponible de Padre Pasta completada tambien queda bloqueada");
-        Check(Entradas()[1].etiqueta.text.Contains("Fase 1 superada"), "El selector conserva el estado de fase de Padre Pasta");
+        Check(Entradas()[1].estado.text == "FASE 1 SUPERADA", "El selector conserva el estado de fase de Padre Pasta");
         Terminar(null);
     }
 
@@ -343,7 +368,7 @@ public static class ProbarProgresoJuego
         yield return null;
         yield return null;
         Check(SceneManager.GetActiveScene().name == "LevelSelect" && Entradas()[1].boton.interactable,
-            "Volver a la selección mantiene desbloqueado a Padre Pasta");
+            "Elegir nivel mantiene desbloqueado a Padre Pasta");
         Entradas()[1].boton.onClick.Invoke();
         yield return null;
         yield return null;

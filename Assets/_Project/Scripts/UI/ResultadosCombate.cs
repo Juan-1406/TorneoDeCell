@@ -24,11 +24,11 @@ internal static class ResultadosCombate
 
         var panel = EstiloTorneo.Marco(fondo.transform, "Marcador", .48f, .25f, .44f, .37f);
         int tiempo = Mathf.FloorToInt(segundos);
-        Fila(panel.transform, fuente, "Tiempo activo", $"{tiempo / 60:00}:{tiempo % 60:00}", .68f);
+        Fila(panel.transform, fuente, "Tiempo de combate", $"{tiempo / 60:00}:{tiempo % 60:00}", .68f);
         Fila(panel.transform, fuente, "Vida restante", $"{vida.VidaActual} / {vida.VidaMaxima}", .38f);
-        Fila(panel.transform, fuente, "Parries exitosos", parries.ToString(), .08f);
+        Fila(panel.transform, fuente, "Proyectiles devueltos", parries.ToString(), .08f);
         Button reintentar = Accion(fondo.transform, fuente, "Reintentar", .48f, false);
-        Button volver = Accion(fondo.transform, fuente, "Volver a la selección", .705f, true);
+        Button volver = Accion(fondo.transform, fuente, "Elegir nivel", .705f, true);
         reintentar.onClick.AddListener(nivel.ReintentarVictoria);
         volver.onClick.AddListener(nivel.VolverASeleccion);
         if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(volver.gameObject);

@@ -532,7 +532,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Oleada 1/3  \xB7  Enemigos: 2"
+  m_text:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1115,7 +1115,7 @@ MonoBehaviour:
   vidas: {fileID: 1610558260}
   oleadas: {fileID: 147099294}
   recompensas: {fileID: 531744811}
-  nombreJefe: René Puente
+  nombreJefe: Renato Puente
   retratoJugador: {fileID: 725320001, guid: 6d832e9b28aa43a6ad6325c2974bf509, type: 3}
   retratoJefe: {fileID: -1162088669, guid: ed8f903ddb1b1674389d9fa7bd720400, type: 3}
   muroAfiche: {fileID: 2800000, guid: 49bc64b76dea0ee4ebef20756920f7b3, type: 3}
@@ -1473,7 +1473,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Men\xFA Principal"
+  m_text: "Men\xFA principal"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1779,7 +1779,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Volver al men\xFA"
+  m_text: Elegir nivel
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3372,7 +3372,7 @@ MonoBehaviour:
   enemigoPrefab: {fileID: 2827110738937465021, guid: 0248385f11d120443974155e342e91d3, type: 3}
   recompensas: {fileID: 1166766181}
   oleadas:
-  - nombre: "CALENTAMIENTO \xB7 prepara tu esquive"
+  - nombre: Prepárate para esquivar
     enemigos: 3
     secuencia:
     - prefab: {fileID: 2827110738937465021, guid: 0248385f11d120443974155e342e91d3, type: 3}
@@ -3387,7 +3387,7 @@ MonoBehaviour:
     maximoSimultaneos: 2
     tamanioGrupo: 1
     intervaloAparicion: 1.8
-  - nombre: "CONFLICTO \xB7 melee y proyectiles"
+  - nombre: Atacan de cerca y a distancia
     enemigos: 6
     secuencia:
     - prefab: {fileID: 2827110738937465021, guid: 0248385f11d120443974155e342e91d3, type: 3}
@@ -3411,7 +3411,7 @@ MonoBehaviour:
     maximoSimultaneos: 3
     tamanioGrupo: 2
     intervaloAparicion: 1
-  - nombre: "\xDALTIMA OLEADA \xB7 mantente en movimiento"
+  - nombre: Sigue en movimiento
     enemigos: 8
     secuencia:
     - prefab: {fileID: 2827110738937465021, guid: 0248385f11d120443974155e342e91d3, type: 3}
@@ -4306,7 +4306,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 61044927}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
-        m_MethodName: VolverAlMenu
+        m_MethodName: VolverASeleccion
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4539,7 +4539,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Vidas Extras: 3'
+  m_text: 'Vidas extra: 3'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4751,7 +4751,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: GAME OVER
+  m_text: DERROTA
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

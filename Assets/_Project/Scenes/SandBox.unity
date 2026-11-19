@@ -642,7 +642,7 @@ MonoBehaviour:
   vidas: {fileID: 1610558260}
   oleadas: {fileID: 0}
   recompensas: {fileID: 0}
-  nombreJefe: René Puente
+  nombreJefe: Renato Puente
   retratoJugador: {fileID: 725320001, guid: 6d832e9b28aa43a6ad6325c2974bf509, type: 3}
   retratoJefe: {fileID: -1162088669, guid: ed8f903ddb1b1674389d9fa7bd720400, type: 3}
   muroAfiche: {fileID: 2800000, guid: 49bc64b76dea0ee4ebef20756920f7b3, type: 3}
@@ -2668,7 +2668,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Vidas Extras: 3'
+  m_text: 'Vidas extra: 3'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2880,7 +2880,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: GAME OVER
+  m_text: DERROTA
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

@@ -17,7 +17,7 @@ public class RecompensasCombate : MonoBehaviour
     private PlayerParry parry;
     private PlayerShooting disparo;
     private float siguientePremio;
-    private float mensajeHasta;
+    private Coroutine caducidadMensaje;
     private string mensaje;
     public bool Finalizado { get; private set; }
     public bool EnDescanso { get; set; }
@@ -34,6 +34,7 @@ public class RecompensasCombate : MonoBehaviour
 
     private void OnEnable()
     {
+        if (disparo != null) disparo.CambioDuracionMejora += ActualizarIndicador;
         if (parry != null) parry.ParryPerfecto += AlParryPerfecto;
         if (jugador != null) jugador.OnMuerte += Terminar;
         if (jefe != null) jefe.OnMuerte += Terminar;
@@ -41,6 +42,7 @@ public class RecompensasCombate : MonoBehaviour
 
     private void OnDisable()
     {
+        if (disparo != null) disparo.CambioDuracionMejora -= ActualizarIndicador;
         if (parry != null) parry.ParryPerfecto -= AlParryPerfecto;
         if (jugador != null) jugador.OnMuerte -= Terminar;
         if (jefe != null) jefe.OnMuerte -= Terminar;
@@ -78,7 +80,7 @@ public class RecompensasCombate : MonoBehaviour
     {
         if (Finalizado || SesionJuego.EnPausa || Time.time < siguientePremio) return;
         siguientePremio = Time.time + Mathf.Max(0.1f, recargaPremioParry);
-        MostrarMensaje("Parry perfecto");
+        MostrarMensaje("¡Devolución perfecta!");
         var prefab = jugador.VidaActual < jugador.VidaMaxima ? curacionPrefab : cadenciaPrefab;
         IntentarCrear(prefab, probabilidadParry, jugador.transform.position);
     }
@@ -87,7 +89,7 @@ public class RecompensasCombate : MonoBehaviour
     {
         objetos.Remove(item);
         MostrarMensaje(item.Tipo == RecogibleCombate.TipoRecompensa.Curacion
-            ? "Salud recuperada" : "Disparo rápido activado");
+            ? "Vida recuperada" : "Disparo rápido activado");
     }
 
     public void Retirar(RecogibleCombate item) => objetos.Remove(item);
@@ -95,27 +97,37 @@ public class RecompensasCombate : MonoBehaviour
     private void MostrarMensaje(string texto)
     {
         mensaje = texto;
-        mensajeHasta = Time.time + 2f;
+        if (caducidadMensaje != null) StopCoroutine(caducidadMensaje);
+        caducidadMensaje = StartCoroutine(BorrarMensaje());
+        ActualizarIndicador();
     }
 
-    private void Update()
+    private System.Collections.IEnumerator BorrarMensaje()
     {
-        if (textoRecompensas == null) return;
-        if (Finalizado) { textoRecompensas.text = ""; return; }
-        string buff = disparo != null && disparo.SegundosMejora > 0f
-            ? "Disparo rápido: " + Mathf.CeilToInt(disparo.SegundosMejora) + " s" : "";
-        textoRecompensas.text = Time.time < mensajeHasta ? mensaje + (buff == "" ? "" : "\n" + buff) : buff;
+        yield return new WaitForSeconds(2f);
+        mensaje = "";
+        caducidadMensaje = null;
+        ActualizarIndicador();
+    }
+
+    private void ActualizarIndicador()
+    {
+        if (Finalizado || textoRecompensas == null) return;
+        int segundos = disparo != null ? Mathf.CeilToInt(disparo.SegundosMejora) : 0;
+        string buff = segundos > 0 ? $"Disparo rápido · {segundos} s" : "";
+        HudCombate.MostrarIndicador(textoRecompensas, string.IsNullOrEmpty(mensaje) ? buff :
+            mensaje + (buff.Length == 0 ? "" : "\n" + buff));
     }
 
     public void Terminar()
     {
         if (Finalizado) return;
         Finalizado = true;
+        if (caducidadMensaje != null) StopCoroutine(caducidadMensaje);
         if (disparo != null) disparo.LimpiarMejora();
         foreach (var item in new List<RecogibleCombate>(objetos))
             if (item != null) { item.gameObject.SetActive(false); Destroy(item.gameObject); }
         objetos.Clear();
-        if (textoRecompensas != null) textoRecompensas.text = "";
+        HudCombate.MostrarIndicador(textoRecompensas, "");
     }
 }
-

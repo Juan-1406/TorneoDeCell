@@ -30,7 +30,9 @@ public static class ProbarRenatoVisual
         teniaProgreso=PlayerPrefs.HasKey("jefe_derrotado_0");
         progreso=PlayerPrefs.GetInt("jefe_derrotado_0",0);
         EditorSceneManager.OpenScene("Assets/_Project/Scenes/Level1_Renato.unity");
-        SesionJuego.Reiniciar(); SesionJuego.GuardarProgresoOleadas("Level1_Renato",3);
+        SesionJuego.Reiniciar();
+        ProbarMenuPausa.PermitirReintento("Level1_Renato");
+        SesionJuego.GuardarProgresoOleadas("Level1_Renato",3);
         inicio=EditorApplication.timeSinceStartup;
         Application.logMessageReceived+=Log; EditorApplication.update+=Vigilar;
         EditorApplication.playModeStateChanged+=Iniciar;
@@ -202,15 +204,15 @@ public static class ProbarRenatoVisual
         boss.RecibirDanio(1);
         yield return null;
         Check(vista.Estado == PresentacionRenato.EstadoVisual.CambioFase && !box.enabled &&
-            victorias == 0 && GameObject.Find("Diálogo de René") != null, "La primera barra vacía abre el diálogo sin victoria");
+            victorias == 0 && GameObject.Find("Diálogo de Renato") != null, "La primera barra vacía abre el diálogo sin victoria");
         Capturar("11-transformacion");
         yield return new WaitUntil(() => boss.VidaActual > 0);
         Check(boss.VidaActual == 375 && boss.VidaMaxima == 375 && box.enabled &&
-            GameObject.Find("Diálogo de René") == null && !boss.RecibirDanio(10), "La segunda barra se llena y exige energía devuelta");
+            GameObject.Find("Diálogo de Renato") == null && !boss.RecibirDanio(10), "La segunda barra se llena y exige energía devuelta");
 
         etapa="energía devuelta";
         yield return new WaitUntil(() => Balas().Any(b => b.GetComponent<ProyectilRenato>() != null));
-        Check(Vector3.Distance(anclaDorada, boss.transform.position) < 0.01f, "René dispara desde la misma posición");
+        Check(Vector3.Distance(anclaDorada, boss.transform.position) < 0.01f, "Renato dispara desde la misma posición");
         var faseDorada = boss.GetComponent<SegundaFaseRenato>();
         var energia = AssetDatabase.LoadAssetAtPath<Bullet>("Assets/_Project/Prefabs/Proyectiles/Renato Puente/BalaEnemigaAbanico.prefab");
         var disparar = typeof(Bullet).GetMethod("DispararEnergia", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -224,7 +226,7 @@ public static class ProbarRenatoVisual
         }
         yield return new WaitUntil(() => boss.VidaActual == 0);
         Check(vista.Estado == PresentacionRenato.EstadoVisual.Derrota && !box.enabled && victorias == 0 &&
-            GameObject.Find("Diálogo de René") != null, "La energía devuelta derrota al jefe y la victoria espera el diálogo");
+            GameObject.Find("Diálogo de Renato") != null, "La energía devuelta derrota al jefe y la victoria espera el diálogo");
         Capturar("12-despedida");
         Terminar(null);
     }
@@ -266,4 +268,3 @@ public static class ProbarRenatoVisual
         }
     }
 }
-
