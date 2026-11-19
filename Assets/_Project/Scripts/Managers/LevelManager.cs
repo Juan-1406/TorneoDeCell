@@ -1,12 +1,14 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] private Health jugador;
     [SerializeField] private TMP_Text textoVidas;
     [SerializeField] private GameObject panelGameOver;
+    [SerializeField] private GameObject reintentarDerrota;
     [SerializeField] private float retardo = 1.5f;
     [Header("Victoria")]
     [SerializeField] private Health jefe;
@@ -59,14 +61,13 @@ public class LevelManager : MonoBehaviour
             return;
         }
 
-        if (panelGameOver != null) panelGameOver.SetActive(false);
-        if (textoVidas != null)
+        if (panelGameOver != null)
         {
-            textoVidas.color = EstiloTorneo.Papel;
-            textoVidas.fontStyle = FontStyles.Bold;
-            var fondo = EstiloTorneo.Imagen(textoVidas.transform, "Fondo de vidas", EstiloTorneo.Tinta, -.06f, 0, 1.12f, 1);
-            fondo.transform.SetParent(textoVidas.transform.parent, true);
-            fondo.transform.SetSiblingIndex(textoVidas.transform.GetSiblingIndex());
+            panelGameOver.SetActive(false);
+            Button[] opciones = panelGameOver.GetComponentsInChildren<Button>(true);
+            if (opciones.Length > 0)
+                panelGameOver.AddComponent<VistaMenuCombate>().Componer(opciones,
+                    reintentarDerrota != null ? reintentarDerrota : opciones[0].gameObject, true);
         }
         ActualizarTexto();
 

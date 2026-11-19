@@ -8,6 +8,50 @@ internal static class EstiloTorneo
     internal static readonly Color Azul = new Color32(24, 36, 59, 255);
     internal static readonly Color Oro = new Color32(250, 180, 67, 255);
     internal static readonly Color Papel = new Color32(255, 236, 194, 255);
+    internal static readonly Color Foco = new Color32(173, 222, 255, 255);
+    internal static readonly Color Acero = new Color32(97, 120, 151, 255);
+    internal static readonly Color Energia = new Color32(94, 235, 207, 255);
+    internal static readonly Color Coral = new Color32(255, 121, 86, 255);
+
+    internal static RectTransform Caja(Transform padre, string nombre)
+    {
+        var caja = (RectTransform)new GameObject(nombre, typeof(RectTransform)).transform;
+        caja.SetParent(padre, false);
+        Ubicar(caja, 0, 0, 1, 1);
+        return caja;
+    }
+
+    internal static void Anclar(RectTransform rect, Vector2 ancla, Vector2 posicion, Vector2 tamano)
+    {
+        rect.pivot = rect.anchorMin = rect.anchorMax = ancla;
+        rect.anchoredPosition = posicion;
+        rect.sizeDelta = tamano;
+    }
+
+    internal static Image Retrato(RectTransform ventana, Sprite sprite, float ancho, bool reflejar = false)
+    {
+        if (sprite == null) return null;
+        ventana.gameObject.AddComponent<RectMask2D>();
+        var imagen = Imagen(ventana, "Retrato", Color.white, (1f - ancho) * .5f, 1f, ancho, 0);
+        imagen.sprite = sprite;
+        if (reflejar) imagen.rectTransform.localScale = new Vector3(-1, 1, 1);
+        imagen.rectTransform.pivot = new Vector2(.5f, 1f);
+        var aspecto = imagen.gameObject.AddComponent<AspectRatioFitter>();
+        aspecto.aspectRatio = sprite.rect.width / sprite.rect.height;
+        aspecto.aspectMode = AspectRatioFitter.AspectMode.WidthControlsHeight;
+        return imagen;
+    }
+
+    // El retrato de diálogo ya es un primer plano, a diferencia del sprite de combate.
+    internal static void MostrarPrimerPlano(Image imagen, Sprite sprite)
+    {
+        if (imagen == null || sprite == null || imagen.sprite == sprite) return;
+        imagen.sprite = sprite;
+        imagen.rectTransform.pivot = new Vector2(.5f, .5f);
+        var ajuste = imagen.GetComponent<AspectRatioFitter>();
+        ajuste.aspectRatio = sprite.rect.width / sprite.rect.height;
+        ajuste.aspectMode = AspectRatioFitter.AspectMode.FitInParent;
+    }
 
     internal static void Ubicar(RectTransform rect, float x, float y, float ancho, float alto)
     {
@@ -63,7 +107,7 @@ internal static class EstiloTorneo
         var colores = boton.colors;
         colores.normalColor = principal ? Oro : Azul;
         colores.highlightedColor = new Color32(255, 214, 137, 255);
-        colores.selectedColor = new Color32(173, 222, 255, 255);
+        colores.selectedColor = Foco;
         colores.pressedColor = new Color32(220, 131, 48, 255);
         colores.disabledColor = new Color32(70, 77, 91, 255);
         colores.fadeDuration = .09f;

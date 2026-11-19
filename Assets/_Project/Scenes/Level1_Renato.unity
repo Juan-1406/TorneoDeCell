@@ -1090,6 +1090,7 @@ GameObject:
   - component: {fileID: 312506538}
   - component: {fileID: 312506537}
   - component: {fileID: 312506536}
+  - component: {fileID: 312506539}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1097,6 +1098,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &312506539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312506534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae319c1085444262b94475416515835c, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::HudCombate
+  barraJugador: {fileID: 721965789}
+  barraJefe: {fileID: 299444463}
+  vidas: {fileID: 1610558260}
+  oleadas: {fileID: 147099294}
+  recompensas: {fileID: 531744811}
+  nombreJefe: René Puente
+  retratoJugador: {fileID: 725320001, guid: 6d832e9b28aa43a6ad6325c2974bf509, type: 3}
+  retratoJefe: {fileID: -1162088669, guid: ed8f903ddb1b1674389d9fa7bd720400, type: 3}
+  muroAfiche: {fileID: 2800000, guid: 49bc64b76dea0ee4ebef20756920f7b3, type: 3}
 --- !u!224 &312506535
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4057,6 +4079,7 @@ MonoBehaviour:
   jugador: {fileID: 792347651}
   textoVidas: {fileID: 1610558260}
   panelGameOver: {fileID: 1255748606}
+  reintentarDerrota: {fileID: 786697007}
   retardo: 1.5
   jefe: {fileID: 1177203389}
   idJefe: 0

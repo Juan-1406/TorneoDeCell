@@ -47,6 +47,7 @@ public sealed class SegundaFaseRenato : MonoBehaviour
     internal Health Vida { get; private set; }
     internal bool FueraDePrimeraFase => etapa != Etapa.Primera;
     internal bool CombateTransformado => etapa == Etapa.Segunda;
+    internal Sprite RetratoEnSegundaFase => CombateTransformado ? retratoDorado : null;
     internal bool DurantePresentacion => etapa == Etapa.Transformacion || etapa == Etapa.Despedida || etapa == Etapa.Victoria;
     internal bool ConservarAbatido => etapa == Etapa.Victoria;
 
