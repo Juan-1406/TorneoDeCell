@@ -143,6 +143,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RecogibleCombate
   tipo: 1
   puntosCuracion: 1
-  multiplicadorCadencia: 0.65
-  duracionMejora: 8
+  multiplicadorCadencia: 0.8
+  duracionMejora: 6
   tiempoEnSuelo: 15

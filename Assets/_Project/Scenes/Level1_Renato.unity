@@ -2743,7 +2743,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShooting
   balaPrefab: {fileID: 4816885740969020303, guid: 7985c4ffb2efef34cbbf496f160ad672, type: 3}
-  cadencia: 0.2
+  cadencia: 0.3
 --- !u!114 &792347651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3388,12 +3388,15 @@ MonoBehaviour:
     tamanioGrupo: 1
     intervaloAparicion: 1.8
   - nombre: Atacan de cerca y a distancia
-    enemigos: 6
+    enemigos: 8
     secuencia:
     - prefab: {fileID: 2827110738937465021, guid: 0248385f11d120443974155e342e91d3, type: 3}
       recompensa: {fileID: 0}
       probabilidadRecompensa: 0
     - prefab: {fileID: 1402504173368668322, guid: 9dd00f3f338d04c4889670fcfa9915ee, type: 3}
+      recompensa: {fileID: 0}
+      probabilidadRecompensa: 0
+    - prefab: {fileID: 2827110738937465021, guid: 80df72bd1b344c438203fe1758ac5a11, type: 3}
       recompensa: {fileID: 0}
       probabilidadRecompensa: 0
     - prefab: {fileID: 2827110738937465021, guid: 0248385f11d120443974155e342e91d3, type: 3}
@@ -3408,16 +3411,22 @@ MonoBehaviour:
     - prefab: {fileID: 1402504173368668322, guid: 9dd00f3f338d04c4889670fcfa9915ee, type: 3}
       recompensa: {fileID: 3132039916405866104, guid: 5b344fee07e6cb842a0c9e63282ef1a4, type: 3}
       probabilidadRecompensa: 1
+    - prefab: {fileID: 2827110738937465021, guid: 80df72bd1b344c438203fe1758ac5a11, type: 3}
+      recompensa: {fileID: 0}
+      probabilidadRecompensa: 0
     maximoSimultaneos: 3
     tamanioGrupo: 2
     intervaloAparicion: 1
   - nombre: Sigue en movimiento
-    enemigos: 8
+    enemigos: 10
     secuencia:
     - prefab: {fileID: 2827110738937465021, guid: 0248385f11d120443974155e342e91d3, type: 3}
       recompensa: {fileID: 0}
       probabilidadRecompensa: 0
     - prefab: {fileID: 1402504173368668322, guid: 9dd00f3f338d04c4889670fcfa9915ee, type: 3}
+      recompensa: {fileID: 0}
+      probabilidadRecompensa: 0
+    - prefab: {fileID: 2827110738937465021, guid: 80df72bd1b344c438203fe1758ac5a11, type: 3}
       recompensa: {fileID: 0}
       probabilidadRecompensa: 0
     - prefab: {fileID: 2827110738937465021, guid: 0248385f11d120443974155e342e91d3, type: 3}
@@ -3430,6 +3439,9 @@ MonoBehaviour:
       recompensa: {fileID: 3132039916405866104, guid: 5b344fee07e6cb842a0c9e63282ef1a4, type: 3}
       probabilidadRecompensa: 0.55
     - prefab: {fileID: 1402504173368668322, guid: 9dd00f3f338d04c4889670fcfa9915ee, type: 3}
+      recompensa: {fileID: 0}
+      probabilidadRecompensa: 0
+    - prefab: {fileID: 2827110738937465021, guid: 80df72bd1b344c438203fe1758ac5a11, type: 3}
       recompensa: {fileID: 0}
       probabilidadRecompensa: 0
     - prefab: {fileID: 2827110738937465021, guid: 0248385f11d120443974155e342e91d3, type: 3}

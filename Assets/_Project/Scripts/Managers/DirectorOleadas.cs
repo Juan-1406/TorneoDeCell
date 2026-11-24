@@ -49,6 +49,8 @@ public class DirectorOleadas : MonoBehaviour
     [SerializeField] private Collider2D sueloArena;
     [SerializeField] private float distanciaAparicion = 10.8f;
     [SerializeField] private float alturaAparicion = -2.7f;
+    [Tooltip("Cuánto más arriba que los demás aparecen los Cell Junior voladores.")]
+    [SerializeField, Min(1f)] private float alturaVoladores = 4.5f;
 
     [Header("Indicadores")]
     [SerializeField] private GameObject barraJefe;
@@ -229,10 +231,21 @@ public class DirectorOleadas : MonoBehaviour
         return obstaculo == null || obstaculo.isTrigger;
     }
 
-    private bool BuscarPosicion(int numero, bool cercano, out Vector2 posicion)
+    private bool BuscarPosicion(int numero, EnemigoMenor.TipoAtaque tipo, out Vector2 posicion)
     {
         Limites(out float izquierda, out float derecha);
         bool desdeIzquierda = (numero + indiceOleada) % 2 == 0;
+        bool cercano = tipo == EnemigoMenor.TipoAtaque.Cercano;
+        if (tipo == EnemigoMenor.TipoAtaque.Volador)
+        {
+            // Los voladores aparecen arriba, en las esquinas, y bajan en diagonal.
+            for (int lado = 0; lado < 2; lado++)
+            {
+                bool izquierdo = desdeIzquierda == (lado == 0);
+                posicion = new Vector2(izquierdo ? izquierda + 0.6f : derecha - 0.6f, alturaAparicion + alturaVoladores);
+                if (EsSeguro(posicion)) return true;
+            }
+        }
         if (cercano)
         {
             // Anunciar en el flanco de la oleada, a una distancia que permita disputar la entrada.
@@ -261,7 +274,7 @@ public class DirectorOleadas : MonoBehaviour
         var prefab = entrada != null ? entrada.prefab : enemigoPrefab;
         while (!detenido)
         {
-            if (!BuscarPosicion(numero, prefab.Tipo == EnemigoMenor.TipoAtaque.Cercano, out Vector2 posicion)) { yield return null; continue; }
+            if (!BuscarPosicion(numero, prefab.Tipo, out Vector2 posicion)) { yield return null; continue; }
             var aviso = new GameObject("Aviso de entrada");
             aviso.transform.SetParent(transform);
             aviso.transform.position = posicion;

@@ -38,7 +38,9 @@ public class Bullet : MonoBehaviour
         return adelante > 0f && adelante < rapidez * 0.5f &&
             Mathf.Abs(delta.x * rb.linearVelocity.y - delta.y * rb.linearVelocity.x) / rapidez < 0.8f;
     }
-    public bool EsReflejable => isActiveAndEnabled && gameObject.layer == LayerMask.NameToLayer("EnemyBullet");
+    // Permite que un jefe marque qué proyectiles se pueden devolver con parry (por ejemplo, solo los rosados).
+    internal bool PermiteParry { get; set; } = true;
+    public bool EsReflejable => isActiveAndEnabled && PermiteParry && gameObject.layer == LayerMask.NameToLayer("EnemyBullet");
 
     private void Awake()
     {
