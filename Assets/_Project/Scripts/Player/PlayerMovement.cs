@@ -2,6 +2,13 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+// Controles:
+//   A / D o flechas      -> moverse
+//   W o flecha arriba    -> saltar (otra pulsación en el aire = doble salto)
+//   S o flecha abajo     -> agacharse (solo en el suelo)
+//   Espacio              -> dash
+//   Mouse                -> apuntar (se ajusta a 8 direcciones)
+//   Shift                -> quedarse quieto mientras se apunta
 [DefaultExecutionOrder(-10)]
 public class PlayerMovement : MonoBehaviour
 {
@@ -10,9 +17,17 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Salto")]
     [SerializeField] private float fuerzaSalto = 10f;
+    [Tooltip("Saltos adicionales permitidos en el aire. 1 = doble salto.")]
+    [SerializeField, Min(0)] private int saltosAereos = 1;
+    [Tooltip("Fuerza del salto en el aire en relación al salto normal.")]
+    [SerializeField, Range(0.3f, 1.5f)] private float multiplicadorSaltoAereo = 0.9f;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float radioSuelo = 0.2f;
     [SerializeField] private LayerMask capaSuelo;
+
+    [Header("Apuntado con mouse")]
+    [Tooltip("Distancia mínima del mouse al personaje para cambiar la dirección de apuntado.")]
+    [SerializeField, Min(0f)] private float zonaMuertaMouse = 0.35f;
 
     [Header("Dash")]
     [SerializeField] private float velocidadDash = 18f;
@@ -35,6 +50,9 @@ public class PlayerMovement : MonoBehaviour
     private bool dashDisponible = true;
     private float empujeHasta;
     private float velocidadEmpujeX;
+    private int saltosAereosRestantes;
+    private Vector2 apuntado = Vector2.right;
+    private Camera camara;
 
     public float DireccionMirada => direccionMirada;
     internal bool ApuntadoFijo { get; private set; }
@@ -55,41 +73,72 @@ public class PlayerMovement : MonoBehaviour
         }
         vida = GetComponent<Health>();
         sprite = GetComponent<SpriteRenderer>();
+        saltosAereosRestantes = saltosAereos;
     }
 
     private void Update()
     {
         if (SesionJuego.EnPausa || Time.timeScale == 0f) return;
         bool ocupado = haciendoDash || Time.time < empujeHasta;
-        CambiarPostura(!ocupado && EnSueloVisual && Keyboard.current?.sKey.isPressed == true);
+        bool abajo = Keyboard.current != null &&
+            (Keyboard.current.sKey.isPressed || Keyboard.current.downArrowKey.isPressed);
+        CambiarPostura(!ocupado && EnSueloVisual && abajo);
         float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) ? 1f : 0f) -
-            (Input.GetKey(KeyCode.DownArrow) ? 1f : 0f);
         ApuntadoFijo = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
         inputHorizontal = ApuntadoFijo ? 0f : horizontal;
-        float lado = Mathf.Sign(horizontal);
-        if (horizontal != 0f) direccionMirada = lado;
-        DireccionDisparo = Agachado || vertical == 0f
-            ? new Vector2(direccionMirada, 0f)
-            : new Vector2(horizontal == 0f ? 0f : lado, vertical);
+
+        ActualizarApuntado();
 
         if (ocupado) return;
 
-        // Las teclas de apuntado vertical quedan disponibles durante el salto.
-        if (Input.GetKeyDown(KeyCode.Space)) Saltar();
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) Saltar();
 
-        // Una pulsación del botón derecho inicia el dash.
-        if (!SesionJuego.SoltarEntradaDeMenu && Input.GetMouseButtonDown(1) && dashDisponible)
+        // Espacio inicia el dash. Se ignora justo después de pulsar un botón del menú de pausa.
+        if (!SesionJuego.SoltarEntradaDeMenu && Input.GetKeyDown(KeyCode.Space) && dashDisponible)
         {
+            // El dash sigue la tecla de movimiento pulsada; sin tecla, va hacia donde mira el personaje.
+            direccionDash = horizontal != 0f ? Mathf.Sign(horizontal) : direccionMirada;
             StartCoroutine(Dash());
         }
     }
 
+    // Convierte la posición del mouse en una de las 8 direcciones (cada 45 grados).
+    private void ActualizarApuntado()
+    {
+        if (camara == null) camara = Camera.main;
+        if (camara != null)
+        {
+            Vector2 mouse = camara.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 centro = sprite != null ? (Vector2)sprite.bounds.center : (Vector2)transform.position;
+            Vector2 delta = mouse - centro;
+            if (delta.sqrMagnitude >= zonaMuertaMouse * zonaMuertaMouse)
+            {
+                float angulo = Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg;
+                float ajustado = Mathf.Round(angulo / 45f) * 45f * Mathf.Deg2Rad;
+                apuntado = new Vector2(Mathf.Round(Mathf.Cos(ajustado)), Mathf.Round(Mathf.Sin(ajustado)));
+            }
+        }
+
+        // El personaje mira hacia el lado del mouse; apuntando recto arriba o abajo conserva su lado.
+        if (apuntado.x != 0f) direccionMirada = Mathf.Sign(apuntado.x);
+
+        // Agachado solo dispara de frente.
+        DireccionDisparo = Agachado ? new Vector2(direccionMirada, 0f) : apuntado;
+    }
+
     private void Saltar()
     {
-        if (!enSuelo) return;
+        float fuerza;
+        if (enSuelo) fuerza = fuerzaSalto;
+        else if (saltosAereosRestantes > 0)
+        {
+            saltosAereosRestantes--;
+            fuerza = fuerzaSalto * multiplicadorSaltoAereo;
+        }
+        else return;
+
         CambiarPostura(false);
-        rb.linearVelocity = new Vector2(rb.linearVelocity.x, fuerzaSalto);
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, fuerza);
         InstanteSalto = Time.time;
     }
 
@@ -99,6 +148,9 @@ public class PlayerMovement : MonoBehaviour
         enSuelo = suelo != null;
         if (enSuelo && suelo.usedByEffector && suelo.TryGetComponent<ParlanteFlotante>(out _))
             enSuelo = rb.linearVelocity.y <= 0.05f && groundCheck.position.y >= suelo.bounds.max.y - 0.05f;
+
+        // Al tocar el suelo (sin estar subiendo) se recupera el doble salto.
+        if (enSuelo && rb.linearVelocity.y <= 0.05f) saltosAereosRestantes = saltosAereos;
 
         if (haciendoDash)
         {
@@ -129,7 +181,6 @@ public class PlayerMovement : MonoBehaviour
         dashDisponible = false;
         haciendoDash = true;
         CambiarPostura(false);
-        direccionDash = direccionMirada;
 
         float gravedadOriginal = rb.gravityScale;
         rb.gravityScale = 0f;
