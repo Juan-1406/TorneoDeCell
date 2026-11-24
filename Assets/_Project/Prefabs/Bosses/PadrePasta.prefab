@@ -1170,6 +1170,7 @@ MonoBehaviour:
   notaPrefab: {fileID: 2645662892533427466, guid: da71d308053a5442b03e292b9aa0c813, type: 3}
   notaCeleste: {fileID: 21300000, guid: ae78d4c2c37e5cca980c6109c20410ef, type: 3}
   notaNaranja: {fileID: 21300000, guid: 5274da3fe8435819838fcd99269d6c6b, type: 3}
+  notaRosada: {fileID: 21300000, guid: bcc687c734e05002b6a79bd8d587d4dc, type: 3}
   bocaMicrofono: {fileID: 1011}
   senalesHorizontales: {fileID: 1050}
   senalesVerticales: {fileID: 1060}

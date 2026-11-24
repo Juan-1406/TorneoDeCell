@@ -18,6 +18,8 @@ public sealed class PadrePasta : MonoBehaviour
     [Header("Ataques")]
     [SerializeField] private Bullet notaPrefab;
     [SerializeField] private Sprite notaCeleste, notaNaranja;
+    [Tooltip("Sprite de la nota que se puede devolver con parry. Si se deja vacío, se pinta la celeste de rosado.")]
+    [SerializeField] private Sprite notaRosada;
     [SerializeField] private Transform bocaMicrofono;
     [SerializeField] private GameObject senalesHorizontales, senalesVerticales;
     [SerializeField] private SpriteRenderer parlanteHorizontal, parlanteVertical;
@@ -33,19 +35,28 @@ public sealed class PadrePasta : MonoBehaviour
     [SerializeField, Range(1, 6)] private int notasPorRafaga = 3;
     [SerializeField, Min(4f)] private float velocidadFrontal = 10f;
     [SerializeField, Min(1)] private int danioFrontal = 1;
+    [Tooltip("Ángulo entre las notas del abanico. La del centro va directo a Mateo y es la rosada.")]
+    [SerializeField, Range(8f, 35f)] private float aperturaAbanico = 20f;
 
     [Header("Parlante suspendido")]
     [SerializeField, Min(0.7f)] private float avisoCaida = 1.1f;
     [SerializeField, Min(0.2f)] private float duracionCaida = 0.42f;
     [SerializeField, Min(1)] private int danioCaida = 1;
+    [Tooltip("Al aterrizar, el parlante suelta una nota por el suelo hacia cada lado.")]
+    [SerializeField] private bool ondasAlAterrizar = true;
+    [SerializeField, Min(1f)] private float velocidadOndas = 6f;
+    [SerializeField, Range(0.5f, 2f)] private float escalaOndas = 1.2f;
 
     [Header("Parlante del borde")]
     [SerializeField, Min(0.7f)] private float avisoBorde = 1.05f;
     [SerializeField, Min(4f)] private float velocidadBorde = 8f;
     [SerializeField, Min(1)] private int danioBorde = 1;
+    [Tooltip("Alterna notas bajas (se saltan) y altas (se esquivan agachado).")]
+    [SerializeField] private bool alternarNotaAlta = true;
 
     private readonly EscudoPorDisparos escudo = new EscudoPorDisparos();
     private static readonly Color ParlanteEnEspera = new Color(0.75f, 0.75f, 0.8f);
+    private static readonly Color RosadoParry = new Color(1f, 0.32f, 0.72f);
     private Health vida;
     private Health jugador;
     private Collider2D cuerpoJugador;
@@ -58,6 +69,9 @@ public sealed class PadrePasta : MonoBehaviour
     private Vector3 posicionParlanteVertical;
     private Vector3 posicionParlanteHorizontal;
     private LineRenderer cable;
+    private PlayerMovement movimientoJugador;
+    private int notasDelBorde;
+    private int rafagas;
 
     private void Awake()
     {
@@ -75,6 +89,7 @@ public sealed class PadrePasta : MonoBehaviour
         GameObject mateo = GameObject.FindGameObjectWithTag("Player");
         if (mateo == null || !mateo.TryGetComponent(out jugador) || !mateo.TryGetComponent(out cuerpoJugador))
             return;
+        movimientoJugador = mateo.GetComponent<PlayerMovement>();
 
         efectos = new GameObject("Ataques de Padre Pasta").transform;
         efectos.SetParent(transform, false);
@@ -166,46 +181,99 @@ public sealed class PadrePasta : MonoBehaviour
         yield return new WaitForSeconds(descanso);
     }
 
+    // Alterna dos versiones del micrófono:
+    //  - Línea: notas celestes seguidas, ninguna se puede devolver (se esquivan).
+    //  - Abanico: 3 notas a la vez; la del centro va directo a Mateo y es la rosada (se devuelve con parry),
+    //    las de los lados pasan por arriba y por abajo.
+    // Con menos de la mitad de vida (alta = true) siempre es la línea horizontal.
     private IEnumerator RafagaMicrofono(bool alta)
     {
         Vector2 origen = bocaMicrofono.position;
         Vector2 blanco = cuerpoJugador.bounds.center;
-        Vector2 rumbo = alta ? Vector2.left : new Vector2(
-            Mathf.Min(-0.8f, blanco.x - origen.x), Mathf.Min(0f, blanco.y - origen.y)).normalized;
-        float alcance = Mathf.Min((origen.x - limitesMuelle.x + 1f) / -rumbo.x,
-            rumbo.y < -0.01f ? (alturaMuelle - origen.y) / rumbo.y : float.PositiveInfinity);
-        float duracion = alcance / velocidadFrontal;
+        bool abanico = !alta && rafagas++ % 2 == 1;
+        Vector2 rumbo = alta ? Vector2.left : abanico
+            ? (blanco - origen).normalized
+            : new Vector2(Mathf.Min(-0.8f, blanco.x - origen.x), Mathf.Min(0f, blanco.y - origen.y)).normalized;
+        if (rumbo.x > -0.2f) rumbo = new Vector2(-0.2f, rumbo.y).normalized;
+
+        Vector2[] rumbos = abanico
+            ? new[] { Rotar(rumbo, aperturaAbanico), rumbo, Rotar(rumbo, -aperturaAbanico) }
+            : new[] { rumbo };
 
         pose = carga;
         GameObject aviso = new GameObject("Trayectoria del micrófono");
         aviso.transform.SetParent(efectos, false);
-        for (float distancia = 0.8f; distancia < alcance; distancia += 1.35f)
-        {
-            var flecha = new GameObject("Flecha celeste").AddComponent<SpriteRenderer>();
-            flecha.transform.SetParent(aviso.transform, false);
-            flecha.transform.position = origen + rumbo * distancia;
-            flecha.transform.rotation = Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.left, rumbo));
-            flecha.sprite = flechaFrontal;
-            flecha.sharedMaterial = cuerpo.sharedMaterial;
-            flecha.sortingOrder = 12;
-        }
+        foreach (Vector2 r in rumbos)
+            DibujarFlechas(aviso.transform, origen, r, Alcance(origen, r), abanico && r == rumbo);
         yield return new WaitForSeconds(avisoMicrofono);
         aviso.SetActive(false);
         Destroy(aviso);
 
-        for (int i = 0; i < notasPorRafaga; i++)
+        float duracion = 0f;
+        if (abanico)
         {
             pose = disparo;
-            Lanzar(notaCeleste, origen, rumbo, velocidadFrontal, danioFrontal, duracion);
-            FeedbackCombate.Emitir(bocaMicrofono, new Color32(88, 240, 255, 255), 3, 1.2f);
-            yield return new WaitForSeconds(intervaloRafaga * 0.6f);
-            pose = carga;
-            yield return new WaitForSeconds(intervaloRafaga * 0.4f);
+            foreach (Vector2 r in rumbos)
+            {
+                float viaje = Alcance(origen, r) / velocidadFrontal;
+                duracion = Mathf.Max(duracion, viaje);
+                Bullet nota = Lanzar(notaCeleste, origen, r, velocidadFrontal, danioFrontal, viaje);
+                bool rosada = r == rumbo;
+                nota.PermiteParry = rosada;
+                if (rosada) PintarRosada(nota);
+            }
+            FeedbackCombate.Emitir(bocaMicrofono, RosadoParry, 5, 1.6f);
+            yield return new WaitForSeconds(intervaloRafaga);
+        }
+        else
+        {
+            duracion = Alcance(origen, rumbo) / velocidadFrontal;
+            for (int i = 0; i < notasPorRafaga; i++)
+            {
+                pose = disparo;
+                Lanzar(notaCeleste, origen, rumbo, velocidadFrontal, danioFrontal, duracion).PermiteParry = false;
+                FeedbackCombate.Emitir(bocaMicrofono, new Color32(88, 240, 255, 255), 3, 1.2f);
+                yield return new WaitForSeconds(intervaloRafaga * 0.6f);
+                pose = carga;
+                yield return new WaitForSeconds(intervaloRafaga * 0.4f);
+            }
         }
 
         pose = reposo;
         yield return new WaitForSeconds(duracion);
     }
+
+    // Distancia que recorre una nota hasta salir por la izquierda del muelle o tocar el suelo.
+    private float Alcance(Vector2 origen, Vector2 rumbo)
+    {
+        float horizontal = rumbo.x < -0.01f ? (origen.x - limitesMuelle.x + 1f) / -rumbo.x : 30f;
+        float vertical = rumbo.y < -0.01f ? (alturaMuelle - origen.y) / rumbo.y : float.PositiveInfinity;
+        return Mathf.Min(horizontal, vertical, 30f);
+    }
+
+    private void DibujarFlechas(Transform padre, Vector2 origen, Vector2 rumbo, float alcance, bool rosada)
+    {
+        for (float distancia = 0.8f; distancia < alcance; distancia += 1.35f)
+        {
+            var flecha = new GameObject("Flecha del micrófono").AddComponent<SpriteRenderer>();
+            flecha.transform.SetParent(padre, false);
+            flecha.transform.position = origen + rumbo * distancia;
+            flecha.transform.rotation = Quaternion.Euler(0f, 0f, Vector2.SignedAngle(Vector2.left, rumbo));
+            flecha.sprite = flechaFrontal;
+            flecha.sharedMaterial = cuerpo.sharedMaterial;
+            flecha.sortingOrder = 12;
+            if (rosada) flecha.color = RosadoParry;
+        }
+    }
+
+    private void PintarRosada(Bullet nota)
+    {
+        var imagen = nota.GetComponent<SpriteRenderer>();
+        if (notaRosada != null) imagen.sprite = notaRosada;
+        else imagen.color = RosadoParry;
+    }
+
+    private static Vector2 Rotar(Vector2 v, float grados) => Quaternion.Euler(0f, 0f, grados) * v;
 
     private IEnumerator CaidaParlante()
     {
@@ -236,6 +304,7 @@ public sealed class PadrePasta : MonoBehaviour
         }
 
         FeedbackCombate.Emitir(soporte, new Color32(245, 91, 207, 255), 6, 2f);
+        if (ondasAlAterrizar) LanzarOndas(x);
         MostrarAviso(senalesVerticales, parlanteVertical, false);
         for (float t = 0f; t < 0.46f;)
         {
@@ -246,6 +315,22 @@ public sealed class PadrePasta : MonoBehaviour
         }
         parlanteVertical.enabled = false;
         cable.enabled = false;
+    }
+
+    // Dos notas pequeñas salen por el suelo desde donde cayó el parlante: hay que saltarlas.
+    private void LanzarOndas(float x)
+    {
+        Vector2 origen = new Vector2(x, alturaMuelle + 0.3f);
+        foreach (float lado in new[] { -1f, 1f })
+        {
+            float borde = lado < 0f ? limitesMuelle.x - 0.5f : limitesMuelle.y + 0.5f;
+            float viaje = Mathf.Abs(borde - x) / velocidadOndas;
+            if (viaje < 0.05f) continue;
+            Bullet onda = Lanzar(notaNaranja, origen, new Vector2(lado, 0f), velocidadOndas, danioCaida, viaje);
+            onda.PermiteParry = false;
+            onda.transform.localScale = Vector3.one * escalaOndas;
+            onda.GetComponent<SpriteRenderer>().flipX = lado > 0f;
+        }
     }
 
     private void ActualizarCable()
@@ -259,7 +344,9 @@ public sealed class PadrePasta : MonoBehaviour
     private IEnumerator NotaDelBorde()
     {
         pose = avisoHorizontal;
-        Vector2 origen = new Vector2(limitesMuelle.x + 0.85f, alturaMuelle + 0.36f);
+        // Primero baja (se salta) y la siguiente alta (se esquiva agachado), y así sucesivamente.
+        bool alta = alternarNotaAlta && notasDelBorde++ % 2 == 1;
+        Vector2 origen = new Vector2(limitesMuelle.x + 0.85f, alta ? AlturaNotaAlta() : alturaMuelle + 0.36f);
         senalesHorizontales.transform.position = origen;
         MostrarAviso(senalesHorizontales, parlanteHorizontal, true);
         yield return new WaitForSeconds(avisoBorde);
@@ -268,12 +355,35 @@ public sealed class PadrePasta : MonoBehaviour
         pose = disparo;
         float viaje = (limitesMuelle.y - origen.x + 0.5f) / velocidadBorde;
         Bullet nota = Lanzar(notaNaranja, origen, Vector2.right, velocidadBorde, danioBorde, viaje);
-        nota.transform.localScale = Vector3.one * 1.25f;
+        nota.PermiteParry = false;
+        nota.transform.localScale = Vector3.one * (alta ? EscalaNotaAlta(nota) : 1.25f);
         nota.GetComponent<SpriteRenderer>().flipX = true;
         FeedbackCombate.Emitir(parlanteHorizontal, new Color32(255, 174, 74, 255), 4);
         yield return new WaitForSeconds(0.25f);
         pose = reposo;
         yield return new WaitForSeconds(Mathf.Max(0f, viaje - 0.25f));
+    }
+
+    // Altura de pie de Mateo, aunque en este momento esté agachado.
+    private float AlturaDePie()
+    {
+        float alto = cuerpoJugador.bounds.size.y;
+        return movimientoJugador != null && movimientoJugador.Agachado ? alto / PlayerMovement.AlturaAgachado : alto;
+    }
+
+    // Entre la cabeza de Mateo agachado y la cabeza de Mateo de pie.
+    private float AlturaNotaAlta()
+    {
+        float alto = AlturaDePie();
+        return alturaMuelle + alto * (PlayerMovement.AlturaAgachado + 1f) * 0.5f;
+    }
+
+    // La nota alta se achica si hace falta para que pase sobre Mateo agachado sin rozarlo.
+    private float EscalaNotaAlta(Bullet nota)
+    {
+        if (!nota.TryGetComponent(out CircleCollider2D circulo) || circulo.radius <= 0f) return 1f;
+        float radioMaximo = AlturaDePie() * (1f - PlayerMovement.AlturaAgachado) * 0.35f;
+        return Mathf.Min(1.25f, radioMaximo / circulo.radius);
     }
 
     private static void MostrarAviso(GameObject senales, SpriteRenderer parlante, bool activo)

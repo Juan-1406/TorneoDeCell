@@ -51,7 +51,7 @@ public static class ProbarCellJuniorVisual
         Check(melee.Entrando&&ranged.Entrando&&!melee.GetComponent<Collider2D>().enabled,"La nueva gráfica conserva la entrada sin colisión");
         yield return new WaitUntil(()=>!melee.Entrando&&!ranged.Entrando);
         Check(!melee.Entrando&&!ranged.Entrando&&melee.GetComponent<Collider2D>().enabled,"La entrada termina con los tiempos y colisiones existentes");
-        Check(melee.Vida.VidaMaxima==20&&ranged.Vida.VidaMaxima==15,"Se conservan 20 de salud melee y 15 ranged");
+        Check(melee.Vida.VidaMaxima==40&&ranged.Vida.VidaMaxima==30,"Se conservan 40 de salud melee y 30 ranged");
         Check((float)Get(melee,"velocidad")==2.3f&&(float)Get(ranged,"velocidad")==1.5f,"Se conservan velocidades de persecución y reposicionamiento");
         Check((float)Get(melee,"velocidadCarga")==7.5f&&(float)Get(melee,"duracionCarga")==.32f,"Se conserva velocidad y duración de la carga");
         Check((int)Get(ranged,"disparosRafaga")==2&&(int)Get(ranged,"proyectilesAbanico")==3,"Se conservan dos ráfagas de tres proyectiles");

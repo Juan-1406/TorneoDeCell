@@ -7,7 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class EnemigoMenor : MonoBehaviour
 {
-    public enum TipoAtaque { Cercano, Proyectil }
+    public enum TipoAtaque { Cercano, Proyectil, Volador }
     public enum EstadoEnemigo { Entrada, Buscando, Amago, Carga, Recuperacion, PreparandoRafaga, Disparando, Reposicion }
     [Header("Movimiento lateral")]
     [SerializeField] private TipoAtaque tipoAtaque;
@@ -31,6 +31,12 @@ public class EnemigoMenor : MonoBehaviour
     [SerializeField, Range(0f, 25f)] private float dispersion = 11f;
     [SerializeField, Min(0.1f)] private float intervaloRafaga = 0.28f;
     [SerializeField, Min(0.7f)] private float recargaEvasion = 1.4f;
+    [Header("Vuelo (solo tipo Volador)")]
+    [Tooltip("Altura sobre Mateo a la que se queda flotando antes de lanzarse en picada.")]
+    [SerializeField, Min(1f)] private float alturaVuelo = 3.6f;
+    [Tooltip("Distancia hacia el lado: así queda en diagonal respecto a Mateo.")]
+    [SerializeField, Min(1f)] private float separacionVuelo = 3.4f;
+    [SerializeField, Min(1f)] private float velocidadPicada = 9f;
 
     private Health vida, jugador;
     private Rigidbody2D cuerpo;
@@ -45,6 +51,8 @@ public class EnemigoMenor : MonoBehaviour
     private float limiteIzquierdo = float.NegativeInfinity, limiteDerecho = float.PositiveInfinity;
     private bool eliminado, golpeAplicado;
     private Vector2 objetivoAtaque;
+    private float ladoVuelo = 1f, pisoPicada = float.NegativeInfinity;
+    private Vector2 velocidadVuelo, direccionPicada;
     private RecogibleCombate recompensaPrefab;
     private float probabilidadRecompensa;
     private RecompensasCombate recompensas;
@@ -104,6 +112,8 @@ public class EnemigoMenor : MonoBehaviour
     public void Configurar(Health objetivo, float izquierda, float derecha)
     {
         jugador = objetivo; limiteIzquierdo = izquierda; limiteDerecho = derecha;
+        if (tipoAtaque == TipoAtaque.Volador && jugador != null)
+            ladoVuelo = transform.position.x < jugador.transform.position.x ? -1f : 1f;
         siguienteAtaque = Time.time + esperaTrasAparecer + UnityEngine.Random.Range(0f, 0.2f);
         StartCoroutine(Entrada());
     }
@@ -135,6 +145,7 @@ public class EnemigoMenor : MonoBehaviour
     private void FixedUpdate()
     {
         if (!PuedeActuar || SesionJuego.EnPausa || Entrando) return;
+        if (tipoAtaque == TipoAtaque.Volador) { Volar(); return; }
         float direccion = 0f;
         float dx = jugador.transform.position.x - cuerpo.position.x;
         if (EstadoActual == EstadoEnemigo.Carga)
@@ -193,13 +204,67 @@ public class EnemigoMenor : MonoBehaviour
         // La carga apunta una vez y sólo recorre el eje horizontal.
         float recorrido = velocidadCarga * Mathf.Max(0f, duracionCarga - Time.fixedDeltaTime);
         float alcanceHorizontal = Mathf.Sqrt(Mathf.Max(0f, distanciaAtaque * distanciaAtaque - delta.y * delta.y));
-        bool enRango = tipoAtaque == TipoAtaque.Cercano
+        bool enRango = tipoAtaque == TipoAtaque.Volador
+            ? Vector2.Distance(cuerpo.position, PuntoDeVuelo) < 1.2f
+            : tipoAtaque == TipoAtaque.Cercano
             ? Mathf.Abs(delta.y) < distanciaAtaque && Mathf.Abs(delta.x) <= Mathf.Min(alcanceCarga, recorrido + alcanceHorizontal * .8f)
             : delta.magnitude <= distanciaAtaque;
         if (!enRango ||
             !TieneLineaLibre(jugador.transform.position)) return;
         if (tipoAtaque == TipoAtaque.Proyectil && proyectilPrefab == null) return;
-        StartCoroutine(tipoAtaque == TipoAtaque.Cercano ? Cargar() : Rafaga());
+        StartCoroutine(tipoAtaque == TipoAtaque.Volador ? Picada()
+            : tipoAtaque == TipoAtaque.Cercano ? Cargar() : Rafaga());
+    }
+
+    // ---------- Cell Junior volador ----------
+    // Flota en diagonal sobre Mateo, avisa y se lanza en picada hacia donde estaba Mateo.
+    // Después cruza al otro lado, así hay que apuntar en diagonal hacia ambos lados.
+    private Vector2 PuntoDeVuelo => (Vector2)jugador.transform.position +
+        new Vector2(ladoVuelo * separacionVuelo, alturaVuelo + Mathf.Sin(Time.time * 3f + GetInstanceID()) * 0.25f);
+
+    private void Volar()
+    {
+        float dt = Time.fixedDeltaTime;
+        if (EstadoActual == EstadoEnemigo.Carga)
+        {
+            velocidadVuelo = direccionPicada * velocidadPicada;
+            Vector2 delta = (Vector2)jugador.transform.position - cuerpo.position;
+            if (!golpeAplicado && delta.magnitude <= distanciaAtaque) { golpeAplicado = true; jugador.RecibirDanio(danio); }
+        }
+        else if (EstadoActual == EstadoEnemigo.Amago)
+            velocidadVuelo = Vector2.MoveTowards(velocidadVuelo, Vector2.zero, aceleracion * dt);
+        else
+        {
+            Vector2 deseada = Vector2.ClampMagnitude((PuntoDeVuelo - cuerpo.position) * 2f, velocidad * 1.8f);
+            velocidadVuelo = Vector2.MoveTowards(velocidadVuelo, deseada, aceleracion * dt);
+        }
+        velocidadX = velocidadVuelo.x;
+        Vector2 siguiente = cuerpo.position + velocidadVuelo * dt;
+        siguiente.x = Mathf.Clamp(siguiente.x, limiteIzquierdo, limiteDerecho);
+        siguiente.y = Mathf.Max(siguiente.y, pisoPicada);
+        cuerpo.MovePosition(siguiente);
+    }
+
+    private IEnumerator Picada()
+    {
+        EstadoActual = EstadoEnemigo.Amago; golpeAplicado = false;
+        objetivoAtaque = jugador.transform.position;
+        direccionCarga = objetivoAtaque.x >= cuerpo.position.x ? 1f : -1f;
+        yield return new WaitForSeconds(Mathf.Max(0.5f, avisoAtaque));
+        if (!PuedeActuar) yield break;
+        // Apunta a donde estaba Mateo al empezar el aviso: si se mueve a tiempo, la esquiva.
+        direccionPicada = (objetivoAtaque - cuerpo.position).normalized;
+        pisoPicada = objetivoAtaque.y - 0.4f;
+        EstadoActual = EstadoEnemigo.Carga;
+        FeedbackCombate.Emitir(this, colorBase, 4, 1f);
+        float recorrido = Vector2.Distance(cuerpo.position, objetivoAtaque) + 1.5f;
+        yield return new WaitForSeconds(Mathf.Min(1.2f, recorrido / velocidadPicada));
+        EstadoActual = EstadoEnemigo.Recuperacion;
+        pisoPicada = float.NegativeInfinity;
+        ladoVuelo = -ladoVuelo;
+        yield return new WaitForSeconds(0.4f);
+        siguienteAtaque = Time.time + intervaloAtaque;
+        EstadoActual = EstadoEnemigo.Buscando;
     }
     private IEnumerator Cargar()
     {

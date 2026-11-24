@@ -2187,7 +2187,7 @@ MonoBehaviour:
   m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShooting
   balaPrefab: {fileID: 4816885740969020303, guid: 7985c4ffb2efef34cbbf496f160ad672, type: 3}
-  cadencia: 0.2
+  cadencia: 0.3
 --- !u!114 &792347651
 MonoBehaviour:
   m_ObjectHideFlags: 0

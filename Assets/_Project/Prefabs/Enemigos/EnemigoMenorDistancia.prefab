@@ -350,7 +350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faacfcad9bda1b3469c3f767138eebd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  vidaMaxima: 15
+  vidaMaxima: 30
   destruirAlMorir: 1
   tiempoInvulnerable: 0
 --- !u!114 &1402504173368668322
