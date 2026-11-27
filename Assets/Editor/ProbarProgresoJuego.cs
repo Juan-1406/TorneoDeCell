@@ -18,14 +18,16 @@ public static class ProbarProgresoJuego
     const string Carpeta = "Logs/ProgresoJuego";
     const string Respaldo = Carpeta + "/PreferenciasOriginales.json";
     const string AjusteAjeno = "prueba_progreso_ajuste_ajeno";
+    const string RecordRenato = "record_nivel_Level1_Renato";
+    const string RecordPadrePasta = "record_nivel_Level2_PadrePasta";
     static readonly string[] Claves =
     {
         "jefe_derrotado_0", "jefe_derrotado_1", "jefe_derrotado_2", "jefe_derrotado_3",
-        "padre_pasta_fase_1_superada", AjusteAjeno
+        "padre_pasta_fase_1_superada", AjusteAjeno, RecordRenato, RecordPadrePasta
     };
     static readonly List<string> checks = new List<string>();
     static readonly BindingFlags Privado = BindingFlags.Instance | BindingFlags.NonPublic;
-    static bool terminado, verificarPersistencia;
+    static bool terminado, verificarPersistencia, soloProgresoYPuntuacion;
     static double inicio;
 
     [Serializable]
@@ -35,9 +37,14 @@ public static class ProbarProgresoJuego
         public int[] valores;
     }
 
-    public static void Run()
+    public static void Run() => PrepararPartida(false);
+
+    public static void ProbarPuntuacion() => PrepararPartida(true);
+
+    static void PrepararPartida(bool omitirPruebaDeAtaques)
     {
         ExigirBatch();
+        soloProgresoYPuntuacion = omitirPruebaDeAtaques;
         Directory.CreateDirectory(Carpeta);
         if (File.Exists(Respaldo))
             throw new InvalidOperationException("Hay un respaldo pendiente. Ejecutar VerificarPersistencia o RestaurarPreferencias.");
@@ -49,6 +56,8 @@ public static class ProbarProgresoJuego
         }
         File.WriteAllText(Respaldo, JsonUtility.ToJson(copia, true));
         ProgresoJuego.Borrar();
+        PlayerPrefs.DeleteKey(RecordRenato);
+        PlayerPrefs.SetInt(RecordPadrePasta, 600);
         PlayerPrefs.SetInt(AjusteAjeno, 73);
         PlayerPrefs.Save();
         Iniciar(false);
@@ -101,6 +110,18 @@ public static class ProbarProgresoJuego
     static SceneLoader Cargador() => UnityEngine.Object.FindFirstObjectByType<SceneLoader>();
     static LevelManager Gestor() => UnityEngine.Object.FindFirstObjectByType<LevelManager>();
     static Health VidaJefe() => (Health)typeof(LevelManager).GetField("jefe", Privado).GetValue(Gestor());
+    static Health VidaJugador() => GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
+    static float SegundosDePartida()
+    {
+        object estadisticas = typeof(LevelManager).GetField("estadisticas", Privado).GetValue(Gestor());
+        return (float)estadisticas.GetType().GetProperty("Segundos", Privado).GetValue(estadisticas);
+    }
+
+    static void PulsarRevancha(GameObject pantalla)
+    {
+        pantalla.GetComponentsInChildren<Button>()
+            .Single(b => b.GetComponentInChildren<TMPro.TMP_Text>().text == "Revancha").onClick.Invoke();
+    }
     static bool FocoEn(Button boton) =>
         UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject == boton.gameObject;
 
@@ -220,6 +241,9 @@ public static class ProbarProgresoJuego
         jefe.RecibirDanio(jefe.VidaMaxima);
         Check(ProgresoJuego.JefeDerrotado(0), "La muerte definitiva del jefe guarda la victoria inmediatamente");
         Check(GameObject.Find("Resultados del combate") != null, "La victoria de Renato muestra el marcador");
+        int puntosRenato = PlayerPrefs.GetInt(RecordRenato);
+        Check(puntosRenato > 0 && PlayerPrefs.GetInt(RecordPadrePasta) == 600,
+            "Renato registra su puntaje sin modificar el récord de Padre Pasta");
         CapturarInterfaz("Resultados");
         Gestor().VolverASeleccion();
         yield return null;
@@ -250,7 +274,7 @@ public static class ProbarProgresoJuego
         yield return null;
         yield return null;
         Check(SceneManager.GetActiveScene().name == "Level2_PadrePasta", "Padre Pasta se puede jugar tras vencer a Renato");
-        yield return ProbarMuellePadrePasta();
+        if (!soloProgresoYPuntuacion) yield return ProbarMuellePadrePasta();
         pausa = UnityEngine.Object.FindFirstObjectByType<PauseManager>();
         pausa.Pausar();
         VolverDesdePausa();
@@ -263,6 +287,7 @@ public static class ProbarProgresoJuego
         yield return null;
         Check(SceneManager.GetActiveScene().name == "Level2_PadrePasta" && SesionJuego.VidasExtra == SesionJuego.VidasIniciales,
             "Desde el selector se inicia otra partida de Padre Pasta con las vidas completas");
+        yield return ProbarEstadisticasDePartida();
         var ataquesPasta = UnityEngine.Object.FindFirstObjectByType<PadrePasta>()
             .transform.Find("Ataques de Padre Pasta");
         yield return Esperar(() => ataquesPasta.GetComponentInChildren<Bullet>() != null, "nota activa antes de la victoria");
@@ -276,12 +301,29 @@ public static class ProbarProgresoJuego
         Check(ataquesPasta == null && notaActiva == null, "La victoria elimina los ataques desactivados");
         Check(ProgresoJuego.PadrePastaFaseUnoSuperada && !ProgresoJuego.JefeDerrotado(1),
             "Padre Pasta conserva la victoria de su fase disponible sin inventar una segunda fase");
-        Gestor().ReintentarVictoria();
+        var pantalla = GameObject.Find("Resultados del combate");
+        string[] textos = pantalla.GetComponentsInChildren<TMPro.TMP_Text>().Select(t => t.text).ToArray();
+        Check(new[] { "Parrys perfectos", "1", "60", "Daño recibido", "4", "133", "Tiempo", "300",
+                "Puntuación final", "493", "Récord personal", "600", "Clasificación", "D" }.All(textos.Contains) &&
+            PlayerPrefs.GetInt(RecordPadrePasta) == 600,
+            "El marcador desglosa la partida y conserva un récord superior al puntaje actual");
+        float tiempoFinal = SegundosDePartida();
+        yield return new WaitForSecondsRealtime(.1f);
+        Check(Mathf.Approximately(tiempoFinal, SegundosDePartida()), "El cronómetro se detiene con la victoria");
+        CapturarInterfaz("Resultados-PadrePasta");
+        PulsarRevancha(pantalla);
         yield return null;
         yield return null;
         Check(SceneManager.GetActiveScene().name == "Level2_PadrePasta" &&
-            VidaJefe().VidaActual == VidaJefe().VidaMaxima && ProgresoJuego.PadrePastaFaseUnoSuperada,
-            "Reintentar desde resultados abre un intento nuevo y conserva el logro");
+            VidaJefe().VidaActual == VidaJefe().VidaMaxima && VidaJugador().VidaActual == VidaJugador().VidaMaxima &&
+            SesionJuego.VidasExtra == SesionJuego.VidasIniciales && SegundosDePartida() < tiempoFinal &&
+            ProgresoJuego.PadrePastaFaseUnoSuperada,
+            "Revancha repone jugador, jefe, vidas y tiempo en la misma escena y conserva el logro");
+        jefe = VidaJefe();
+        jefe.Invulnerable = false;
+        jefe.RecibirDanio(jefe.VidaMaxima);
+        Check(PlayerPrefs.GetInt(RecordPadrePasta) == 700 && PlayerPrefs.GetInt(RecordRenato) == puntosRenato,
+            "La revancha parte sin parrys ni daño acumulados y reemplaza solo el récord que supera");
         Gestor().VolverASeleccion();
         yield return null;
         yield return null;
@@ -289,6 +331,47 @@ public static class ProbarProgresoJuego
             "La fase disponible de Padre Pasta completada tambien queda bloqueada");
         Check(Entradas()[1].estado.text == "FASE 1 SUPERADA", "El selector conserva el estado de fase de Padre Pasta");
         Terminar(null);
+    }
+
+    static IEnumerator ProbarEstadisticasDePartida()
+    {
+        Health jugador = VidaJugador();
+        var pausa = UnityEngine.Object.FindFirstObjectByType<PauseManager>();
+        pausa.Pausar();
+        float tiempoEnPausa = SegundosDePartida();
+        yield return new WaitForSecondsRealtime(.15f);
+        Check(Mathf.Approximately(tiempoEnPausa, SegundosDePartida()), "El cronómetro excluye la pausa");
+        pausa.Reanudar();
+        yield return new WaitForSecondsRealtime(.15f);
+        Check(SegundosDePartida() > tiempoEnPausa, "El cronómetro avanza al reanudar");
+
+        var parry = jugador.GetComponent<PlayerParry>();
+        var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(
+            "Assets/_Project/Prefabs/Proyectiles/Renato Puente/BalaEnemigoMenor.prefab").GetComponent<Bullet>();
+        foreach (bool perfecto in new[] { false, true })
+        {
+            parry.StopAllCoroutines();
+            parry.StartCoroutine("Parry");
+            if (!perfecto) typeof(PlayerParry).GetField("inicioParry", Privado).SetValue(parry, Time.time - .15f);
+            var bala = UnityEngine.Object.Instantiate(prefab, new Vector3(0, 10, 0), Quaternion.identity);
+            bala.Disparar(Vector2.left);
+            Check(parry.IntentarParry(bala), perfecto ? "El parry perfecto devuelve el proyectil" :
+                "El parry normal también devuelve el proyectil");
+            UnityEngine.Object.Destroy(bala.gameObject);
+        }
+
+        jugador.RestaurarVida(jugador.VidaMaxima);
+        Check(jugador.RecibirDanio(1) && jugador.Curar(1), "Una curación recupera salud después de un impacto");
+        jugador.Invulnerable = true;
+        Check(!jugador.RecibirDanio(1), "Un golpe bloqueado por invulnerabilidad no aplica daño");
+        jugador.RestaurarVida(jugador.VidaMaxima);
+        float tiempoAntesDeMorir = SegundosDePartida();
+        jugador.RecibirDanio(999);
+        yield return Esperar(() => jugador == null, "recarga automática de una vida de reserva");
+        yield return null;
+        Check(SesionJuego.VidasExtra == SesionJuego.VidasIniciales - 1 && SegundosDePartida() >= tiempoAntesDeMorir,
+            "La recarga automática conserva las estadísticas del intento");
+        VidaJugador().Invulnerable = true;
     }
 
     static IEnumerator ProbarMuellePadrePasta()
@@ -442,6 +525,8 @@ public static class ProbarProgresoJuego
         yield return null;
         Check(ProgresoJuego.JefeDerrotado(0) && ProgresoJuego.PadrePastaFaseUnoSuperada,
             "Las victorias de ambos niveles sobreviven al cierre y reapertura de Unity");
+        Check(PlayerPrefs.GetInt(RecordRenato) > 0 && PlayerPrefs.GetInt(RecordPadrePasta) == 700,
+            "Los dos récords sobreviven al cierre y reapertura de Unity");
         Check(!Entradas()[0].boton.interactable && !Entradas()[1].boton.interactable,
             "Al abrir el juego de nuevo ambos niveles siguen bloqueados");
         SceneManager.LoadScene("Level2_PadrePasta");
@@ -478,7 +563,7 @@ public static class ProbarProgresoJuego
     {
         if (!File.Exists(Respaldo)) return;
         var copia = JsonUtility.FromJson<Preferencias>(File.ReadAllText(Respaldo));
-        for (int i = 0; i < Claves.Length; i++)
+        for (int i = 0; i < Math.Min(Claves.Length, copia.existen.Length); i++)
         {
             if (copia.existen[i]) PlayerPrefs.SetInt(Claves[i], copia.valores[i]);
             else PlayerPrefs.DeleteKey(Claves[i]);

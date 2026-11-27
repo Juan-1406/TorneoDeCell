@@ -11,6 +11,21 @@ public static class SesionJuego
     private static int vidaJefePendiente = -1;
     private static string escenaOleadasPendiente;
     private static int siguienteOleada;
+    private static string escenaEstadisticasPendientes;
+    private static EstadisticasNivel estadisticasPendientes;
+
+    internal static void GuardarEstadisticas(string escena, EstadisticasNivel estadisticas)
+    {
+        escenaEstadisticasPendientes = escena;
+        estadisticasPendientes = estadisticas;
+    }
+
+    internal static EstadisticasNivel RestaurarEstadisticas(string escena)
+    {
+        EstadisticasNivel guardadas = escenaEstadisticasPendientes == escena ? estadisticasPendientes : null;
+        GuardarEstadisticas(null, null);
+        return guardadas ?? new EstadisticasNivel();
+    }
 
     public static int ProgresoOleadas(string escena)
     {
@@ -67,5 +82,6 @@ public static class SesionJuego
         EnPausa = false;
         LimpiarVidaJefe();
         LimpiarProgresoOleadas();
+        GuardarEstadisticas(null, null);
     }
 }

@@ -18,6 +18,7 @@ public class Health : MonoBehaviour
 
     public event Action<int, int> OnVidaCambiada;
     public event Action OnDanioRecibido;
+    internal event Action<int> DanioAplicado;
     public event Action OnMuerte;
 
     private void Awake()
@@ -58,9 +59,11 @@ public class Health : MonoBehaviour
     {
         if (cantidad <= 0 || VidaActual <= 0 || EsInvulnerable) return false;
 
-        VidaActual = Mathf.Max(VidaActual - cantidad, 0);
+        int perdida = Mathf.Min(VidaActual, cantidad);
+        VidaActual -= perdida;
         invulnerableHasta = Time.time + tiempoInvulnerable;
 
+        DanioAplicado?.Invoke(perdida);
         OnVidaCambiada?.Invoke(VidaActual, vidaMaxima);
         OnDanioRecibido?.Invoke();
 

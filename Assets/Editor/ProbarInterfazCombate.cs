@@ -80,11 +80,11 @@ public static class ProbarInterfazCombate
         Button[] opciones = marco.GetComponentsInChildren<Button>();
         CanvasGroup cabecera = marco.GetComponentInChildren<CanvasGroup>();
         Check(cabecera.GetComponentInChildren<TMP_Text>().text == "DERROTA" &&
-            opciones.Length == 2 && opciones[0].GetComponentInChildren<TMP_Text>().text == "Reintentar" &&
+            opciones.Length == 2 && opciones[0].GetComponentInChildren<TMP_Text>().text == "Revancha" &&
             opciones[1].GetComponentInChildren<TMP_Text>().text == "Menú principal",
-            "Derrota muestra Reintentar y Menú principal en el orden esperado.");
-        Check(EnFoco(opciones[0]), "Reintentar recibe el foco y el rombo al abrir Game Over.");
-        Check(opciones[0].IsInteractable() && cabecera.alpha < 1, "Reintentar está disponible durante la entrada del afiche.");
+            "Derrota muestra Revancha y Menú principal en el orden esperado.");
+        Check(EnFoco(opciones[0]), "Revancha recibe el foco y el rombo al abrir Game Over.");
+        Check(opciones[0].IsInteractable() && cabecera.alpha < 1, "Revancha está disponible durante la entrada del afiche.");
         yield return new WaitForSecondsRealtime(.32f);
         Check(cabecera.alpha == 1f && ((RectTransform)cabecera.transform).anchoredPosition == Vector2.zero,
             "El afiche termina la transición con el combate detenido.");
@@ -96,11 +96,11 @@ public static class ProbarInterfazCombate
         yield return Clic(new Vector2(8, 8));
         Check(EnFoco(opciones[1]), "La cruceta alcanza Menú principal y un clic en el fondo mantiene la selección.");
         yield return EstadoMando(new GamepadState { leftStick = Vector2.up });
-        Check(EnFoco(opciones[0]), "La palanca devuelve el foco a Reintentar.");
+        Check(EnFoco(opciones[0]), "La palanca devuelve el foco a Revancha.");
         yield return EstadoMando(new GamepadState().WithButton(GamepadButton.South));
         Check(jugador == null && SceneManager.GetActiveScene().name == "Level2_PadrePasta" && Time.timeScale == 1 &&
             Jugador().VidaActual == Jugador().VidaMaxima && SesionJuego.VidasExtra == SesionJuego.VidasIniciales,
-            "Reintentar con el mando reinicia el combate, los puntos de vida y las vidas de reserva.");
+            "Revancha con el mando reinicia el combate, los puntos de vida y las vidas de reserva.");
     }
 
     private static IEnumerator RevisarRenato()
@@ -136,7 +136,7 @@ public static class ProbarInterfazCombate
         yield return new WaitUntil(() => Time.timeScale == 0);
         RectTransform marco = MarcoDerrota();
         Button[] opciones = marco.GetComponentsInChildren<Button>();
-        Check(opciones.Length == 2 && EnFoco(opciones[0]), "La derrota ante Renato también abre en Reintentar.");
+        Check(opciones.Length == 2 && EnFoco(opciones[0]), "La derrota ante Renato también abre en Revancha.");
         yield return new WaitForSecondsRealtime(.32f);
         Image retratoDerrota = marco.GetComponentsInChildren<Image>().Single(i => i.name == "Retrato");
         Check(retratoDerrota.sprite == retrato.sprite && PrimerPlanoCompleto(retratoDerrota),
@@ -157,11 +157,11 @@ public static class ProbarInterfazCombate
         jugador.RecibirDanio(jugador.VidaMaxima);
         yield return new WaitUntil(() => Time.timeScale == 0);
         Button[] opciones = MarcoDerrota().GetComponentsInChildren<Button>();
-        Check(opciones.Length == 1 && EnFoco(opciones[0]), "El escenario de pruebas conserva su única opción Reintentar.");
+        Check(opciones.Length == 1 && EnFoco(opciones[0]), "El escenario de pruebas conserva su única opción Revancha.");
         yield return Tecla(Key.DownArrow);
         yield return Tecla(Key.Enter);
         Check(jugador == null && SceneManager.GetActiveScene().name == "SandBox" && Time.timeScale == 1,
-            "Reintentar desde el escenario de pruebas también vuelve al combate.");
+            "Revancha desde el escenario de pruebas también vuelve al combate.");
     }
 
     private static readonly Vector2Int[] Formatos =

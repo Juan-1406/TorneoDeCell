@@ -1526,7 +1526,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Reintentar
+  m_text: Revancha
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3205,6 +3205,18 @@ MonoBehaviour:
   jefe: {fileID: 4004}
   idJefe: 1
   poseVictoriaMateo: {fileID: 725330007, guid: 8a31fbd1a1284ec9a8d04152baf26944, type: 3}
+  puntuacion:
+    puntosMaximosParry: 300
+    parrysParaMaximo: 5
+    puntosMaximosDanio: 400
+    danioParaCero: 6
+    puntosMaximosTiempo: 300
+    tiempoObjetivo: 120
+    tiempoParaCero: 240
+    minimoS: 90
+    minimoA: 80
+    minimoB: 65
+    minimoC: 50
 --- !u!1 &1429126113
 GameObject:
   m_ObjectHideFlags: 0

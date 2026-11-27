@@ -5,6 +5,18 @@ public static class ProgresoJuego
     private const string Prefijo = "jefe_derrotado_";
     private const int TotalJefes = 4;
     private const string FaseUnoPadrePasta = "padre_pasta_fase_1_superada";
+    private const string PrefijoRecord = "record_nivel_";
+
+    internal static int GuardarRecordNivel(string escena, int puntos)
+    {
+        string clave = PrefijoRecord + escena;
+        int anterior = PlayerPrefs.GetInt(clave, -1);
+        if (anterior >= puntos) return anterior;
+
+        PlayerPrefs.SetInt(clave, puntos);
+        PlayerPrefs.Save();
+        return puntos;
+    }
 
     public static bool PadrePastaFaseUnoSuperada => PlayerPrefs.GetInt(FaseUnoPadrePasta, 0) == 1;
 

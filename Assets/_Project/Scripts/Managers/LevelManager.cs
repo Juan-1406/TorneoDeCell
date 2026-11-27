@@ -14,42 +14,61 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Health jefe;
     [SerializeField] private int idJefe = 0;
     [SerializeField] private Sprite poseVictoriaMateo;
+    [SerializeField] private PuntuacionNivel puntuacion = new PuntuacionNivel();
 
     private bool combateFinalizado;
     private bool cambiandoEscena;
     private bool victoria;
-    private float segundosActivos;
-    private int parries;
+    private EstadisticasNivel estadisticas;
     private PlayerParry parry;
     private SegundaFaseRenato faseRenato;
     private GameObject resultados;
 
     private void Awake()
     {
+        estadisticas = SesionJuego.RestaurarEstadisticas(gameObject.scene.name);
         if (jugador != null) parry = jugador.GetComponent<PlayerParry>();
         if (jefe != null) faseRenato = jefe.GetComponent<SegundaFaseRenato>();
     }
 
     private void OnEnable()
     {
-        if (jugador != null) jugador.OnMuerte += AlMorirJugador;
+        if (jugador != null)
+        {
+            jugador.OnMuerte += AlMorirJugador;
+            jugador.DanioAplicado += ContarDanio;
+        }
         if (jefe != null) jefe.OnMuerte += AlVencerJefe;
-        if (parry != null) parry.ProyectilDevuelto += ContarParry;
+        if (parry != null) parry.ParryPerfecto += ContarParryPerfecto;
     }
 
     private void OnDisable()
     {
-        if (jugador != null) jugador.OnMuerte -= AlMorirJugador;
+        if (jugador != null)
+        {
+            jugador.OnMuerte -= AlMorirJugador;
+            jugador.DanioAplicado -= ContarDanio;
+        }
         if (jefe != null) jefe.OnMuerte -= AlVencerJefe;
-        if (parry != null) parry.ProyectilDevuelto -= ContarParry;
+        if (parry != null) parry.ParryPerfecto -= ContarParryPerfecto;
     }
 
-    private void ContarParry() => parries++;
+    private bool Registrando => !combateFinalizado && !cambiandoEscena;
+
+    private void ContarParryPerfecto()
+    {
+        if (Registrando) estadisticas.ParrysPerfectos++;
+    }
+
+    private void ContarDanio(int cantidad)
+    {
+        if (Registrando) estadisticas.DanioRecibido += cantidad;
+    }
 
     private void Update()
     {
-        if (!combateFinalizado && !SesionJuego.EnPausa && (faseRenato == null || !faseRenato.EnDialogo))
-            segundosActivos += Time.deltaTime;
+        if (Registrando && !SesionJuego.EnPausa && Time.timeScale > 0f && (faseRenato == null || !faseRenato.EnDialogo))
+            estadisticas.Segundos += Time.unscaledDeltaTime;
     }
 
     private void Start()
@@ -71,7 +90,7 @@ public class LevelManager : MonoBehaviour
         }
         ActualizarTexto();
 
-        if (jefe != null && SesionJuego.IntentarRestaurarVidaJefe(SceneManager.GetActiveScene().name, out int vidaJefe))
+        if (jefe != null && SesionJuego.IntentarRestaurarVidaJefe(gameObject.scene.name, out int vidaJefe))
             jefe.RestaurarVida(vidaJefe);
     }
 
@@ -84,11 +103,12 @@ public class LevelManager : MonoBehaviour
 
         if (SesionJuego.VidasExtra > 0)
         {
+            SesionJuego.GuardarEstadisticas(gameObject.scene.name, estadisticas);
             DirectorOleadas director = FindFirstObjectByType<DirectorOleadas>();
             if (jefe != null && jefe.VidaActual > 0 &&
                 (!jefe.TryGetComponent(out SegundaFaseRenato segundaFase) || !segundaFase.FueraDePrimeraFase) &&
                 (director == null || director.FaseJefeAlcanzada))
-                SesionJuego.GuardarVidaJefe(SceneManager.GetActiveScene().name, jefe.VidaActual);
+                SesionJuego.GuardarVidaJefe(gameObject.scene.name, jefe.VidaActual);
             Invoke(nameof(RecargarNivel), retardo);
         }
         else
@@ -128,7 +148,7 @@ public class LevelManager : MonoBehaviour
 
         cambiandoEscena = true;
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(gameObject.scene.buildIndex);
     }
 
     private void ActualizarTexto()
@@ -148,6 +168,8 @@ public class LevelManager : MonoBehaviour
         }
         else if (!ProgresoJuego.JefeDerrotado(idJefe)) ProgresoJuego.MarcarDerrotado(idJefe);
 
+        ResultadoNivel puntuacionFinal = puntuacion.Calcular(estadisticas);
+        int record = ProgresoJuego.GuardarRecordNivel(gameObject.scene.name, puntuacionFinal.Total);
         Canvas canvas = textoVidas != null ? textoVidas.GetComponentInParent<Canvas>() : null;
         if (canvas == null || jugador == null)
         {
@@ -156,7 +178,8 @@ public class LevelManager : MonoBehaviour
         }
         string nombre = padrePasta ? "Padre Pasta" : "Renato Puente";
         resultados = ResultadosCombate.Mostrar(canvas, textoVidas.font, poseVictoriaMateo, nombre,
-            padrePasta ? "Fase 1 superada" : "Combate superado", segundosActivos, jugador, parries, this);
+            padrePasta ? "Fase 1 superada" : "Combate superado", estadisticas, puntuacionFinal,
+            record, puntuacion.Clasificar(puntuacionFinal.Total), this);
     }
 
     private bool FinalizarCombate()
